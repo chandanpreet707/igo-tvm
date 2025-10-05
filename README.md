@@ -23,7 +23,7 @@ For cloning and version control.
 git --version
 
 Clone the Repository
-git clone https://github.com/USERNAME/REPO.git
+git clone https://github.com/chandanpreet707/igo-tvm.git
 cd REPO
 
 Build the Project
