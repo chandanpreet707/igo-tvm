@@ -1,126 +1,57 @@
-iGoApplication
-iGoApplication is a JavaFX desktop application built with Spring Boot. This project uses Maven for dependency management and JavaFX for the user interface.
+# IGoApplication
 
-Prerequisites
+IGoApplication is a JavaFX desktop application built with Spring Boot for managing TVM operations.
 
-Java JDK 17+
-Download and install from Adoptium
- or your preferred JDK provider.
+## Installation
 
-Maven
-Make sure Maven is installed and added to your PATH.
+### Prerequisites
+* Java JDK 17+
+* Maven
+* JavaFX SDK 17+ (download from [Gluon](https://gluonhq.com/products/javafx/))
+* Git
 
-mvn -v
-
-
-JavaFX SDK
-Download JavaFX from Gluon
-. Extract the folder and note the path (used in VM options).
-
-Git
-For cloning and version control.
-
-git --version
-
-Clone the Repository
+### Clone the repository
+```bash
 git clone https://github.com/chandanpreet707/igo-tvm.git
-cd REPO
+cd igo-tvm
+```
 
-Build the Project
+### Build the project
 
-Use Maven to build the project:
-
+```bash
 mvn clean install
+```
 
-
-This will download dependencies and compile the source code.
-
-Run the Application (IDE)
-
-If you are using IntelliJ IDEA or Eclipse:
-
-Open the project as a Maven project.
-
-Make sure JavaFX libraries are added to the module dependencies.
-
-Set VM options for JavaFX (replace PATH_TO_FX with your JavaFX SDK path):
-
---module-path PATH_TO_FX --add-modules javafx.controls,javafx.fxml
-
-
-Run IGoApplication (class: concordia.soen6611.igo_tvm.IGoApplication).
-
-Run the Application (Command Line)
+### Usage
+#### Run with Maven
+```bash
 mvn javafx:run
+```
 
+#### or
 
-Or manually using java:
+#### Run from IDE (IntelliJ/Eclipse)
+  1. Open the project as a Maven project.
+  2. Add JavaFX SDK to your module dependencies.
+  3. Set VM options (replace PATH_TO_FX with your JavaFX SDK path):
 
+```bash
+--module-path PATH_TO_FX --add-modules javafx.controls,javafx.fxml
+```
+  4. Run the main class:
+```java
+concordia.soen6611.igo_tvm.IGoApplication
+```
+#### Run from command line
+```bash
 java --module-path PATH_TO_FX --add-modules javafx.controls,javafx.fxml -jar target/igo-application-1.0-SNAPSHOT.jar
+```
 
-VM Arguments (Optional)
+## Contributing
 
-If running from IDE or Maven, you can set:
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
-Module Path for JavaFX: --module-path PATH_TO_FX
+Please make sure to update tests and VM configurations as appropriate.
 
-Modules to add: --add-modules javafx.controls,javafx.fxml
-
-Spring Boot active profile (optional): -Dspring.profiles.active=dev
-
-Project Structure
-src/main/java
-  └── concordia/soen6611/igo_tvm/
-        ├── IGoApplication.java
-        ├── controller/
-        ├── model/
-        └── service/
-src/main/resources
-  ├── application.properties
-  └── fxml/
-
-Dependencies
-
-JavaFX 17+
-
-Spring Boot 3+
-
-Maven
-
-All dependencies are managed via Maven.
-
-Common Issues
-
-ClassNotFoundException for IGoApplication
-
-Ensure package name matches: concordia.soen6611.igo_tvm
-
-Make sure Maven has compiled the classes:
-
-mvn clean compile
-
-
-JavaFX not found
-
-Check that --module-path points to the correct JavaFX SDK.
-
-Contributing
-
-Fork the repository.
-
-Create a branch for your feature:
-
-git checkout -b feature/your-feature
-
-
-Commit your changes:
-
-git commit -m "Add some feature"
-
-
-Push to your branch:
-
-git push origin feature/your-feature
-
-
-Open a pull request.
+Thanks & Regards
