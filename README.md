@@ -1,6 +1,6 @@
-# IGoApplication
+# iGo - Ticket Vending Machine
 
-IGoApplication is a JavaFX desktop application built with Spring Boot for managing TVM operations.
+iGoApplication is a JavaFX desktop application built with Spring Boot for managing TVM operations.
 
 ## Installation
 
