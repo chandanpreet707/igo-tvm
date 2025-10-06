@@ -7,7 +7,6 @@ iGoApplication is a JavaFX desktop application built with Spring Boot for managi
 ### Prerequisites
 * Java JDK 17+
 * Maven
-* JavaFX SDK 17+ (download from [Gluon](https://gluonhq.com/products/javafx/))
 * Git
 
 ### Clone the repository
