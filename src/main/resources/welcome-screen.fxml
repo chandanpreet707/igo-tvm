@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background: linear-gradient(to bottom right, #2563eb, #4f46e5);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concordia.soen6611.igo_tvm.controllers.WelcomeScreenController">
+
+    <!-- Top Language Selection -->
+    <top>
+        <VBox alignment="TOP_CENTER" style="-fx-background-color: transparent;" spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+
+            <!-- Globe and Language Label -->
+            <HBox alignment="CENTER" spacing="8.0">
+                <Label text="🌐" style="-fx-text-fill: rgba(255, 255, 255, 0.75); -fx-font-size: 14;" />
+                <Label fx:id="languageSelectLabel" text="Select Language / Choisir la langue" style="-fx-text-fill: rgba(255, 255, 255, 0.75); -fx-font-size: 12;" />
+            </HBox>
+
+            <!-- Language Buttons -->
+            <HBox alignment="CENTER" spacing="15.0">
+                <Button fx:id="englishButton" onAction="#onLanguageChange" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: white; -fx-text-fill: #2563eb; -fx-font-weight: bold; -fx-border-radius: 4; -fx-padding: 10 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);" text="English">
+                    <font>
+                        <Font name="System" size="12.0" />
+                    </font>
+                </Button>
+                <Button fx:id="frenchButton" onAction="#onLanguageChange" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white; -fx-border-color: rgba(255, 255, 255, 0.5); -fx-border-width: 2; -fx-border-radius: 4; -fx-padding: 10 20;" text="Français">
+                    <font>
+                        <Font name="System" size="12.0" />
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Content -->
+    <center>
+        <VBox alignment="CENTER" spacing="30.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </padding>
+
+            <!-- Ticket Icon with Glow Effect -->
+            <VBox alignment="CENTER">
+                <StackPane>
+                    <Circle fill="rgba(255, 255, 255, 0.1)" radius="70.0">
+                        <effect>
+                            <GaussianBlur radius="30.0" />
+                        </effect>
+                    </Circle>
+                    <Label style="-fx-text-fill: white; -fx-font-size: 80;" text="🎫" />
+                </StackPane>
+            </VBox>
+
+            <!-- Welcome Text -->
+            <Label fx:id="welcomeLabel" style="-fx-text-fill: rgba(255, 255, 255, 0.9); -fx-font-size: 14;" text="Welcome to">
+                <font>
+                    <Font name="System" size="14.0" />
+                </font>
+            </Label>
+
+            <!-- Title -->
+            <Label fx:id="titleLabel" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 42;" text="Metro Ticket System" textAlignment="CENTER" wrapText="true">
+                <font>
+                    <Font name="System" size="42.0" />
+                </font>
+            </Label>
+
+            <!-- Subtitle -->
+            <Label fx:id="subtitleLabel" style="-fx-text-fill: rgba(255, 255, 255, 0.9); -fx-font-size: 16;" text="Quick &amp; Easy Ticket Purchase" textAlignment="CENTER">
+                <font>
+                    <Font name="System" size="16.0" />
+                </font>
+            </Label>
+
+            <!-- Start Button -->
+            <Button fx:id="startButton" onAction="#onStartPurchase" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-text-fill: #2563eb; -fx-border-radius: 4; -fx-padding: 15 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 12, 0, 0, 4); -fx-cursor: hand;" text="Start Purchase  ➜">
+                <font>
+                    <Font name="System" size="14.0" />
+                </font>
+            </Button>
+        </VBox>
+    </center>
+
+</BorderPane>
