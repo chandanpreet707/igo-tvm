@@ -18,8 +18,8 @@
     <description>SOEN 6611 - iGo Project (TVM JavaFX + Spring Boot)</description>
 
     <properties>
-        <java.version>23</java.version>
-        <javafx.version>23</javafx.version>
+        <java.version>17</java.version>
+        <javafx.version>21</javafx.version>
     </properties>
 
     <dependencies>
@@ -27,6 +27,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -43,7 +48,16 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
-            <classifier>mac-aarch64</classifier>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -65,6 +79,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Use the JavaFX plugin to run locally (handles module flags) -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>

@@ -1,6 +1,6 @@
 package concordia.soen6611.igo_tvm;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
