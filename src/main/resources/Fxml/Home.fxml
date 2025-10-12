@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+
+
+<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concordia.soen6611.igo_tvm.controllers.HomeController"
+            stylesheets="@../styles/Home.css">
+
+    <!-- HEADER -->
+    <top>
+        <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
+            <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
+<!--            <Label text="STM" styleClass="brand"/>-->
+            <HBox alignment="CENTER_LEFT" spacing="6">
+                <FontIcon iconLiteral="fas-leaf" styleClass="maple-icon" iconSize="28"/>
+                <Label text="STM" styleClass="brand"/>
+            </HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Home | Accueil" styleClass="title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
+                   text="Nov 27, 2024&#10;10:31 AM"/>
+        </HBox>
+    </top>
+
+    <!-- ===== CENTER ===== -->
+    <center>
+        <StackPane>
+            <children>
+                <VBox spacing="66" alignment="TOP_CENTER">
+                    <padding><Insets top="56" right="26" bottom="26" left="26"/></padding>
+
+                    <Label fx:id="promptLabel" styleClass="prompt"
+                           text="How can I help you today? / Comment puis-je vous aider aujourd’hui?"/>
+
+                    <HBox spacing="28" alignment="CENTER">
+                        <!-- BUY TICKET -->
+                        <Button fx:id="buyBtn" onAction="#onBuy" styleClass="tile"
+                                prefWidth="440" prefHeight="210" minWidth="380" minHeight="180">
+                            <graphic>
+                                <HBox spacing="16" alignment="CENTER_LEFT">
+                                    <StackPane styleClass="tile-icon">
+                                        <!-- simple ticket glyph via text (kept as label for simplicity) -->
+                                        <Label text="🎟" styleClass="emoji-icon"/>
+                                    </StackPane>
+                                    <VBox spacing="4" alignment="CENTER_LEFT">
+                                        <Label text="Buy New Ticket" styleClass="tile-title"/>
+                                        <Label text="Acheter un Nouveau Titre" styleClass="tile-sub"/>
+                                    </VBox>
+                                </HBox>
+                            </graphic>
+                        </Button>
+
+                        <!-- RELOAD CARD -->
+                        <Button fx:id="reloadBtn" onAction="#onReload" styleClass="tile"
+                                prefWidth="440" prefHeight="210" minWidth="380" minHeight="180">
+                            <graphic>
+                                <HBox spacing="16" alignment="CENTER_LEFT">
+                                    <StackPane styleClass="tile-icon">
+                                        <Label text="💳" styleClass="emoji-icon"/>
+                                    </StackPane>
+                                    <VBox spacing="4" alignment="CENTER_LEFT">
+                                        <Label text="Reload Card" styleClass="tile-title"/>
+                                        <Label text="Recharger une Carte" styleClass="tile-sub"/>
+                                    </VBox>
+                                </HBox>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </VBox>
+
+                <!-- Floating INFO button + caption (bottom-right, above footer) -->
+                <VBox spacing="6" alignment="BOTTOM_RIGHT" StackPane.alignment="BOTTOM_RIGHT">
+                    <StackPane.margin>
+                        <Insets bottom="15" right="24"/>
+                    </StackPane.margin>
+
+                    <Button onAction="#onInfo" styleClass="round" prefWidth="48" prefHeight="48">
+                        <graphic>
+                            <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
+                                    glyphName="INFO_CIRCLE" styleClass="glyph-white" glyphSize="34"/>
+                        </graphic>
+                        <tooltip><Tooltip text="Information"/></tooltip>
+                    </Button>
+
+                    <!-- Caption under the button -->
+                    <Label text="Information" styleClass="info-caption"/>
+                </VBox>
+
+            </children>
+        </StackPane>
+    </center>
+
+    <!-- ===== FOOTER (volume on the right corner) ===== -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
+            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+
+            <Label text="Help / Aide" styleClass="help"/>
+
+            <Region HBox.hgrow="ALWAYS"/>  <!-- pushes volume button to the right -->
+
+            <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
+                    prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
+                <graphic>
+                    <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
+                </graphic>
+                <tooltip><Tooltip text="Volume"/></tooltip>
+            </Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>
