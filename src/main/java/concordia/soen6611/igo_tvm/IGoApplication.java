@@ -26,7 +26,7 @@ public class IGoApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load FXML with Spring beans
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Home.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
         loader.setControllerFactory(context::getBean); // Let Spring manage controllers
 
         Parent root = loader.load();

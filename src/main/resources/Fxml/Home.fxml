@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-
-
-
 <BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concordia.soen6611.igo_tvm.controllers.HomeController"
             stylesheets="@../styles/Home.css">
 
@@ -15,16 +15,51 @@
     <top>
         <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
             <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
-<!--            <Label text="STM" styleClass="brand"/>-->
+
+            <!-- Maple + STM -->
             <HBox alignment="CENTER_LEFT" spacing="6">
                 <FontIcon iconLiteral="fas-leaf" styleClass="maple-icon" iconSize="28"/>
                 <Label text="STM" styleClass="brand"/>
             </HBox>
+
             <Region HBox.hgrow="ALWAYS"/>
-            <Label text="Home | Accueil" styleClass="title"/>
+
+            <Label text="Home" styleClass="title" fx:id="homeLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
-                   text="Nov 27, 2024&#10;10:31 AM"/>
+
+            <!-- Language Switch (icon buttons) -->
+            <HBox spacing="8" alignment="CENTER_RIGHT">
+                <!-- English (Canada flag) -->
+                <Button fx:id="btnEN" onAction="#onLanguageChange" styleClass="flag-btn" prefWidth="40" prefHeight="28">
+                    <graphic>
+                        <ImageView fitWidth="26" preserveRatio="true" smooth="true">
+                            <image>
+                                <Image url="@../images/canada_logo.jpg"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <tooltip><Tooltip text="English (Canada)"/></tooltip>
+                </Button>
+
+                <!-- French (Québec flag) -->
+                <Button fx:id="btnFR" onAction="#onLanguageChange" styleClass="flag-btn" prefWidth="40" prefHeight="28">
+                    <graphic>
+                        <ImageView fitWidth="26" preserveRatio="true" smooth="true">
+                            <image>
+                                <Image url="@../images/quebec-Flag-icon.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <tooltip><Tooltip text="Français (Québec)"/></tooltip>
+                </Button>
+
+                <Separator orientation="VERTICAL" styleClass="header-sep"/>
+
+                <Label fx:id="clockLabel" styleClass="clock" minWidth="150" text="Nov 27, 2024&#10;10:31 AM"/>
+            </HBox>
+
+<!--            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"-->
+<!--                   text="Nov 27, 2024&#10;10:31 AM"/>-->
         </HBox>
     </top>
 
@@ -35,8 +70,7 @@
                 <VBox spacing="66" alignment="TOP_CENTER">
                     <padding><Insets top="56" right="26" bottom="26" left="26"/></padding>
 
-                    <Label fx:id="promptLabel" styleClass="prompt"
-                           text="How can I help you today? / Comment puis-je vous aider aujourd’hui?"/>
+                    <Label fx:id="promptLabel" styleClass="prompt" text="How can I help you today?"/>
 
                     <HBox spacing="28" alignment="CENTER">
                         <!-- BUY TICKET -->
@@ -89,7 +123,7 @@
                     </Button>
 
                     <!-- Caption under the button -->
-                    <Label text="Information" styleClass="info-caption"/>
+                    <Label text="Information" styleClass="info-caption" fx:id="informationLabel"/>
                 </VBox>
 
             </children>
@@ -101,7 +135,7 @@
         <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
             <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
 
-            <Label text="Help / Aide" styleClass="help"/>
+            <Label text="Help" styleClass="help" fx:id="helpLabel"/>
 
             <Region HBox.hgrow="ALWAYS"/>  <!-- pushes volume button to the right -->
 

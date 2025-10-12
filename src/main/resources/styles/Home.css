@@ -9,8 +9,10 @@
 
 /* Header */
 .header {
-    -fx-background-color: linear-gradient(to right, #007bff, #00aaff);
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 16, 0.25, 0, 3);
+    /*-fx-background-color: linear-gradient(to right, #007bff, #00aaff);*/
+    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 16, 0.25, 0, 3);*/
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
 }
 .brand { -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: 700;
     -fx-padding: 6 10;
@@ -22,11 +24,11 @@
 .clock { -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: 700; -fx-alignment: center-right;}
 
 /* Prompt */
-.prompt { -fx-text-fill: #3b4556; -fx-font-size: 18px; }
+.prompt { -fx-text-fill: #3b4556; -fx-font-size: 24px; }
 
 /* Tiles */
 .tile {
-    -fx-background-color: linear-gradient(to bottom, #0e8bff, #0a6ef7);
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
     -fx-background-radius: 22; -fx-border-radius: 22;
     -fx-border-color: rgba(255,255,255,0.75); -fx-border-width: 2;
     -fx-cursor: hand;
@@ -41,9 +43,22 @@
 .tile-icon { -fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 14; -fx-padding: 18 50; }
 .emoji-icon { -fx-font-size: 56px; -fx-text-fill: white; }
 
+/* ---- Flag language buttons ---- */
+.flag-btn {
+    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.55);
+    -fx-border-width: 1;
+    -fx-padding: 2 6;
+    -fx-cursor: hand;
+}
+.flag-btn:hover { -fx-background-color: rgba(255,255,255,0.28); }
+
 /* Floating info button (FontAwesome) */
 .round {
-    -fx-background-color: linear-gradient(to bottom, #00a2ff, #0078ff);
+    /*-fx-background-color: linear-gradient(to bottom, #00a2ff, #0078ff);*/
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
     -fx-background-radius: 28; -fx-border-radius: 28;
     -fx-border-color: rgba(255,255,255,0.92); -fx-border-width: 1.2;
     -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.3, 0, 2);
