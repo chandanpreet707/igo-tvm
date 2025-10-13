@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-javafx</artifactId>
-            <version>12.3.1</version>
+            <version>12.4.0</version>
         </dependency>
 
         <!-- FontAwesome 5 icon pack -->

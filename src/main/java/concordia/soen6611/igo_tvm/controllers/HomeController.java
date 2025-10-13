@@ -5,17 +5,23 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 @Controller
+@org.springframework.context.annotation.Scope("prototype")
 public class HomeController {
 
     @FXML private Label homeLabel;
@@ -30,6 +36,7 @@ public class HomeController {
     private Timeline clock;
     private final I18nService i18n;
     private final ApplicationContext appContext;
+    @FXML private VBox infoOverlay; // add fx:id to FXML first
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
@@ -40,6 +47,7 @@ public class HomeController {
 
     @FXML
     private void initialize() {
+
         // Live clock
         clock = new Timeline(
                 new KeyFrame(Duration.ZERO, e ->
@@ -58,13 +66,26 @@ public class HomeController {
             System.out.println("Locale changed from " + oldL + " to " + newL);
             updateTexts();
         });
+
     }
 
-    // --- Actions (wire to your navigation) ---
-    @FXML private void onBuy()    { System.out.println("Buy New Ticket clicked"); }
-    @FXML private void onReload() { System.out.println("Reload Card clicked"); }
-    @FXML private void onInfo()   { System.out.println("Info clicked"); }
-    @FXML private void onVolume() { System.out.println("Volume clicked"); }
+    @FXML private void onBuyTicket(ActionEvent event) {
+        System.out.println("Buy New Ticket clicked; controller: " + System.identityHashCode(this));
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/BuyNewTicket.fxml"));
+            loader.setControllerFactory(appContext::getBean);  // CRITICAL
+            Parent view = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(view);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    private void onReload() { System.out.println("Reload Card clicked"); }
+    @FXML
+    private void onInfo()   { System.out.println("Info clicked"); }
+    @FXML
+    private void onVolume() { System.out.println("Volume clicked"); }
 
     // Call if you navigate away from this view
     public void shutdown() {

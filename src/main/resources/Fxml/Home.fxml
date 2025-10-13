@@ -8,6 +8,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+
+
+
+
 <BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concordia.soen6611.igo_tvm.controllers.HomeController"
             stylesheets="@../styles/Home.css">
 
@@ -18,7 +22,11 @@
 
             <!-- Maple + STM -->
             <HBox alignment="CENTER_LEFT" spacing="6">
-                <FontIcon iconLiteral="fas-leaf" styleClass="maple-icon" iconSize="28"/>
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/maple.png" />
+                    </image>
+                </ImageView>
                 <Label text="STM" styleClass="brand"/>
             </HBox>
 
@@ -67,15 +75,14 @@
     <center>
         <StackPane>
             <children>
-                <VBox spacing="66" alignment="TOP_CENTER">
+                <VBox spacing="66" alignment="TOP_CENTER" pickOnBounds="false" fx:id="contentBox">
                     <padding><Insets top="56" right="26" bottom="26" left="26"/></padding>
 
                     <Label fx:id="promptLabel" styleClass="prompt" text="How can I help you today?"/>
 
                     <HBox spacing="28" alignment="CENTER">
                         <!-- BUY TICKET -->
-                        <Button fx:id="buyBtn" onAction="#onBuy" styleClass="tile"
-                                prefWidth="440" prefHeight="210" minWidth="380" minHeight="180">
+                        <Button fx:id="buyBtn" onAction="#onBuyTicket" styleClass="tile" prefWidth="440" prefHeight="210" minWidth="380" minHeight="180">
                             <graphic>
                                 <HBox spacing="16" alignment="CENTER_LEFT">
                                     <StackPane styleClass="tile-icon">
@@ -109,7 +116,7 @@
                 </VBox>
 
                 <!-- Floating INFO button + caption (bottom-right, above footer) -->
-                <VBox spacing="6" alignment="BOTTOM_RIGHT" StackPane.alignment="BOTTOM_RIGHT">
+                <VBox spacing="6" alignment="BOTTOM_RIGHT" StackPane.alignment="BOTTOM_RIGHT" pickOnBounds="false">
                     <StackPane.margin>
                         <Insets bottom="15" right="24"/>
                     </StackPane.margin>
