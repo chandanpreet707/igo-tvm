@@ -15,34 +15,40 @@
             stylesheets="@../styles/BuyNewTicket.css"
             styleClass="buy-page">
 
-    <!-- TOP-LEVEL DEFINITIONS -->
+    <!-- GLOBAL SCOPE DEFINITIONS -->
     <fx:define>
         <ToggleGroup fx:id="riderGroup"/>
         <ToggleGroup fx:id="tripGroup"/>
     </fx:define>
 
+    <!-- ===== HEADER ===== -->
     <top>
         <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
             <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
+
             <HBox alignment="CENTER_LEFT" spacing="6">
                 <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
                     <image><Image url="@../images/maple.png"/></image>
                 </ImageView>
                 <Label text="STM" styleClass="brand"/>
             </HBox>
+
             <Region HBox.hgrow="ALWAYS"/>
+
             <Label text="Fare Selection" styleClass="title" fx:id="buyNewTicketLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
+
             <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
                    text="Nov 27, 2024&#10;10:31 AM"/>
         </HBox>
     </top>
 
+    <!-- ===== CENTER ===== -->
     <center>
         <HBox spacing="18" alignment="TOP_LEFT">
             <padding><Insets top="24" right="24" bottom="18" left="24"/></padding>
 
-            <!-- Left menu: quick selectors for trip type -->
+            <!-- Left menu: trip shortcuts -->
             <VBox spacing="12" prefWidth="260" styleClass="leftMenu">
                 <Button styleClass="menu-btn" text="Single Trip"   onAction="#onMenuSingle"/>
                 <Button styleClass="menu-btn" text="Multiple Trip" onAction="#onMenuMulti"/>
@@ -64,29 +70,69 @@
                         <ColumnConstraints halignment="RIGHT" percentWidth="24"/>
                     </columnConstraints>
 
-                    <!-- Rider segmented (4 options) -->
+                    <!-- Rider segmented (icons + labels) -->
                     <Label text="Rider Type | Type d’usager" styleClass="label"
                            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                    <FlowPane hgap="8" vgap="8" prefWrapLength="380"
+                    <FlowPane hgap="8" vgap="8" prefWrapLength="420"
                               GridPane.rowIndex="0" GridPane.columnIndex="1">
-                        <ToggleButton fx:id="adultBtn"   text="Adult"
-                                      toggleGroup="$riderGroup" selected="true"
-                                      onAction="#onRiderTypeChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="studentBtn" text="Student"
-                                      toggleGroup="$riderGroup"
-                                      onAction="#onRiderTypeChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="seniorBtn"  text="Senior"
-                                      toggleGroup="$riderGroup"
-                                      onAction="#onRiderTypeChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="touristBtn" text="Tourist"
-                                      toggleGroup="$riderGroup"
-                                      onAction="#onRiderTypeChange" styleClass="seg-btn"/>
+
+                        <!-- Adult -->
+                        <ToggleButton fx:id="adultBtn" toggleGroup="$riderGroup" selected="true"
+                                      onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
+                            <graphic>
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <StackPane styleClass="seg-icon">
+                                        <FontIcon iconLiteral="fas-user" iconSize="18" styleClass="seg-icon__glyph"/>
+                                    </StackPane>
+                                    <Label text="Adult" styleClass="seg-text"/>
+                                </HBox>
+                            </graphic>
+                        </ToggleButton>
+
+                        <!-- Student -->
+                        <ToggleButton fx:id="studentBtn" toggleGroup="$riderGroup"
+                                      onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
+                            <graphic>
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <StackPane styleClass="seg-icon">
+                                        <FontIcon iconLiteral="fas-user-graduate" iconSize="18" styleClass="seg-icon__glyph"/>
+                                    </StackPane>
+                                    <Label text="Student" styleClass="seg-text"/>
+                                </HBox>
+                            </graphic>
+                        </ToggleButton>
+
+                        <!-- Senior -->
+                        <ToggleButton fx:id="seniorBtn" toggleGroup="$riderGroup"
+                                      onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
+                            <graphic>
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <StackPane styleClass="seg-icon">
+                                        <FontIcon iconLiteral="fas-blind" iconSize="18" styleClass="seg-icon__glyph"/>
+                                    </StackPane>
+                                    <Label text="Senior" styleClass="seg-text"/>
+                                </HBox>
+                            </graphic>
+                        </ToggleButton>
+
+                        <!-- Tourist -->
+                        <ToggleButton fx:id="touristBtn" toggleGroup="$riderGroup"
+                                      onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
+                            <graphic>
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <StackPane styleClass="seg-icon">
+                                        <FontIcon iconLiteral="fas-suitcase-rolling" iconSize="18" styleClass="seg-icon__glyph"/>
+                                    </StackPane>
+                                    <Label text="Tourist" styleClass="seg-text"/>
+                                </HBox>
+                            </graphic>
+                        </ToggleButton>
                     </FlowPane>
 
-                    <!-- Trip type segmented (5 options) -->
+                    <!-- Trip type segmented -->
                     <Label text="Trip Type | Type de titre" styleClass="label"
                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                    <FlowPane hgap="8" vgap="8" prefWrapLength="380"
+                    <FlowPane hgap="8" vgap="8" prefWrapLength="420"
                               GridPane.rowIndex="1" GridPane.columnIndex="1">
                         <ToggleButton fx:id="tripSingle"  text="Single Trip"
                                       toggleGroup="$tripGroup" selected="true"
@@ -104,6 +150,12 @@
                                       toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
                     </FlowPane>
+
+                    <!-- Multiple Trip count (shown only when 'Multiple Trip' is selected) -->
+                    <Label fx:id="multiCountLabel" text="Trips" styleClass="label"
+                           GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                    <ComboBox fx:id="multiCountCombo" prefWidth="120"
+                              GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
                     <!-- Unit price -->
                     <Label text="Price (each) | Prix (unité)" styleClass="label"
@@ -150,9 +202,11 @@
         </HBox>
     </center>
 
+    <!-- ===== FOOTER ===== -->
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
             <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+
             <Button fx:id="backBtn" onAction="#onBack" styleClass="back-btn"
                     prefHeight="34" minHeight="34">
                 <graphic>
@@ -160,6 +214,7 @@
                 </graphic>
                 <tooltip><Tooltip text="Back to Home"/></tooltip>
             </Button>
+
             <Label text="Help / Aide" styleClass="help"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button text="View Cart | Voir au Panier" disable="true"

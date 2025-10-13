@@ -98,8 +98,28 @@
 /* Press feedback */
 .button:pressed { -fx-scale-x: .98; -fx-scale-y: .98; }
 
+/* Your existing selected state */
 .seg-btn:selected {
     -fx-background-color: -fx-accent;
     -fx-text-fill: white;
     -fx-font-weight: 700;
 }
+
+/* Icon variant styles from earlier step */
+.seg-btn--icon { -fx-padding: 8 14; }
+.seg-icon {
+    -fx-background-color: rgba(0,0,0,0.06);
+    -fx-background-radius: 999;
+    -fx-padding: 6;
+    -fx-alignment: center;
+    -fx-min-width: 28;
+    -fx-min-height: 28;
+}
+.seg-icon__glyph { -fx-fill: -fx-text-base-color; }
+.seg-btn:selected .seg-icon { -fx-background-color: rgba(255,255,255,0.25); }
+.seg-btn:selected .seg-icon__glyph,
+.seg-btn:selected .seg-text { -fx-text-fill: white; -fx-fill: white; }
+
+
+
+
