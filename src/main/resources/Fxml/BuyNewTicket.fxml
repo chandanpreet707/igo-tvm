@@ -11,7 +11,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="concordia.soen6611.igo_tvm.controllers.BuyNewTicketController"
-            prefHeight="400.0" prefWidth="600.0"
+            prefHeight="700.0" prefWidth="1200.0"
             stylesheets="@../styles/BuyNewTicket.css"
             styleClass="buy-page">
 

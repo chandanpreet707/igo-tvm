@@ -121,16 +121,16 @@ public class PaymentController {
         showTapHintIfNeeded();
 //        String next = (selected == Method.CARD) ? "/Fxml/PaymentSuccess.fxml": "/Fxml/CashSubmission.fxml";
         if(selected == Method.CARD){
+            processingIndicator.setVisible(true);
+            processingIndicator.setManaged(true);
+            processingLabel.setVisible(true);
+            processingLabel.setManaged(true);
+            confirmBtn.setDisable(true);
+            cardBtn.setDisable(true);
+            cashBtn.setDisable(true);
             PauseTransition pause = new PauseTransition(Duration.seconds(5.5));
             // simulate processing delay
             pause.setOnFinished(e -> {
-                processingIndicator.setVisible(true);
-                processingIndicator.setManaged(true);
-                processingLabel.setVisible(true);
-                processingLabel.setManaged(true);
-                confirmBtn.setDisable(true);
-                cardBtn.setDisable(true);
-                cashBtn.setDisable(true);
                 goTo("/Fxml/PaymentSuccess.fxml", event);
             });
             pause.play();
