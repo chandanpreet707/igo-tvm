@@ -1,0 +1,108 @@
+/* Background (same vibe as home) */
+.root {
+    -fx-font-family: "Segoe UI", "SF Pro Text", "Helvetica Neue", Arial;
+    -fx-background-color: linear-gradient(to bottom, #f7f9fc, #eef3f8);
+    -fx-background-image:
+            repeating-linear-gradient(60deg, rgba(255,255,255,0.22) 0, rgba(255,255,255,0.22) 1px, transparent 1px, transparent 18px),
+            repeating-linear-gradient(-60deg, rgba(255,255,255,0.22) 0, rgba(255,255,255,0.22) 1px, transparent 1px, transparent 18px);
+}
+
+/* Header */
+.header {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+}
+.brand { -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: 700;-fx-padding: 6 10;}
+
+.title { -fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: 700; }
+.clock { -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: 700; -fx-alignment: center-right; -fx-fill: white}
+
+/* Header lines */
+.pm-total-due {
+    -fx-font-size: 22px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1a1f29;
+}
+.pm-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #535d6a;
+}
+
+/*!* Illustration panel with notch *!*/
+.pm-illopanel {
+    -fx-background-color: #e7ebf1;
+    -fx-border-color: #d5dbe4;
+    -fx-border-width: 1;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 24;
+}
+.pm-illopanel-notch {
+    -fx-fill: #e7ebf1;
+    -fx-stroke: #d5dbe4;
+    -fx-stroke-width: 1;
+}
+
+/* Footer */
+.footer { -fx-background-color: #1f2a44; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 12, 0.25, 0, -2); }
+.cancel-payment-btn {
+    -fx-font-size: 18px;
+}
+.help   { -fx-text-fill: white; -fx-font-size: 16px; }
+.footer-ghost {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-text-fill: white;
+    -fx-background-radius: 8; -fx-border-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.45); -fx-border-width: 1;
+}
+
+/* Base tile look for both options */
+.pm-tile {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-color: white;              /* normal: white */
+    -fx-border-color: #0b74de;
+    -fx-border-width: 2;
+    -fx-padding: 0 14;
+}
+
+/* Titles inside tiles (both buttons use one of these classes) */
+.pm-tile-title--card,
+.pm-tile-title--cash {
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0b74de;                   /* normal: blue text */
+}
+
+/* Hover hint when not selected */
+.pm-tile:hover {
+    -fx-background-color: #f2f7fe;
+}
+
+/* SELECTED STATE (applies to either tile when controller adds the class) */
+.pm-tile--selected {
+    -fx-background-color: #0b74de;           /* selected: blue background */
+    -fx-border-color: #0b74de;
+}
+
+.pm-tile--selected .pm-tile-title--card,
+.pm-tile--selected .pm-tile-title--cash {
+    -fx-text-fill: white;                     /* selected: white text */
+}
+
+/* Optional: tint icons when selected */
+.pm-tile--selected ImageView,
+.pm-tile--selected .ikonli-font-icon {
+    -fx-opacity: 0.95;                        /* looks good on blue */
+}
+
+
+/* Confirm button */
+.pm-confirm-btn {
+    -fx-background-color: #0b74de;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-background-radius: 8;
+    -fx-padding: 6 18;
+}
+.pm-confirm-btn:hover { -fx-background-color: #0a69c9; }

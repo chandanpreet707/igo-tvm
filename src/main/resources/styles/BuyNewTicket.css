@@ -82,6 +82,7 @@
     -fx-background-radius: 10; -fx-border-radius: 10;
     -fx-border-color: rgba(255,255,255,0.9); -fx-border-width: 1.4;
     -fx-cursor: hand;
+    -fx-font-size: 16px;
 }
 .primary:hover { -fx-background-color: linear-gradient(to bottom, #33a0ff, #0a6ef7); }
 

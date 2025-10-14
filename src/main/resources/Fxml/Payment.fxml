@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Polygon?>
+<?import java.lang.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="concordia.soen6611.igo_tvm.controllers.PaymentController"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/Payment.css">
+
+    <!-- ===== HEADER ===== -->
+    <top>
+        <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
+            <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="6">
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image><Image url="@../images/maple.png"/></image>
+                </ImageView>
+                <Label text="STM" styleClass="brand"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="Payment | Paiement" styleClass="title" fx:id="paymentLabel"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
+                   text="Nov 27, 2024&#10;10:31 AM"/>
+        </HBox>
+    </top>
+
+    <!-- ===== CENTER ===== -->
+    <center>
+        <HBox spacing="26" alignment="TOP_LEFT">
+            <padding><Insets top="22" right="26" bottom="18" left="26"/></padding>
+
+            <!-- ===== LEFT COLUMN ===== -->
+            <VBox spacing="16" HBox.hgrow="ALWAYS">
+
+                <!-- Total Due (bilingual) -->
+                <Label fx:id="totalDueLabel"
+                       text="Total Due: $21.00 | Total à Payer: 21,00 $"
+                       styleClass="pm-total-due"/>
+
+                <!-- Subtitle -->
+                <Label text="Select Payment Method | Choisissez un mode de paiement"
+                       styleClass="pm-subtitle"/>
+
+                <!-- CASH (selectable) -->
+                <Button fx:id="cashBtn"
+                        onAction="#onSelectCash"
+                        styleClass="pm-tile pm-tile--cash"
+                        maxWidth="560" prefWidth="560" prefHeight="64">
+                    <graphic>
+                        <HBox spacing="14" alignment="CENTER_LEFT">
+                            <ImageView fitHeight="44" preserveRatio="true" smooth="true">
+                                <image><Image url="@../images/money.png"/></image>
+                            </ImageView>
+                            <Label text="Pay With Cash | Payer en Comptant" styleClass="pm-tile-title--cash" style="-fx-font-size: 22px;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <!-- CREDIT/DEBIT (selectable, blue when selected) -->
+                <Button fx:id="cardBtn"
+                        onAction="#onSelectCard"
+                        styleClass="pm-tile pm-tile--card"
+                        maxWidth="560" prefWidth="560" prefHeight="64">
+                    <graphic>
+                        <HBox spacing="14" alignment="CENTER_LEFT">
+                            <ImageView fitHeight="44" preserveRatio="true" smooth="true">
+                                <image><Image url="@../images/visa.png"/></image>
+                            </ImageView>
+                            <Label text="Credit/Dbit Card | Carte Crédit/Débit" styleClass="pm-tile-title--card" style="-fx-font-size: 22px;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <!-- Tap/insert hint (only for card) -->
+                <Label fx:id="tapInsertHint"
+                       text="Please tap/insert card | Veuillez passer/insérer votre carte"
+                       styleClass="pm-hint" visible="false" managed="false"/>
+
+                <!-- Processing row (shown after Confirm) -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <ProgressIndicator fx:id="processingIndicator"
+                                       progress="-1.0"
+                                       visible="false" managed="false"
+                                       prefWidth="44" prefHeight="44"
+                                       styleClass="pm-ring"/>
+                    <Label fx:id="processingLabel"
+                           text="Processing payment... | Traitement du paiement..."
+                           visible="false" managed="false"
+                           styleClass="pm-processing"/>
+                </HBox>
+            </VBox>
+
+            <!-- ===== RIGHT ILLUSTRATION PANEL ===== -->
+            <StackPane prefWidth="330" prefHeight="240" alignment="CENTER"
+                       styleClass="pm-illopanel">
+                <!-- little notch at the top -->
+                <Pane StackPane.alignment="TOP_CENTER">
+                    <children>
+                        <Polygon styleClass="pm-illopanel-notch">
+                            <points>
+                                <Double fx:value="0"/>
+                                <Double fx:value="0"/>
+                                <Double fx:value="16"/>
+                                <Double fx:value="0"/>
+                                <Double fx:value="8"/>
+                                <Double fx:value="10"/>
+                            </points>
+                        </Polygon>
+                    </children>
+                </Pane>
+
+                <ImageView fx:id="cardIllustration" fitWidth="220" preserveRatio="true" smooth="true">
+                    <image><Image url="@../images/business.png"/></image>
+                </ImageView>
+            </StackPane>
+        </HBox>
+    </center>
+
+    <!-- ===== FOOTER ===== -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
+            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+
+            <Button fx:id="backBtn" onAction="#onCancelPayment" styleClass="cancel-payment-btn"
+                    prefHeight="34" minHeight="34" text="Cancel Payment">
+                <graphic>
+                    <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                        <image><Image url="@../images/cancel.png"/></image>
+                    </ImageView>
+                </graphic>
+                <tooltip><Tooltip text="Cancel Payment"/></tooltip>
+            </Button>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Confirm selection -->
+            <Button fx:id="confirmBtn" onAction="#onConfirm"
+                    text="Confirm | Confirmer"
+                    styleClass="pm-confirm-btn"
+                    prefHeight="36" minWidth="180"/>
+
+            <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
+                    prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
+                <graphic>
+                    <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
+                </graphic>
+                <tooltip><Tooltip text="Volume"/></tooltip>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>

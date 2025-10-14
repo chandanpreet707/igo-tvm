@@ -192,9 +192,9 @@
                     <Label fx:id="totalValue" text="3.75" styleClass="total-value"
                            GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-                    <!-- Add to cart -->
-                    <Button fx:id="addToCartBtn" onAction="#addToCart"
-                            text="Add to Cart | Ajouter au Panier"
+                    <!-- Make Payment -->
+                    <Button fx:id="makePaymentBtn" onAction="#onMakePayment"
+                            text="Make Payment | Passer au Paiement"
                             styleClass="primary" prefWidth="260" prefHeight="44"
                             GridPane.rowIndex="4" GridPane.columnIndex="3"/>
                 </GridPane>
@@ -217,8 +217,16 @@
 
             <Label text="Help / Aide" styleClass="help"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button text="View Cart | Voir au Panier" disable="true"
-                    styleClass="footer-ghost" prefHeight="30"/>
+<!--            <Button fx:id="viewCartBtn" text="View Cart | Voir au Panier" disable="true"-->
+<!--                    styleClass="footer-ghost" prefHeight="30"/>-->
+
+            <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
+                    prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
+                <graphic>
+                    <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
+                </graphic>
+                <tooltip><Tooltip text="Volume"/></tooltip>
+            </Button>
         </HBox>
     </bottom>
 </BorderPane>

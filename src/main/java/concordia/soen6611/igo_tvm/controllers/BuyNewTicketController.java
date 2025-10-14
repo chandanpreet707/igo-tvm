@@ -1,5 +1,7 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.PaymentSession;
+import concordia.soen6611.igo_tvm.models.OrderSummary;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -40,10 +42,12 @@ public class BuyNewTicketController {
     // Qty & totals
     @FXML private TextField qtyField;
     @FXML private Label unitPriceValue, totalValue;
-    @FXML private Button addToCartBtn;
+    @FXML private Button makePaymentBtn;
     @FXML private Button backBtn;
 
     private final ApplicationContext appContext;
+    private final PaymentSession paymentSession;
+
 
     private Timeline clock;
     private static final DateTimeFormatter CLOCK_FMT =
@@ -75,8 +79,9 @@ public class BuyNewTicketController {
     private static final double TOURIST_WEEKEND = 16.00;
     // ===============================================================
 
-    public BuyNewTicketController(ApplicationContext appContext) {
+    public BuyNewTicketController(ApplicationContext appContext, PaymentSession paymentSession) {
         this.appContext = appContext;
+        this.paymentSession = paymentSession;
     }
 
     @FXML
@@ -212,14 +217,32 @@ public class BuyNewTicketController {
     }
 
     @FXML
-    private void addToCart() {
-        System.out.printf("Added: %s - %s%s x%d @ %s (total %s)%n",
-                selectedRiderName(),
-                selectedTripName(),
-                tripMulti.isSelected() ? (" (" + multiTrips() + " trips)") : "",
-                qty(),
-                unitPriceValue.getText(),
-                totalValue.getText());
+    private void onMakePayment(ActionEvent event) {
+//        System.out.printf("Added: %s - %s%s x%d @ %s (total %s)%n",
+//                selectedRiderName(),
+//                selectedTripName(),
+//                tripMulti.isSelected() ? (" (" + multiTrips() + " trips)") : "",
+//                qty(),
+//                unitPriceValue.getText(),
+//                totalValue.getText());
+
+        String rider = selectedRiderName();
+        String trip  = selectedTripName();
+        int trips = tripMulti.isSelected() ? multiTrips() : 1;
+        int quantity = qty();
+        double unit = currentUnitPrice(); // already scaled for multiple trips
+        // Save current order in the session
+        paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, quantity, unit));
+
+        // Navigate to the Payment page
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Payment.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent view = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(view);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private String selectedRiderName() {
@@ -252,4 +275,7 @@ public class BuyNewTicketController {
     }
 
     public void shutdown() { if (clock != null) clock.stop(); }
+
+    public void onVolume(ActionEvent actionEvent) {
+    }
 }
