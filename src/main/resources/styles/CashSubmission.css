@@ -1,0 +1,51 @@
+/* Header */
+.header {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+}
+.brand { -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: 700;-fx-padding: 6 10;}
+
+.title { -fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: 700; }
+.clock { -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: 700; -fx-alignment: center-right; -fx-fill: white}
+
+
+/* Footer with right-corner volume button */
+.footer { -fx-background-color: #1f2a44; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 12, 0.25, 0, -2); }
+.cancel-payment-btn {
+    -fx-font-size: 16px;
+}
+.help   { -fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: 700}
+
+.footer-icon-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255,255,255,0.55);
+    /*-fx-border-radius: 8; -fx-background-radius: 8;*/
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+}
+.footer-icon-btn:hover { -fx-background-color: rgba(255,255,255,0.12); }
+.glyph-white-sm { -fx-fill: white; }
+
+/* top line */
+.cash-total {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #1a2c44;
+}
+
+/* instruction */
+.cash-instruction {
+    -fx-font-size: 16px;
+    -fx-text-fill: #4b5766;
+}
+
+/* amounts row */
+.cash-amount-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #3a4756;
+}
+.cash-amount-value {
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0b74de;
+}

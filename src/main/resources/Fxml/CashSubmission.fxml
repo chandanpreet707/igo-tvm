@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="concordia.soen6611.igo_tvm.controllers.CashSubmissionController"
-            prefHeight="700.0" prefWidth="1200.0">
+            prefHeight="700.0" prefWidth="1200.0" stylesheets="@../styles/CashSubmission.css">
 
-</AnchorPane>
+    <!-- ===== HEADER ===== -->
+    <top>
+        <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
+            <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="6">
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image><Image url="@../images/maple.png"/></image>
+                </ImageView>
+                <Label text="STM" styleClass="brand"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="Cash Payment" styleClass="title" fx:id="cashPaymentLabel"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150" text="Nov 27, 2024&#10;10:31 AM"/>
+        </HBox>
+    </top>
+
+
+    <center>
+        <VBox spacing="24" alignment="TOP_CENTER">
+            <padding><Insets top="30" right="26" bottom="26" left="26"/></padding>
+
+            <!-- Total Due (bilingual) -->
+            <Label fx:id="totalDueLabel"
+                   text="Total Due: $0.00 | Total à Payer: 0,00 $"
+                   styleClass="cash-total"/>
+
+            <!-- instruction -->
+            <Label fx:id="instructionLabel"
+                   text="Please insert cash | Veuillez insérer l'argent"
+                   styleClass="cash-instruction"/>
+
+            <!-- Illustration -->
+            <ImageView fx:id="cashIllustration"
+                       fitHeight="100" preserveRatio="true" smooth="true">
+                <image><Image url="@../images/money_in_hand.png"/></image>
+            </ImageView>
+
+            <!-- Progress ring while we 'count' cash -->
+            <ProgressIndicator fx:id="processingIndicator" progress="-1.0"
+                               visible="true" managed="true" prefWidth="44" prefHeight="44"/>
+
+            <!-- Amounts line -->
+            <HBox spacing="26" alignment="CENTER">
+                <Label text="Amount Inserted:" styleClass="cash-amount-label"/>
+                <Label fx:id="insertedValue" text="0.00" styleClass="cash-amount-value"/>
+
+                <Label text="Remaining:" styleClass="cash-amount-label"/>
+                <Label fx:id="remainingValue" text="0.00" styleClass="cash-amount-value"/>
+            </HBox>
+        </VBox>
+    </center>
+
+
+    <!-- ===== FOOTER ===== -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
+            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+
+            <Button fx:id="backBtn" onAction="#onCancelCashPayment" styleClass="cancel-payment-btn"
+                     prefHeight="34" minHeight="34" text="Cancel Payment">
+                <graphic>
+                    <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
+                        <image><Image url="@../images/cancel.png"/></image>
+                    </ImageView>
+                </graphic>
+                <tooltip><Tooltip text="Cancel Cash Payment"/></tooltip>
+             </Button>
+
+            <Region HBox.hgrow="ALWAYS"/>  <!-- pushes volume button to the right -->
+
+            <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
+                    prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
+                <graphic>
+                    <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
+                </graphic>
+                <tooltip><Tooltip text="Volume"/></tooltip>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>

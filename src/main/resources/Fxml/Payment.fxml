@@ -136,7 +136,7 @@
             <Button fx:id="backBtn" onAction="#onCancelPayment" styleClass="cancel-payment-btn"
                     prefHeight="34" minHeight="34" text="Cancel Payment">
                 <graphic>
-                    <ImageView fitWidth="18" fitHeight="18" preserveRatio="true">
+                    <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
                         <image><Image url="@../images/cancel.png"/></image>
                     </ImageView>
                 </graphic>
