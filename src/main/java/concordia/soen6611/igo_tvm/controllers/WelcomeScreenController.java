@@ -4,10 +4,16 @@ package concordia.soen6611.igo_tvm.controllers;
 import concordia.soen6611.igo_tvm.Services.I18nService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.util.Locale;
 
 @Controller
@@ -22,14 +28,16 @@ public class WelcomeScreenController {
     @FXML private Button startButton;
     @FXML private Button englishButton;
     @FXML private Button frenchButton;
-
-    public WelcomeScreenController(I18nService i18n) {
+    private final ApplicationContext appContext;
+    public WelcomeScreenController(I18nService i18n, ApplicationContext appContext) {
         this.i18n = i18n;
+        this.appContext = appContext;
     }
 
 
     @FXML
     public void initialize() {
+        System.out.println("Welcome Controller initialized: " + System.identityHashCode(this));
         System.out.println("Controller initialized");
         System.out.println("I18nService: " + i18n);
         System.out.println("MessageSource: " + i18n.messages);
@@ -69,7 +77,20 @@ public class WelcomeScreenController {
 
     @FXML
     public void onStartPurchase(ActionEvent event) {
-        System.out.println("Start purchase clicked. Current locale: " + i18n.getLocale());
-        // TODO: navigate to next screen
+        try {
+            // Load the Home page FXML
+            System.out.println("Start purchase clicked. Current locale: " + i18n.getLocale());
+            // Load the Home page FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Home.fxml"));
+            loader.setControllerFactory(appContext::getBean); // let Spring create controllers
+            Parent homeRoot = loader.load();
+
+            // EITHER: swap root (keeps size and styles)
+            Scene scene = ((Node) event.getSource()).getScene();
+            scene.setRoot(homeRoot);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // might show an alert instead of printing stack trace.
+        }
     }
 }
