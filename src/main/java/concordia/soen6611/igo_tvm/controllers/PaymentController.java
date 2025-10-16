@@ -2,7 +2,9 @@ package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 @Controller
@@ -27,7 +31,11 @@ public class PaymentController {
 
     @FXML private Button cardBtn, cashBtn, confirmBtn;
     @FXML private ProgressIndicator processingIndicator;
-    @FXML private Label processingLabel, totalDueLabel, tapInsertHint;
+    @FXML private Label processingLabel, totalDueLabel, tapInsertHint, clockLabel;
+
+    private Timeline clock;
+    private static final DateTimeFormatter CLOCK_FMT =
+            DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh:mm a");
 
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
@@ -40,30 +48,37 @@ public class PaymentController {
 
     @FXML
     private void initialize() {
-        System.out.println("Payment selected: " + Method.CARD);
-        // 1) Display the exact total from the previous page
+        // Start live clock
+        clock = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        e -> clockLabel.setText(LocalDateTime.now().format(CLOCK_FMT))),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
+
+        // 1) Display total amount due from session
         setTotalDueFromSession();
 
-        // 2) Default visual state
+        // 2) Default selection visuals
         applySelectionStyles();
-//        showTapHintIfNeeded();
+        showTapHintIfNeeded();
+
+        System.out.println("Default payment selected: " + Method.CARD);
     }
 
-    /* ===== Total Due helper ===== */
+    /* ===== Total Due Helper ===== */
     private void setTotalDueFromSession() {
-        OrderSummary o = paymentSession != null ? paymentSession.getCurrentOrder() : null;
+        OrderSummary order = paymentSession != null ? paymentSession.getCurrentOrder() : null;
+        double total = (order != null) ? order.getTotal() : 0.0;
 
-        double total = (o != null) ? o.getTotal() : 0.0;
-
-        // Format like the mock: English uses $12.34 ; French uses 12,34 $
-        String en = NumberFormat.getCurrencyInstance(Locale.CANADA).format(total);         // $12.34
-        String fr = NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH).format(total); // 12,34 $
-
-        // Compose bilingual line
+        // Format bilingually
+        String en = NumberFormat.getCurrencyInstance(Locale.CANADA).format(total);
+        String fr = NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH).format(total);
         totalDueLabel.setText(String.format("Total Due: %s | Total à Payer: %s", en, fr));
     }
 
-    /* ====== Nav helpers ====== */
+    /* ===== Navigation Helper ===== */
     private void goTo(String fxmlPath, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -75,36 +90,35 @@ public class PaymentController {
         }
     }
 
-    /* ====== Selection actions ====== */
+    /* ===== Selection Actions ===== */
     @FXML
     public void onSelectCard() {
-        System.out.println("Payment selected: " + Method.CARD);
         selected = Method.CARD;
         applySelectionStyles();
-//        showTapHintIfNeeded();
+        showTapHintIfNeeded();
+        System.out.println("Payment selected: " + Method.CARD);
     }
 
     @FXML
     public void onSelectCash() {
         selected = Method.CASH;
         applySelectionStyles();
-//        showTapHintIfNeeded();
+        showTapHintIfNeeded();
+        System.out.println("Payment selected: " + Method.CASH);
     }
 
     private void applySelectionStyles() {
-        // clear selection classes
+        // Clear previous selection styles
         cardBtn.getStyleClass().removeAll("pm-tile--selected");
         cashBtn.getStyleClass().removeAll("pm-tile--selected");
 
-        // apply selection class to chosen tile
+        // Apply current selection style
         if (selected == Method.CARD) {
-            if (!cardBtn.getStyleClass().contains("pm-tile--selected")) {
+            if (!cardBtn.getStyleClass().contains("pm-tile--selected"))
                 cardBtn.getStyleClass().add("pm-tile--selected");
-            }
         } else {
-            if (!cashBtn.getStyleClass().contains("pm-tile--selected")) {
+            if (!cashBtn.getStyleClass().contains("pm-tile--selected"))
                 cashBtn.getStyleClass().add("pm-tile--selected");
-            }
         }
     }
 
@@ -114,13 +128,12 @@ public class PaymentController {
         tapInsertHint.setManaged(show);
     }
 
-    /* ====== Confirm flow ====== */
+    /* ===== Confirm Flow ===== */
     @FXML
     public void onConfirm(ActionEvent event) {
-        // show processing UI briefly
         showTapHintIfNeeded();
-//        String next = (selected == Method.CARD) ? "/Fxml/PaymentSuccess.fxml": "/Fxml/CashSubmission.fxml";
-        if(selected == Method.CARD){
+
+        if (selected == Method.CARD) {
             processingIndicator.setVisible(true);
             processingIndicator.setManaged(true);
             processingLabel.setVisible(true);
@@ -128,23 +141,24 @@ public class PaymentController {
             confirmBtn.setDisable(true);
             cardBtn.setDisable(true);
             cashBtn.setDisable(true);
+
+            // Simulate processing delay (5.5 seconds)
             PauseTransition pause = new PauseTransition(Duration.seconds(5.5));
-            // simulate processing delay
-            pause.setOnFinished(e -> {
-                goTo("/Fxml/PaymentSuccess.fxml", event);
-            });
+            pause.setOnFinished(e -> goTo("/Fxml/PaymentSuccess.fxml", event));
             pause.play();
+
         } else {
+            // Go directly to cash submission flow
             goTo("/Fxml/CashSubmission.fxml", event);
         }
-
     }
 
-    /* ====== Footer buttons ====== */
+    /* ===== Footer Buttons ===== */
     public void onCancelPayment(ActionEvent event) {
         goTo("/Fxml/BuyNewTicket.fxml", event);
     }
+
     public void onVolume(ActionEvent actionEvent) {
-        // hook your volume control here
+        // Hook volume control logic here (optional)
     }
 }
