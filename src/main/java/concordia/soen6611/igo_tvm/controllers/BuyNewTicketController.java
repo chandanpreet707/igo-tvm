@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -273,8 +274,22 @@ public class BuyNewTicketController {
             ex.printStackTrace();
         }
     }
-
     public void shutdown() { if (clock != null) clock.stop(); }
+    @FXML
+    private void onBrandClick(MouseEvent event) {
+        goWelcomeScreen((Node) event.getSource());
+    }
+
+    private void goWelcomeScreen(Node anyNodeInScene) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent home = loader.load();
+            anyNodeInScene.getScene().setRoot(home);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public void onVolume(ActionEvent actionEvent) {
     }

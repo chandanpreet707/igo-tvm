@@ -22,6 +22,7 @@
                     <image><Image url="@../images/maple.png"/></image>
                 </ImageView>
                 <Label text="STM" styleClass="brand"/>
+                <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
             </HBox>
 
             <Region HBox.hgrow="ALWAYS"/>

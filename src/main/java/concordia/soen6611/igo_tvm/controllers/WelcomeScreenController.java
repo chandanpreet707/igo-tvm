@@ -37,7 +37,6 @@ public class WelcomeScreenController {
 
     @FXML
     public void initialize() {
-        System.out.println("Welcome Controller initialized: " + System.identityHashCode(this));
         System.out.println("Controller initialized");
         System.out.println("I18nService: " + i18n);
         System.out.println("MessageSource: " + i18n.messages);

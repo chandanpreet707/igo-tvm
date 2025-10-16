@@ -1,0 +1,29 @@
+/* When .a11y-large-on is present on root, enforce bigger fonts */
+
+.a11y-large-on,
+.a11y-large-on * {
+    -fx-font-size: 18px !important;    /* baseline bump */
+}
+
+/* Make inputs and buttons bigger */
+.a11y-large-on .text-field,
+.a11y-large-on .password-field,
+.a11y-large-on .text-area,
+.a11y-large-on .combo-box-base,
+.a11y-large-on .date-picker,
+.a11y-large-on .spinner .text-field,
+.a11y-large-on .button,
+.a11y-large-on .toggle-button,
+.a11y-large-on .label {
+    -fx-font-size: 40px !important;
+}
+
+/* Specific elements you sized in Home.css get an explicit override */
+.a11y-large-on .prompt,
+.a11y-large-on .title,
+.a11y-large-on .help,
+.a11y-large-on .clock,
+.a11y-large-on .tile .tile-title,
+.a11y-large-on .tile .tile-sub {
+    -fx-font-size: 2.15em !important;  /* scale relative to current */
+}
