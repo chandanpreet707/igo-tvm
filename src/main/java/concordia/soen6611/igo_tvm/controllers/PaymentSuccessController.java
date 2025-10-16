@@ -100,4 +100,15 @@ public class PaymentSuccessController {
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
     }
+
+    public void onBack(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Payment.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent home = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(home);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

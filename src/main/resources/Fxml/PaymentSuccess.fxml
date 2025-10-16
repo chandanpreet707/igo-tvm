@@ -7,13 +7,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="concordia.soen6611.igo_tvm.controllers.PaymentSuccessController"
-            prefHeight="700.0" prefWidth="1200.0" stylesheets="@../styles/PaymentSuccess.css">
+            prefHeight="700.0" prefWidth="1200.0"
+            stylesheets="@../styles/PaymentSuccess.css">
 
-    <!-- ===== HEADER ===== -->
+    <!-- ===== HEADER (No back button here now) ===== -->
     <top>
         <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
             <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
@@ -30,11 +30,13 @@
             <Label text="Confirmation" styleClass="title" fx:id="confirmationLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
 
-            <Label fx:id="clockLabel" styleClass="clock" minWidth="150" text="Nov 27, 2024&#10;10:31 AM"/>
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
+                   text="Nov 27, 2024&#10;10:31 AM"/>
         </HBox>
     </top>
 
 
+    <!-- ===== CENTER CONTENT ===== -->
     <center>
         <VBox spacing="22" alignment="TOP_CENTER">
             <padding><Insets top="32" right="26" bottom="26" left="26"/></padding>
@@ -46,33 +48,33 @@
 
                 <!-- icon -->
                 <StackPane styleClass="ps-icon-wrap">
-                    <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView glyphName="CHECK_CIRCLE" glyphSize="46" styleClass="ps-icon"/>
+                    <FontAwesomeIconView glyphName="CHECK_CIRCLE" glyphSize="46" styleClass="ps-icon"/>
                 </StackPane>
 
                 <!-- headline -->
                 <Label fx:id="successTitle"
                        text="Transaction Successful! | Transaction Réussie!"
-                       styleClass="ps-title" maxWidth="Infinity" />
+                       styleClass="ps-title" maxWidth="Infinity"/>
             </HBox>
 
             <!-- printing line -->
             <Label fx:id="printingLine"
                    text="Your ticket is printing. | Votre billet est en cours d'impression."
-                   styleClass="ps-subtitle" maxWidth="980" />
+                   styleClass="ps-subtitle" maxWidth="980"/>
 
             <!-- actions -->
             <HBox spacing="18" alignment="CENTER">
                 <Button fx:id="printBtn" onAction="#onPrintReceipt"
                         styleClass="ps-btn ps-btn--primary" prefWidth="260" prefHeight="54"
-                        style="-fx-border-color: #0b74de;-fx-text-fill: white;
-                                -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);">
+                        style="-fx-border-color: #0b74de; -fx-text-fill: white;
+                               -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);">
                     <graphic>
                         <HBox spacing="10" alignment="CENTER">
                             <ImageView fitWidth="28" fitHeight="28" preserveRatio="true">
-                                <image><Image url="@../images/print.png" /></image>
+                                <image><Image url="@../images/print.png"/></image>
                             </ImageView>
                             <Label text="Print Receipt | Imprimer reçu" styleClass="ps-btn-label"
-                                   style="-fx-text-fill: white;-fx-font-size: 18px;-fx-font-weight: 700;"/>
+                                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: 700;"/>
                         </HBox>
                     </graphic>
                 </Button>
@@ -80,14 +82,14 @@
                 <Button fx:id="doneBtn" onAction="#onDone"
                         styleClass="ps-btn ps-btn--primary" prefWidth="220" prefHeight="54"
                         style="-fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
-                        -fx-border-color: #0b74de;-fx-text-fill: white;">
+                               -fx-border-color: #0b74de; -fx-text-fill: white;">
                     <graphic>
                         <HBox spacing="10" alignment="CENTER">
                             <ImageView fitWidth="28" fitHeight="28" preserveRatio="true">
                                 <image><Image url="@../images/check-mark.png"/></image>
                             </ImageView>
                             <Label text="Done | Terminé" styleClass="ps-btn-label"
-                                   style="-fx-text-fill: white;-fx-font-size: 18px;-fx-font-weight: 700;"/>
+                                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: 700;"/>
                         </HBox>
                     </graphic>
                 </Button>
@@ -96,14 +98,23 @@
     </center>
 
 
-    <!-- ===== FOOTER ===== -->
+    <!-- ===== FOOTER (Back + Help + Volume) ===== -->
     <bottom>
-        <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
+        <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="14">
             <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+
+            <!-- Back button moved here -->
+            <Button fx:id="backBtn" onAction="#onBack" styleClass="footer-icon-btn"
+                    prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
+                <graphic>
+                    <FontAwesomeIconView glyphName="ARROW_LEFT" styleClass="glyph-white-sm" glyphSize="22"/>
+                </graphic>
+                <tooltip><Tooltip text="Back to Home"/></tooltip>
+            </Button>
 
             <Label text="Help" styleClass="help" fx:id="helpLabel"/>
 
-            <Region HBox.hgrow="ALWAYS"/>  <!-- pushes volume button to the right -->
+            <Region HBox.hgrow="ALWAYS"/>
 
             <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
                     prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
@@ -114,4 +125,5 @@
             </Button>
         </HBox>
     </bottom>
+
 </BorderPane>
