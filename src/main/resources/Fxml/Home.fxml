@@ -90,7 +90,7 @@
                                         <Label text="🎟" styleClass="emoji-icon"/>
                                     </StackPane>
                                     <VBox spacing="4" alignment="CENTER_LEFT">
-                                        <Label text="Buy New Ticket" styleClass="tile-title"/>
+                                        <Label fx:id="buyNewTicketLabel" text="Buy New Ticket" styleClass="tile-title"/>
                                         <Label text="Acheter un Nouveau Titre" styleClass="tile-sub"/>
                                     </VBox>
                                 </HBox>
@@ -106,7 +106,7 @@
                                         <Label text="💳" styleClass="emoji-icon"/>
                                     </StackPane>
                                     <VBox spacing="4" alignment="CENTER_LEFT">
-                                        <Label text="Reload Card" styleClass="tile-title"/>
+                                        <Label text="Reload Card" fx:id="reloadCardLabel" styleClass="tile-title"/>
                                         <Label text="Recharger une Carte" styleClass="tile-sub"/>
                                     </VBox>
                                 </HBox>
@@ -147,12 +147,24 @@
             <Region HBox.hgrow="ALWAYS"/>  <!-- pushes volume button to the right -->
 
             <!-- in your footer/right tools HBox -->
-            <Button fx:id="btnFontSizeOut" onAction="#onFontSizeOut"
-                    text="A–" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
+            <Button fx:id="btnFontSizeOut" onAction="#onFontSizeOut" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
+                <graphic>
+                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@../images/magnifer_out.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
                 <tooltip><Tooltip text="Make text Smaller"/></tooltip>
             </Button>
-            <Button fx:id="btnFontSizeIn" onAction="#onFontSizeIn"
-                    text="A+" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
+            <Button fx:id="btnFontSizeIn" onAction="#onFontSizeIn" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
+                <graphic>
+                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@../images/magnifer_in.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
                 <tooltip><Tooltip text="Make text Larger"/></tooltip>
             </Button>
 

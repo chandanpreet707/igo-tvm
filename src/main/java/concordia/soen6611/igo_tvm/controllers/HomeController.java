@@ -1,18 +1,23 @@
 package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.I18nService;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -39,18 +44,14 @@ public class HomeController {
     private Timeline clock;
     private final I18nService i18n;
     private final ApplicationContext appContext;
-    @FXML private Label brandLink;
-    @FXML private Button btnFontSizeIn;
-    @FXML private Button btnFontSizeOut;
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
-    // scale state for this label
-    private double basePx;            // computed after CSS is applied
-    private double scale = 1.0;       // 1.0 = default
-    private static final double STEP = 0.10;
-    private static final double MIN  = 1.00;
-    private static final double MAX  = 1.50;
+    @FXML private Button btnFontSizeIn, btnFontSizeOut;
+
+    @FXML private Label brandLink;
+    @FXML private Label buyNewTicketLabel;
+    @FXML private Label reloadCardLabel;
 
     public HomeController(I18nService i18n, ApplicationContext appContext) {
         this.i18n = i18n;
@@ -80,9 +81,9 @@ public class HomeController {
         });
 
         Platform.runLater(() -> {
-            basePx = brandLink.getFont().getSize();  // picks up 24px from .brand in Home.css
-            applyBrandScale();
-            reflectButtons();
+            var zoom = TextZoomService.get();
+            zoom.register(brandLink, homeLabel, promptLabel, helpLabel, clockLabel, buyNewTicketLabel, reloadCardLabel);
+            reflectZoomButtons();
         });
     }
 
@@ -99,8 +100,6 @@ public class HomeController {
     }
     @FXML
     private void onReload() { System.out.println("Reload Card clicked"); }
-    @FXML
-    private void onInfo()   { System.out.println("Info clicked"); }
     @FXML
     private void onVolume() { System.out.println("Volume clicked"); }
 
@@ -146,26 +145,84 @@ public class HomeController {
         }
     }
 
-    @FXML private void onFontSizeIn()  { scale = Math.min(MAX, scale + STEP); applyBrandScale(); reflectButtons(); }
-    @FXML private void onFontSizeOut() { scale = Math.max(MIN, scale - STEP); applyBrandScale(); reflectButtons(); }
+    @FXML
+    private void onInfo() {
+        Window owner = buyBtn != null ? buyBtn.getScene().getWindow() : null;
 
-    private void applyBrandScale() {
-        double px = basePx * scale;
-        // Inline style overrides stylesheet rule (.brand) every time
-        setInlineFontSize(brandLink, px);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null); // we'll use our own styled header row
+        if (owner != null) alert.initOwner(owner);
+
+        // ---- Styled header row (icon + title)
+        HBox header = new HBox(12);
+        header.setAlignment(Pos.CENTER_LEFT);
+
+        Label icon = new Label("ℹ");
+        icon.getStyleClass().add("info-icon");
+
+        Label title = new Label("How to use this ticket machine");
+        title.getStyleClass().add("info-title");
+
+        header.getChildren().addAll(icon, title);
+
+        // ---- Body copy
+        VBox bullets = new VBox(8);
+        bullets.getStyleClass().add("info-list");
+        // give the whole list a right margin of 32px
+        VBox.setMargin(bullets, new Insets(0, 32, 0, 0));
+
+        bullets.getChildren().addAll(
+                item("Select “Buy New Ticket” or “Reload Card”."),
+                item("Choose rider type (Adult, Student, Senior, Tourist) and the fare."),
+                item("Adjust quantity, then tap “Make Payment”."),
+                item("Pick payment method (Card or Cash) and follow the prompts."),
+                item("Collect your ticket and (optionally) print a receipt.")
+        );
+
+        VBox content = new VBox(14, header, bullets);
+        content.getStyleClass().add("info-content");
+
+        // Put content into the dialog
+        DialogPane pane = alert.getDialogPane();
+        pane.setContent(content);
+
+        // ---- Apply CSS to the dialog only
+        pane.getStylesheets().add(
+                getClass().getResource("/styles/Modal.css").toExternalForm()
+        );
+        pane.getStyleClass().add("info-modal"); // root class for this dialog
+
+        // Single Close button
+        alert.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE));
+
+        // Optional: style the Close button via CSS class
+        Node closeBtn = pane.lookupButton(alert.getButtonTypes().get(0));
+        closeBtn.getStyleClass().add("info-close-btn");
+
+        alert.showAndWait();
     }
 
-    private void reflectButtons() {
-        btnFontSizeOut.setDisable(scale <= MIN);
-        btnFontSizeIn.setDisable(scale >= MAX);
+    // Small helper to create bullet rows
+    private HBox item(String text) {
+        Label dot = new Label("•");
+        dot.getStyleClass().add("info-bullet");
+
+        Label lbl = new Label(text);
+        lbl.getStyleClass().add("info-text");
+
+        HBox row = new HBox(10, dot, lbl);
+        row.setAlignment(Pos.TOP_LEFT);
+        return row;
     }
 
-    // ----- helpers -----
-    private static void setInlineFontSize(Label node, double px) {
-        // keep any existing inline styles except font-size, then add our font-size
-        String s = node.getStyle();
-        if (s == null) s = "";
-        s = s.replaceAll("(?i)-fx-font-size\\s*:\\s*[^;]+;?", "");
-        node.setStyle(s + String.format("-fx-font-size: %.1fpx;", px));
+    @FXML private void onFontSizeIn()  { TextZoomService.get().zoomIn();  reflectZoomButtons(); }
+    @FXML private void onFontSizeOut() { TextZoomService.get().zoomOut(); reflectZoomButtons(); }
+
+    private void reflectZoomButtons() {
+        double s = TextZoomService.get().getScale();
+        btnFontSizeOut.setDisable(s <= 1.00);
+        btnFontSizeIn.setDisable(s >= 1.50);
     }
+
 }
