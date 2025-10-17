@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -24,7 +25,7 @@ public class PaymentSuccessController {
     @FXML private Button printBtn;
     @FXML private Button doneBtn;
     @FXML private Label brandLink, confirmationLabel, successTitleLabel,printingLineLabel, receiptInfoLabel, thankYouLabel, helpLabel, volumeLabel, clockLabel;
-
+    @FXML private javafx.scene.Parent root;
     private final ApplicationContext appContext;
 
     public PaymentSuccessController(ApplicationContext appContext) {
@@ -38,6 +39,9 @@ public class PaymentSuccessController {
             TextZoomService.get().register(brandLink, confirmationLabel, successTitleLabel,
                     printingLineLabel, receiptInfoLabel, thankYouLabel, helpLabel, volumeLabel, clockLabel,
                     printBtn, doneBtn);
+        });
+        javafx.application.Platform.runLater(() -> {
+            ContrastManager.getInstance().attach(root.getScene(), root);
         });
     }
 

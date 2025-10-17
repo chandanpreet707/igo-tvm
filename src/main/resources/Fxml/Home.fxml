@@ -146,7 +146,7 @@
 
             <Region HBox.hgrow="ALWAYS"/>  <!-- pushes volume button to the right -->
 
-            <!-- in your footer/right tools HBox -->
+            <!-- zoom in/out -->
             <Button fx:id="btnFontSizeOut" onAction="#onFontSizeOut" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
                 <graphic>
                     <ImageView fitWidth="26" preserveRatio="true" smooth="true">
@@ -168,6 +168,15 @@
                 <tooltip><Tooltip text="Make text Larger"/></tooltip>
             </Button>
 
+            <!-- Contrast controls -->
+            <Button fx:id="btnContrastDown" text="C–" onAction="#onContrastDown"
+                    prefWidth="40" prefHeight="32">
+                <tooltip><Tooltip text="Decrease Contrast"/></tooltip>
+            </Button>
+            <Button fx:id="btnContrastUp" text="C+" onAction="#onContrastUp"
+                    prefWidth="40" prefHeight="32">
+                <tooltip><Tooltip text="Increase Contrast"/></tooltip>
+            </Button>
 
             <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
                     prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">

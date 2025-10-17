@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
@@ -82,7 +83,7 @@ public class BuyNewTicketController {
     private static final double TOURIST_DAY     = 12.00;
     private static final double TOURIST_MONTHLY = 99.00;
     private static final double TOURIST_WEEKEND = 16.00;
-    @FXML private Button btnFontSizeIn, btnFontSizeOut;
+//    @FXML private Button btnFontSizeIn, btnFontSizeOut;
     @FXML private Label brandLink;
     @FXML private Label helpLabel;
     @FXML private Button singleTripLabel;
@@ -90,6 +91,7 @@ public class BuyNewTicketController {
     @FXML private Button dayPassLabel;
     @FXML private Button monthlyPassLabel;
     @FXML private Button weekendPassLabel;
+    @FXML private javafx.scene.Parent root;
     // ===============================================================
 
     public BuyNewTicketController(ApplicationContext appContext, PaymentSession paymentSession) {
@@ -147,7 +149,11 @@ public class BuyNewTicketController {
                           multiTripLabel, dayPassLabel, monthlyPassLabel, weekendPassLabel, riderTypeLabel,
                     tripTypeLabel, multiTripLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn,
                     touristBtn, tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend, qtyField, unitPriceValue, totalValue, makePaymentBtn, backBtn);
-            reflectZoomButtons();
+//            reflectZoomButtons();
+        });
+
+        javafx.application.Platform.runLater(() -> {
+            ContrastManager.getInstance().attach(root.getScene(), root);
         });
     }
 
@@ -314,12 +320,12 @@ public class BuyNewTicketController {
     public void onVolume(ActionEvent actionEvent) {
     }
 
-    @FXML private void onFontSizeIn()  { TextZoomService.get().zoomIn();  reflectZoomButtons(); }
-    @FXML private void onFontSizeOut() { TextZoomService.get().zoomOut(); reflectZoomButtons(); }
-
-    private void reflectZoomButtons() {
-        double s = TextZoomService.get().getScale();
-        btnFontSizeOut.setDisable(s <= 1.00);
-        btnFontSizeIn.setDisable(s >= 1.50);
-    }
+//    @FXML private void onFontSizeIn()  { TextZoomService.get().zoomIn();  reflectZoomButtons(); }
+//    @FXML private void onFontSizeOut() { TextZoomService.get().zoomOut(); reflectZoomButtons(); }
+//
+//    private void reflectZoomButtons() {
+//        double s = TextZoomService.get().getScale();
+//        btnFontSizeOut.setDisable(s <= 1.00);
+//        btnFontSizeIn.setDisable(s >= 1.50);
+//    }
 }

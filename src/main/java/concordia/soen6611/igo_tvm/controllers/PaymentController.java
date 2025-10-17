@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
@@ -36,6 +37,7 @@ public class PaymentController {
     private final PaymentSession paymentSession;
     private Method selected = Method.CARD; // default
     @FXML private Label brandLink,paymentLabel, clockLabel, selectPaymentMethodLabel, payWithCashLabel, payWithCardLabel;
+    @FXML private javafx.scene.Parent root;
 
     public PaymentController(ApplicationContext appContext, PaymentSession paymentSession) {
         this.appContext = appContext;
@@ -55,6 +57,9 @@ public class PaymentController {
             var zoom = TextZoomService.get();
             zoom.register(brandLink,paymentLabel, clockLabel, selectPaymentMethodLabel, payWithCashLabel, payWithCardLabel,
                     totalDueLabel, processingLabel, tapInsertHint, confirmBtn, backBtn);
+        });
+        javafx.application.Platform.runLater(() -> {
+            ContrastManager.getInstance().attach(root.getScene(), root);
         });
     }
 

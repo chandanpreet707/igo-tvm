@@ -218,26 +218,26 @@
             <Region HBox.hgrow="ALWAYS"/>
 
 
-            <Button fx:id="btnFontSizeOut" onAction="#onFontSizeOut" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
-                <graphic>
-                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@../images/magnifer_out.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-                <tooltip><Tooltip text="Make text Smaller"/></tooltip>
-            </Button>
-            <Button fx:id="btnFontSizeIn" onAction="#onFontSizeIn" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
-                <graphic>
-                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@../images/magnifer_in.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-                <tooltip><Tooltip text="Make text Larger"/></tooltip>
-            </Button>
+<!--            <Button fx:id="btnFontSizeOut" onAction="#onFontSizeOut" styleClass="a11y-btn" prefWidth="40" prefHeight="32">-->
+<!--                <graphic>-->
+<!--                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">-->
+<!--                        <image>-->
+<!--                            <Image url="@../images/magnifer_out.png"/>-->
+<!--                        </image>-->
+<!--                    </ImageView>-->
+<!--                </graphic>-->
+<!--                <tooltip><Tooltip text="Make text Smaller"/></tooltip>-->
+<!--            </Button>-->
+<!--            <Button fx:id="btnFontSizeIn" onAction="#onFontSizeIn" styleClass="a11y-btn" prefWidth="40" prefHeight="32">-->
+<!--                <graphic>-->
+<!--                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">-->
+<!--                        <image>-->
+<!--                            <Image url="@../images/magnifer_in.png"/>-->
+<!--                        </image>-->
+<!--                    </ImageView>-->
+<!--                </graphic>-->
+<!--                <tooltip><Tooltip text="Make text Larger"/></tooltip>-->
+<!--            </Button>-->
 
             <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
                     prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">

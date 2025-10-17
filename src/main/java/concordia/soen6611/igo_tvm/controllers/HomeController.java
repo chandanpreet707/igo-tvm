@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import javafx.animation.KeyFrame;
@@ -53,6 +54,7 @@ public class HomeController {
     @FXML private Label brandLink;
     @FXML private Label buyNewTicketLabel;
     @FXML private Label reloadCardLabel;
+    @FXML private Button btnContrastUp, btnContrastDown;
 
     public HomeController(I18nService i18n, ApplicationContext appContext) {
         this.i18n = i18n;
@@ -85,6 +87,12 @@ public class HomeController {
             var zoom = TextZoomService.get();
             zoom.register(brandLink, homeLabel, promptLabel, helpLabel, clockLabel, buyNewTicketLabel, reloadCardLabel, informationButton);
             reflectZoomButtons();
+        });
+
+//
+        javafx.application.Platform.runLater(() -> {
+            ContrastManager.getInstance().attach(root.getScene(), root);
+            reflectContrastButtons();
         });
     }
 
@@ -224,6 +232,22 @@ public class HomeController {
         double s = TextZoomService.get().getScale();
         btnFontSizeOut.setDisable(s <= 1.00);
         btnFontSizeIn.setDisable(s >= 1.50);
+    }
+
+    @FXML private void onContrastUp() {
+        ContrastManager.getInstance().increase();
+        reflectContrastButtons();
+    }
+
+    @FXML private void onContrastDown() {
+        ContrastManager.getInstance().decrease();
+        reflectContrastButtons();
+    }
+
+    private void reflectContrastButtons() {
+        double lvl = ContrastManager.getInstance().getLevel();
+        btnContrastDown.setDisable(lvl <= -0.40);
+        btnContrastUp.setDisable(lvl >=  0.60);
     }
 
 }

@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
@@ -43,6 +44,7 @@ public class CashSubmissionController {
     private double total;       // amount due
     private double inserted;    // simulated inserted cash
     private Timeline ticker;    // counts cash up
+    @FXML private javafx.scene.Parent root;
 
     public CashSubmissionController(ApplicationContext appContext,
                                     PaymentSession paymentSession) {
@@ -74,6 +76,10 @@ public class CashSubmissionController {
         Platform.runLater(() -> {
             // Register text nodes for zooming
             TextZoomService.get().register(brandLink, cashPaymentLabel, clockLabel, totalDueLabel, instructionLabel, insertedValue, remainingValue);
+        });
+
+        javafx.application.Platform.runLater(() -> {
+            ContrastManager.getInstance().attach(root.getScene(), root);
         });
     }
 
