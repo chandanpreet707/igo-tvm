@@ -22,7 +22,7 @@
                 <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
                     <image><Image url="@../images/maple.png"/></image>
                 </ImageView>
-                <Label text="STM" styleClass="brand"/>
+                <Label text="STM" styleClass="brand" fx:id="brandLink"/>
             </HBox>
 
             <Region HBox.hgrow="ALWAYS"/>
@@ -50,13 +50,13 @@
                 </StackPane>
 
                 <!-- headline -->
-                <Label fx:id="successTitle"
+                <Label fx:id="successTitleLabel"
                        text="Transaction Successful! | Transaction Réussie!"
                        styleClass="ps-title" maxWidth="Infinity" />
             </HBox>
 
             <!-- printing line -->
-            <Label fx:id="printingLine"
+            <Label fx:id="printingLineLabel"
                    text="Your ticket is printing. | Votre billet est en cours d'impression."
                    styleClass="ps-subtitle" maxWidth="980" />
 

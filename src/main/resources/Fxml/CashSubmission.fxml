@@ -21,7 +21,7 @@
                 <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
                     <image><Image url="@../images/maple.png"/></image>
                 </ImageView>
-                <Label text="STM" styleClass="brand"/>
+                <Label text="STM" styleClass="brand" fx:id="brandLink"/>
             </HBox>
 
             <Region HBox.hgrow="ALWAYS"/>

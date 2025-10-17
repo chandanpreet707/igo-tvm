@@ -23,7 +23,6 @@
                 <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
                     <image><Image url="@../images/maple.png"/></image>
                 </ImageView>
-<!--                <Label text="STM" styleClass="brand"/>-->
                 <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
             </HBox>
 
@@ -52,7 +51,7 @@
 
                 <!-- Subtitle -->
                 <Label text="Select Payment Method | Choisissez un mode de paiement"
-                       styleClass="pm-subtitle"/>
+                       styleClass="pm-subtitle" fx:id="selectPaymentMethodLabel"/>
 
                 <!-- CASH (selectable) -->
                 <Button fx:id="cashBtn"
@@ -64,7 +63,8 @@
                             <ImageView fitHeight="44" preserveRatio="true" smooth="true">
                                 <image><Image url="@../images/money.png"/></image>
                             </ImageView>
-                            <Label text="Pay With Cash | Payer en Comptant" styleClass="pm-tile-title--cash" style="-fx-font-size: 22px;"/>
+                            <Label text="Pay With Cash | Payer en Comptant" styleClass="pm-tile-title--cash"
+                                   fx:id="payWithCashLabel" style="-fx-font-size: 22px;"/>
                             <Region HBox.hgrow="ALWAYS"/>
                         </HBox>
                     </graphic>
@@ -80,7 +80,8 @@
                             <ImageView fitHeight="44" preserveRatio="true" smooth="true">
                                 <image><Image url="@../images/visa.png"/></image>
                             </ImageView>
-                            <Label text="Credit/Dbit Card | Carte Crédit/Débit" styleClass="pm-tile-title--card" style="-fx-font-size: 22px;"/>
+                            <Label text="Credit/Dbit Card | Carte Crédit/Débit" styleClass="pm-tile-title--card"
+                                   fx:id="payWithCardLabel" style="-fx-font-size: 22px;"/>
                             <Region HBox.hgrow="ALWAYS"/>
                         </HBox>
                     </graphic>

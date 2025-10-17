@@ -1,8 +1,10 @@
 package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,13 +28,14 @@ public class PaymentController {
 
     enum Method { CARD, CASH }
 
-    @FXML private Button cardBtn, cashBtn, confirmBtn;
+    @FXML private Button cardBtn, cashBtn, confirmBtn, backBtn;
     @FXML private ProgressIndicator processingIndicator;
     @FXML private Label processingLabel, totalDueLabel, tapInsertHint;
 
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
     private Method selected = Method.CARD; // default
+    @FXML private Label brandLink,paymentLabel, clockLabel, selectPaymentMethodLabel, payWithCashLabel, payWithCardLabel;
 
     public PaymentController(ApplicationContext appContext, PaymentSession paymentSession) {
         this.appContext = appContext;
@@ -47,7 +50,12 @@ public class PaymentController {
 
         // 2) Default visual state
         applySelectionStyles();
-//        showTapHintIfNeeded();
+
+        Platform.runLater(() -> {
+            var zoom = TextZoomService.get();
+            zoom.register(brandLink,paymentLabel, clockLabel, selectPaymentMethodLabel, payWithCashLabel, payWithCardLabel,
+                    totalDueLabel, processingLabel, tapInsertHint, confirmBtn, backBtn);
+        });
     }
 
     /* ===== Total Due helper ===== */

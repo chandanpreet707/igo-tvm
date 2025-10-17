@@ -1,6 +1,8 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -20,11 +23,22 @@ public class PaymentSuccessController {
 
     @FXML private Button printBtn;
     @FXML private Button doneBtn;
+    @FXML private Label brandLink, confirmationLabel, successTitleLabel,printingLineLabel, receiptInfoLabel, thankYouLabel, helpLabel, volumeLabel, clockLabel;
 
     private final ApplicationContext appContext;
 
     public PaymentSuccessController(ApplicationContext appContext) {
         this.appContext = appContext;
+    }
+
+    @FXML
+    private void initialize() {
+        // Register text nodes for zooming
+        Platform.runLater(() -> {
+            TextZoomService.get().register(brandLink, confirmationLabel, successTitleLabel,
+                    printingLineLabel, receiptInfoLabel, thankYouLabel, helpLabel, volumeLabel, clockLabel,
+                    printBtn, doneBtn);
+        });
     }
 
     /* ===== Actions ===== */

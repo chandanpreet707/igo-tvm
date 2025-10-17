@@ -1,11 +1,13 @@
 package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +28,8 @@ import java.util.Locale;
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
 public class CashSubmissionController {
+
+    @FXML private Label brandLink, cashPaymentLabel, clockLabel;
     @FXML private Label totalDueLabel;
     @FXML private Label instructionLabel;
     @FXML private Label insertedValue;
@@ -66,6 +70,11 @@ public class CashSubmissionController {
         ticker = new Timeline(new KeyFrame(Duration.millis(1000), e -> stepInsert()));
         ticker.setCycleCount(Animation.INDEFINITE);
         ticker.play();
+
+        Platform.runLater(() -> {
+            // Register text nodes for zooming
+            TextZoomService.get().register(brandLink, cashPaymentLabel, clockLabel, totalDueLabel, instructionLabel, insertedValue, remainingValue);
+        });
     }
 
     /** Simulate a cash insert step. */
