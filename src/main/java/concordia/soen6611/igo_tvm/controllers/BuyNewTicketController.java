@@ -1,9 +1,11 @@
 package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +26,6 @@ import java.time.format.DateTimeFormatter;
 public class BuyNewTicketController {
 
     @FXML private Label buyNewTicketLabel;
-    @FXML private Label promptLabel;
     @FXML private Label clockLabel;
     @FXML private Label questionLabel;
 
@@ -37,7 +38,12 @@ public class BuyNewTicketController {
     @FXML private ToggleGroup  tripGroup;      // injected via <fx:define>
 
     // Multiple Trip controls
+    @FXML private Label riderTypeLabel;
+    @FXML private Label tripTypeLabel;
     @FXML private Label multiCountLabel;
+    @FXML private Label priceLabel;
+    @FXML private Label quantityLabel;
+    @FXML private Label totalLabel;
     @FXML private ComboBox<Integer> multiCountCombo;
 
     // Qty & totals
@@ -48,8 +54,6 @@ public class BuyNewTicketController {
 
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
-
-
     private Timeline clock;
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh:mm a");
@@ -78,6 +82,14 @@ public class BuyNewTicketController {
     private static final double TOURIST_DAY     = 12.00;
     private static final double TOURIST_MONTHLY = 99.00;
     private static final double TOURIST_WEEKEND = 16.00;
+    @FXML private Button btnFontSizeIn, btnFontSizeOut;
+    @FXML private Label brandLink;
+    @FXML private Label helpLabel;
+    @FXML private Button singleTripLabel;
+    @FXML private Button multiTripLabel;
+    @FXML private Button dayPassLabel;
+    @FXML private Button monthlyPassLabel;
+    @FXML private Button weekendPassLabel;
     // ===============================================================
 
     public BuyNewTicketController(ApplicationContext appContext, PaymentSession paymentSession) {
@@ -127,8 +139,16 @@ public class BuyNewTicketController {
             }
             recalc();
         });
-
         recalc();
+
+        Platform.runLater(() -> {
+            var zoom = TextZoomService.get();
+            zoom.register(brandLink, buyNewTicketLabel, questionLabel, helpLabel, clockLabel, singleTripLabel,
+                          multiTripLabel, dayPassLabel, monthlyPassLabel, weekendPassLabel, riderTypeLabel,
+                    tripTypeLabel, multiTripLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn,
+                    touristBtn, tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend, qtyField, unitPriceValue, totalValue, makePaymentBtn, backBtn);
+            reflectZoomButtons();
+        });
     }
 
     private void bindMultipleTripVisibility() {
@@ -292,5 +312,14 @@ public class BuyNewTicketController {
     }
 
     public void onVolume(ActionEvent actionEvent) {
+    }
+
+    @FXML private void onFontSizeIn()  { TextZoomService.get().zoomIn();  reflectZoomButtons(); }
+    @FXML private void onFontSizeOut() { TextZoomService.get().zoomOut(); reflectZoomButtons(); }
+
+    private void reflectZoomButtons() {
+        double s = TextZoomService.get().getScale();
+        btnFontSizeOut.setDisable(s <= 1.00);
+        btnFontSizeIn.setDisable(s >= 1.50);
     }
 }

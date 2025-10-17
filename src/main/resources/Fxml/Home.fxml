@@ -121,7 +121,7 @@
                         <Insets bottom="15" right="24"/>
                     </StackPane.margin>
 
-                    <Button onAction="#onInfo" styleClass="round" prefWidth="48" prefHeight="48">
+                    <Button onAction="#onInfo" styleClass="round" prefWidth="48" prefHeight="48" fx:id="informationButton">
                         <graphic>
                             <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
                                     glyphName="INFO_CIRCLE" styleClass="glyph-white" glyphSize="34"/>

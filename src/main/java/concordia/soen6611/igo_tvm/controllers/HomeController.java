@@ -31,6 +31,7 @@ import java.util.Locale;
 @org.springframework.context.annotation.Scope("prototype")
 public class HomeController {
 
+    @FXML private Button informationButton;
     @FXML private BorderPane root;
     @FXML private Label homeLabel;
     @FXML private Label promptLabel;
@@ -82,7 +83,7 @@ public class HomeController {
 
         Platform.runLater(() -> {
             var zoom = TextZoomService.get();
-            zoom.register(brandLink, homeLabel, promptLabel, helpLabel, clockLabel, buyNewTicketLabel, reloadCardLabel);
+            zoom.register(brandLink, homeLabel, promptLabel, helpLabel, clockLabel, buyNewTicketLabel, reloadCardLabel, informationButton);
             reflectZoomButtons();
         });
     }

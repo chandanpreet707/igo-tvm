@@ -7,7 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Polygon?>
 <?import java.lang.*?>
-<BorderPane xmlns="http://javafx.com/javafx"
+
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="concordia.soen6611.igo_tvm.controllers.PaymentController"
             prefHeight="700.0" prefWidth="1200.0" stylesheets="@../styles/Payment.css">
@@ -21,7 +23,7 @@
                 <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
                     <image><Image url="@../images/maple.png"/></image>
                 </ImageView>
-                <Label text="STM" styleClass="brand"/>
+<!--                <Label text="STM" styleClass="brand"/>-->
                 <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
             </HBox>
 
