@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.I18nService;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -18,13 +20,36 @@ import java.io.IOException;
 @org.springframework.context.annotation.Scope("prototype")
 public class PaymentSuccessController {
 
+    private final I18nService i18n;
     @FXML private Button printBtn;
     @FXML private Button doneBtn;
+    @FXML private Label successTitle;
+    @FXML private Label printingLine;
+    @FXML private Label printBtnLabel;
+    @FXML private Label doneBtnLabel;
+    @FXML private Label helpLabel;
+    @FXML private Label confirmationLabel;
+
 
     private final ApplicationContext appContext;
 
-    public PaymentSuccessController(ApplicationContext appContext) {
+    public PaymentSuccessController(ApplicationContext appContext, I18nService i18n) {
         this.appContext = appContext;
+        this.i18n = i18n;
+    }
+
+    @FXML
+    private void initialize() {
+        updateTexts();
+    }
+
+    private void updateTexts() {
+        successTitle.setText(i18n.get("paymentSuccess.success"));
+        printingLine.setText(i18n.get("paymentSuccess.printing"));
+        printBtnLabel.setText(i18n.get("paymentSuccess.printReceipt"));
+        doneBtnLabel.setText(i18n.get("paymentSuccess.done"));
+        helpLabel.setText(i18n.get("help"));
+        confirmationLabel.setText(i18n.get("paymentSuccess.confirmation"));
     }
 
     /* ===== Actions ===== */

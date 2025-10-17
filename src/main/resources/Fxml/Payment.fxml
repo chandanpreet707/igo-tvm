@@ -26,7 +26,7 @@
 
             <Region HBox.hgrow="ALWAYS"/>
 
-            <Label text="Payment | Paiement" styleClass="title" fx:id="paymentLabel"/>
+            <Label styleClass="title" fx:id="paymentLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
 
             <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
@@ -44,11 +44,10 @@
 
                 <!-- Total Due (bilingual) -->
                 <Label fx:id="totalDueLabel"
-                       text="Total Due: $21.00 | Total à Payer: 21,00 $"
                        styleClass="pm-total-due"/>
 
                 <!-- Subtitle -->
-                <Label text="Select Payment Method | Choisissez un mode de paiement"
+                <Label fx:id="selectMethodLabel"
                        styleClass="pm-subtitle"/>
 
                 <!-- CASH (selectable) -->
@@ -61,7 +60,7 @@
                             <ImageView fitHeight="44" preserveRatio="true" smooth="true">
                                 <image><Image url="@../images/money.png"/></image>
                             </ImageView>
-                            <Label text="Pay With Cash | Payer en Comptant" styleClass="pm-tile-title--cash" style="-fx-font-size: 22px;"/>
+                            <Label fx:id="cashBtnLabel" styleClass="pm-tile-title--cash" style="-fx-font-size: 22px;"/>
                             <Region HBox.hgrow="ALWAYS"/>
                         </HBox>
                     </graphic>
@@ -77,7 +76,7 @@
                             <ImageView fitHeight="44" preserveRatio="true" smooth="true">
                                 <image><Image url="@../images/visa.png"/></image>
                             </ImageView>
-                            <Label text="Credit/Dbit Card | Carte Crédit/Débit" styleClass="pm-tile-title--card" style="-fx-font-size: 22px;"/>
+                            <Label fx:id="cardBtnLabel" styleClass="pm-tile-title--card" style="-fx-font-size: 22px;"/>
                             <Region HBox.hgrow="ALWAYS"/>
                         </HBox>
                     </graphic>
@@ -134,13 +133,14 @@
             <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
 
             <Button fx:id="backBtn" onAction="#onCancelPayment" styleClass="cancel-payment-btn"
-                    prefHeight="34" minHeight="34" text="Cancel Payment">
+                    prefHeight="34" minHeight="34">
                 <graphic>
                     <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
                         <image><Image url="@../images/cancel.png"/></image>
                     </ImageView>
+                    <Label fx:id="backBtnLabel"/>
                 </graphic>
-                <tooltip><Tooltip text="Cancel Payment"/></tooltip>
+
             </Button>
 
             <Region HBox.hgrow="ALWAYS"/>

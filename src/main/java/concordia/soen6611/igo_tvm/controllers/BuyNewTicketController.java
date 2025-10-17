@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
 import javafx.animation.KeyFrame;
@@ -23,9 +24,20 @@ import java.time.format.DateTimeFormatter;
 public class BuyNewTicketController {
 
     @FXML private Label buyNewTicketLabel;
+    @FXML private Label buyNewTicketTotalLabel;
+    @FXML private Label buyNewTicketriderTypeLabel;
+    @FXML private Label buyNewTickettripTypeLabel;
+    @FXML private Label buyNewTicketpriceEachLabel;
+    @FXML private Label buyNewTicketQuantityLabel;
+    @FXML private Button menuSingleBtn;
+    @FXML private Button menuMultiBtn;
+    @FXML private Button menuDayBtn;
+    @FXML private Button menuMonthlyBtn;
+    @FXML private Button menuWeekendBtn;
     @FXML private Label promptLabel;
     @FXML private Label clockLabel;
     @FXML private Label questionLabel;
+    @FXML private Label helpLabel;
 
     // Rider segmented buttons (4 options)
     @FXML private ToggleButton adultBtn, studentBtn, seniorBtn, touristBtn;
@@ -47,6 +59,8 @@ public class BuyNewTicketController {
 
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
+    private final I18nService i18n;
+
 
 
     private Timeline clock;
@@ -79,7 +93,8 @@ public class BuyNewTicketController {
     private static final double TOURIST_WEEKEND = 16.00;
     // ===============================================================
 
-    public BuyNewTicketController(ApplicationContext appContext, PaymentSession paymentSession) {
+    public BuyNewTicketController(I18nService i18n, ApplicationContext appContext, PaymentSession paymentSession) {
+        this.i18n = i18n;
         this.appContext = appContext;
         this.paymentSession = paymentSession;
     }
@@ -128,7 +143,37 @@ public class BuyNewTicketController {
         });
 
         recalc();
+        updateTexts();
     }
+
+    private void updateTexts() {
+        buyNewTicketLabel.setText(i18n.get("buyNewTicket.title"));
+        questionLabel.setText(i18n.get("buyNewTicket.question"));
+        adultBtn.setText(i18n.get("buyNewTicket.adult"));
+        studentBtn.setText(i18n.get("buyNewTicket.student"));
+        seniorBtn.setText(i18n.get("buyNewTicket.senior"));
+        touristBtn.setText(i18n.get("buyNewTicket.tourist"));
+        tripSingle.setText(i18n.get("buyNewTicket.single"));
+        tripMulti.setText(i18n.get("buyNewTicket.multi"));
+        tripDay.setText(i18n.get("buyNewTicket.day"));
+        tripMonthly.setText(i18n.get("buyNewTicket.monthly"));
+        tripWeekend.setText(i18n.get("buyNewTicket.weekend"));
+        multiCountLabel.setText(i18n.get("buyNewTicket.quantity"));
+        makePaymentBtn.setText(i18n.get("buyNewTicket.makePayment"));
+        buyNewTicketTotalLabel.setText(i18n.get("buyNewTicket.total"));
+        buyNewTicketriderTypeLabel.setText(i18n.get("buyNewTicket.riderType"));
+        buyNewTickettripTypeLabel.setText(i18n.get("buyNewTicket.tripType"));
+        buyNewTicketpriceEachLabel.setText(i18n.get("buyNewTicket.priceEach"));
+        buyNewTicketQuantityLabel.setText(i18n.get("buyNewTicket.quantity"));
+        menuSingleBtn.setText(i18n.get("buyNewTicket.menuSingle"));
+        menuMultiBtn.setText(i18n.get("buyNewTicket.menuMulti"));
+        menuDayBtn.setText(i18n.get("buyNewTicket.menuDay"));
+        menuMonthlyBtn.setText(i18n.get("buyNewTicket.menuMonthly"));
+        menuWeekendBtn.setText(i18n.get("buyNewTicket.menuWeekend"));
+        buyNewTicketQuantityLabel.setText(i18n.get("buyNewTicket.quantity"));
+        helpLabel.setText(i18n.get("help"));
+    }
+
 
     private void bindMultipleTripVisibility() {
         boolean show = tripMulti != null && tripMulti.isSelected();
