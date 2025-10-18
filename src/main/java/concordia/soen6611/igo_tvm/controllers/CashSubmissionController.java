@@ -84,7 +84,8 @@ public class CashSubmissionController {
 
         Platform.runLater(() -> {
             // Register text nodes for zooming
-            TextZoomService.get().register(brandLink, cashPaymentLabel, clockLabel, totalDueLabel, instructionLabel, insertedValue, remainingValue);
+            TextZoomService.get().register(brandLink, cashPaymentLabel, clockLabel, totalDueLabel, instructionLabel, insertedValue, remainingValue,
+                    amountInsertedLabel, remainingLabel, backBtn);
         });
 
         javafx.application.Platform.runLater(() -> {

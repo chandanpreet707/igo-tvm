@@ -49,8 +49,7 @@
                        styleClass="pm-total-due"/>
 
                 <!-- Subtitle -->
-                <Label fx:id="selectMethodLabel"
-                       styleClass="pm-subtitle"/>
+                <Label fx:id="selectMethodLabel" styleClass="pm-subtitle"/>
 
                 <!-- CASH (selectable) -->
                 <Button fx:id="cashBtn"
@@ -141,7 +140,7 @@
                         <image><Image url="@../images/cancel.png"/></image>
                     </ImageView>
                 </graphic>
-                <tooltip><Tooltip text="Cancel Payment" fx:id="backBtnLabel"/></tooltip>
+<!--                <tooltip><Tooltip text="Cancel Payment" fx:id="backBtnTooltip"/></tooltip>-->
             </Button>
 
             <Region HBox.hgrow="ALWAYS"/>

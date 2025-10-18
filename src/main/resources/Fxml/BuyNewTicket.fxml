@@ -71,7 +71,7 @@
                     </columnConstraints>
 
                     <!-- Rider segmented (icons + labels) -->
-                    <Label fx:id="buyNewTicketriderTypeLabel" styleClass="label"
+                    <Label fx:id="riderTypeLabel" styleClass="label"
                            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                     <FlowPane hgap="8" vgap="8" prefWrapLength="420"
                               GridPane.rowIndex="0" GridPane.columnIndex="1">
@@ -130,7 +130,7 @@
                     </FlowPane>
 
                     <!-- Trip type segmented -->
-                    <Label fx:id="buyNewTickettripTypeLabel" styleClass="label"
+                    <Label fx:id="tripTypeLabel" styleClass="label"
                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                     <FlowPane hgap="8" vgap="8" prefWrapLength="420"
                               GridPane.rowIndex="1" GridPane.columnIndex="1">
@@ -158,13 +158,13 @@
                               GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
                     <!-- Unit price -->
-                    <Label fx:id="buyNewTicketpriceEachLabel" styleClass="label"
+                    <Label fx:id="priceLabel" styleClass="label"
                            GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <Label fx:id="unitPriceValue" text="3.75" styleClass="value"
+                    <Label fx:id="unitValueLabel" text="3.75" styleClass="value"
                            GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
                     <!-- Quantity -->
-                    <Label fx:id="buyNewTicketQuantityLabel" styleClass="label"
+                    <Label fx:id="quantityLabel" styleClass="label"
                            GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                     <HBox spacing="6" alignment="CENTER_LEFT"
                           GridPane.rowIndex="3" GridPane.columnIndex="1">
@@ -187,7 +187,7 @@
                     </HBox>
 
                     <!-- Total -->
-                    <Label fx:id="buyNewTicketTotalLabel" styleClass="total-label"
+                    <Label fx:id="totalLabel" styleClass="total-label"
                            GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                     <Label fx:id="totalValue" text="3.75" styleClass="total-value"
                            GridPane.rowIndex="4" GridPane.columnIndex="1"/>

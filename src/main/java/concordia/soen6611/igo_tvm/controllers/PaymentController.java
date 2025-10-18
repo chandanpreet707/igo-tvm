@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
@@ -38,12 +37,12 @@ public class PaymentController {
     @FXML private Label selectMethodLabel;
     @FXML private Label cashBtnLabel;
     @FXML private Label cardBtnLabel;
-    @FXML private Tooltip backBtnLabel;
+//    @FXML private Tooltip backBtnTooltip;
 
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
     private Method selected = Method.CARD; // default
-    @FXML private Label brandLink, clockLabel, selectPaymentMethodLabel, payWithCashLabel, payWithCardLabel;
+    @FXML private Label brandLink, clockLabel, payWithCashLabel, payWithCardLabel;
     @FXML private javafx.scene.Parent root;
     private final I18nService i18n;
 
@@ -64,7 +63,7 @@ public class PaymentController {
 
         Platform.runLater(() -> {
             var zoom = TextZoomService.get();
-            zoom.register(brandLink,paymentLabel, clockLabel, selectPaymentMethodLabel, payWithCashLabel, payWithCardLabel,
+            zoom.register(brandLink,paymentLabel, clockLabel, selectMethodLabel, cashBtnLabel, cardBtnLabel,
                     totalDueLabel, processingLabel, tapInsertHint, confirmBtn, backBtn);
         });
         javafx.application.Platform.runLater(() -> {
@@ -81,7 +80,7 @@ public class PaymentController {
         cardBtnLabel.setText(i18n.get("payment.creditDebit"));
         tapInsertHint.setText(i18n.get("payment.tapInsert"));
         processingLabel.setText(i18n.get("payment.processing"));
-        backBtnLabel.setText(i18n.get("payment.cancel"));
+        backBtn.setText(i18n.get("payment.cancel"));
         confirmBtn.setText(i18n.get("payment.confirm"));
     }
 

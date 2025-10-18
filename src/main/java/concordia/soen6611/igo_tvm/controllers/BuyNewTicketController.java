@@ -28,11 +28,11 @@ import java.time.format.DateTimeFormatter;
 public class BuyNewTicketController {
 
     @FXML private Label buyNewTicketLabel;
-    @FXML private Label buyNewTicketTotalLabel;
-    @FXML private Label buyNewTicketriderTypeLabel;
-    @FXML private Label buyNewTickettripTypeLabel;
-    @FXML private Label buyNewTicketpriceEachLabel;
-    @FXML private Label buyNewTicketQuantityLabel;
+    @FXML private Label totalLabel;
+    @FXML private Label riderTypeLabel;
+    @FXML private Label tripTypeLabel;
+    @FXML private Label priceLabel;
+    @FXML private Label quantityLabel;
     @FXML private Button menuSingleBtn;
     @FXML private Button menuMultiBtn;
     @FXML private Button menuDayBtn;
@@ -57,7 +57,7 @@ public class BuyNewTicketController {
 
     // Qty & totals
     @FXML private TextField qtyField;
-    @FXML private Label unitPriceValue, totalValue;
+    @FXML private Label unitValueLabel, totalValue;
     @FXML private Button makePaymentBtn;
     @FXML private Button backBtn;
 
@@ -97,11 +97,6 @@ public class BuyNewTicketController {
     private static final double TOURIST_WEEKEND = 16.00;
 //    @FXML private Button btnFontSizeIn, btnFontSizeOut;
     @FXML private Label brandLink;
-    @FXML private Button singleTripLabel;
-    @FXML private Button multiTripLabel;
-    @FXML private Button dayPassLabel;
-    @FXML private Button monthlyPassLabel;
-    @FXML private Button weekendPassLabel;
     @FXML private javafx.scene.Parent root;
     // ===============================================================
 
@@ -157,10 +152,10 @@ public class BuyNewTicketController {
 
         Platform.runLater(() -> {
             var zoom = TextZoomService.get();
-            zoom.register(brandLink, buyNewTicketLabel, questionLabel, helpLabel, clockLabel, singleTripLabel,
-                          multiTripLabel, dayPassLabel, monthlyPassLabel, weekendPassLabel, riderTypeLabel,
-                    tripTypeLabel, multiTripLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn,
-                    touristBtn, tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend, qtyField, unitPriceValue, totalValue, makePaymentBtn, backBtn);
+            zoom.register(brandLink, buyNewTicketLabel, questionLabel, helpLabel, clockLabel, menuSingleBtn,
+                    menuMultiBtn, menuDayBtn, menuMonthlyBtn, menuWeekendBtn, riderTypeLabel,
+                    tripTypeLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn,
+                    touristBtn, tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
 //            reflectZoomButtons();
         });
 
@@ -184,17 +179,16 @@ public class BuyNewTicketController {
         tripWeekend.setText(i18n.get("buyNewTicket.weekend"));
         multiCountLabel.setText(i18n.get("buyNewTicket.quantity"));
         makePaymentBtn.setText(i18n.get("buyNewTicket.makePayment"));
-        buyNewTicketTotalLabel.setText(i18n.get("buyNewTicket.total"));
-        buyNewTicketriderTypeLabel.setText(i18n.get("buyNewTicket.riderType"));
-        buyNewTickettripTypeLabel.setText(i18n.get("buyNewTicket.tripType"));
-        buyNewTicketpriceEachLabel.setText(i18n.get("buyNewTicket.priceEach"));
-        buyNewTicketQuantityLabel.setText(i18n.get("buyNewTicket.quantity"));
+        totalLabel.setText(i18n.get("buyNewTicket.total"));
+        riderTypeLabel.setText(i18n.get("buyNewTicket.riderType"));
+        tripTypeLabel.setText(i18n.get("buyNewTicket.tripType"));
+        priceLabel.setText(i18n.get("buyNewTicket.priceEach"));
+        quantityLabel.setText(i18n.get("buyNewTicket.quantity"));
         menuSingleBtn.setText(i18n.get("buyNewTicket.menuSingle"));
         menuMultiBtn.setText(i18n.get("buyNewTicket.menuMulti"));
         menuDayBtn.setText(i18n.get("buyNewTicket.menuDay"));
         menuMonthlyBtn.setText(i18n.get("buyNewTicket.menuMonthly"));
         menuWeekendBtn.setText(i18n.get("buyNewTicket.menuWeekend"));
-        buyNewTicketQuantityLabel.setText(i18n.get("buyNewTicket.quantity"));
         helpLabel.setText(i18n.get("help"));
     }
 
@@ -235,7 +229,7 @@ public class BuyNewTicketController {
     private void recalc() {
         double unit = currentUnitPrice();
         int q = qty();
-        unitPriceValue.setText(String.format("$%.2f", unit));
+        unitValueLabel.setText(String.format("$%.2f", unit));
         totalValue.setText(String.format("$%.2f", unit * q));
         // Selected visuals via CSS (.seg-btn:selected)
     }
@@ -292,7 +286,7 @@ public class BuyNewTicketController {
 //                selectedTripName(),
 //                tripMulti.isSelected() ? (" (" + multiTrips() + " trips)") : "",
 //                qty(),
-//                unitPriceValue.getText(),
+//                unitValueLabel.getText(),
 //                totalValue.getText());
 
         String rider = selectedRiderName();
