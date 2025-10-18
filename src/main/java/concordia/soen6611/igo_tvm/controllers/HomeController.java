@@ -8,8 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
@@ -24,19 +23,26 @@ import java.util.Locale;
 @org.springframework.context.annotation.Scope("prototype")
 public class HomeController {
 
+    @FXML private Label brandLabel;
     @FXML private Label homeLabel;
     @FXML private Label promptLabel;
     @FXML private Label helpLabel;
     @FXML private Label clockLabel;
     @FXML private Button buyBtn;
     @FXML private Button reloadBtn;
-
     @FXML private Button btnEN;
     @FXML private Button btnFR;
+    @FXML private Button infoBtn;
+    @FXML private Button volumeBtn;
+    @FXML private Label buyBtnTitle;
+    @FXML private Label buyBtnSub;
+    @FXML private Label reloadBtnTitle;
+    @FXML private Label reloadBtnSub;
+    @FXML private Label informationLabel;
+
     private Timeline clock;
     private final I18nService i18n;
     private final ApplicationContext appContext;
-    @FXML private VBox infoOverlay; // add fx:id to FXML first
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
@@ -47,7 +53,6 @@ public class HomeController {
 
     @FXML
     private void initialize() {
-
         // Live clock
         clock = new Timeline(
                 new KeyFrame(Duration.ZERO, e ->
@@ -58,36 +63,32 @@ public class HomeController {
         clock.play();
 
         // Accessibility
-        buyBtn.setAccessibleText("Buy new ticket / Acheter un nouveau titre");
-        reloadBtn.setAccessibleText("Reload card / Recharger une carte");
+        buyBtn.setAccessibleText(i18n.get("home.buyBtn.accessible"));
+        reloadBtn.setAccessibleText(i18n.get("home.reloadBtn.accessible"));
 
         updateTexts();
-        i18n.localeProperty().addListener((obs, oldL, newL) -> {
-            System.out.println("Locale changed from " + oldL + " to " + newL);
-            updateTexts();
-        });
-
+        i18n.localeProperty().addListener((obs, oldL, newL) -> updateTexts());
     }
 
-    @FXML private void onBuyTicket(ActionEvent event) {
-        System.out.println("Buy New Ticket clicked; controller: " + System.identityHashCode(this));
+    @FXML
+    private void onBuyTicket(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/BuyNewTicket.fxml"));
-            loader.setControllerFactory(appContext::getBean);  // CRITICAL
+            loader.setControllerFactory(appContext::getBean);
             Parent view = loader.load();
             ((Node) event.getSource()).getScene().setRoot(view);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-    @FXML
-    private void onReload() { System.out.println("Reload Card clicked"); }
-    @FXML
-    private void onInfo()   { System.out.println("Info clicked"); }
-    @FXML
-    private void onVolume() { System.out.println("Volume clicked"); }
 
-    // Call if you navigate away from this view
+    @FXML
+    private void onReload() { /* handle reload */ }
+    @FXML
+    private void onInfo()   { /* handle info */ }
+    @FXML
+    private void onVolume() { /* handle volume */ }
+
     public void shutdown() {
         if (clock != null) clock.stop();
     }
@@ -96,20 +97,28 @@ public class HomeController {
     public void onLanguageChange(ActionEvent event) {
         Object src = event.getSource();
         if (src == btnEN) {
-            System.out.println("English button clicked");
             i18n.setLocale(Locale.ENGLISH);
         } else if (src == btnFR) {
-            System.out.println("French button clicked");
             i18n.setLocale(Locale.FRENCH);
         }
-        // Not strictly needed if you listen above, but harmless:
         updateTexts();
     }
 
     private void updateTexts() {
-        System.out.println("=== updateTexts called ===");
-        homeLabel.setText(i18n.get("home"));
-        promptLabel.setText(i18n.get("prompt"));
-        helpLabel.setText(i18n.get("help"));
+        brandLabel.setText(i18n.get("home.brand"));
+        homeLabel.setText(i18n.get("home.title"));
+        promptLabel.setText(i18n.get("home.prompt"));
+        helpLabel.setText(i18n.get("home.help"));
+        buyBtnTitle.setText(i18n.get("home.buyBtn.title"));
+        buyBtnSub.setText(i18n.get("home.buyBtn.sub"));
+        reloadBtnTitle.setText(i18n.get("home.reloadBtn.title"));
+        reloadBtnSub.setText(i18n.get("home.reloadBtn.sub"));
+        informationLabel.setText(i18n.get("home.information"));
+
+        // Tooltips
+        btnEN.setTooltip(new Tooltip(i18n.get("home.lang.en")));
+        btnFR.setTooltip(new Tooltip(i18n.get("home.lang.fr")));
+        infoBtn.setTooltip(new Tooltip(i18n.get("home.info.tooltip")));
+        volumeBtn.setTooltip(new Tooltip(i18n.get("home.volume.tooltip")));
     }
 }
