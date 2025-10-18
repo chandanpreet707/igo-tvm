@@ -4,6 +4,7 @@ import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.PaymentService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
 import concordia.soen6611.igo_tvm.models.Payment;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -33,11 +34,14 @@ public class PaymentController {
 
     private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 
-    enum Method { CARD, CASH }
+    enum Method {CARD, CASH}
 
-    @FXML private Button cardBtn, cashBtn, confirmBtn;
-    @FXML private ProgressIndicator processingIndicator;
-    @FXML private Label processingLabel, totalDueLabel, tapInsertHint, clockLabel;
+    @FXML
+    private Button cardBtn, cashBtn, confirmBtn;
+    @FXML
+    private ProgressIndicator processingIndicator;
+    @FXML
+    private Label processingLabel, totalDueLabel, tapInsertHint, clockLabel;
 
     private Timeline clock;
     private static final DateTimeFormatter CLOCK_FMT =
@@ -80,10 +84,6 @@ public class PaymentController {
     /* ===== Total Due Helper ===== */
     private void setTotalDueFromSession() {
         OrderSummary o = paymentSession != null ? paymentSession.getCurrentOrder() : null;
-        double total = (o != null) ? o.getTotal() : 0.0;
-        logger.debug("Total due from session: {}", total);
-        String en = NumberFormat.getCurrencyInstance(Locale.CANADA).format(total);
-        String fr = NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH).format(total);
         OrderSummary order = paymentSession != null ? paymentSession.getCurrentOrder() : null;
         double total = (order != null) ? order.getTotal() : 0.0;
 
@@ -160,47 +160,46 @@ public class PaymentController {
         if (selected == Method.CARD) {
             logger.info("Processing card payment...");
 
-        if (selected == Method.CARD) {
-            processingIndicator.setVisible(true);
-            processingIndicator.setManaged(true);
-            processingLabel.setVisible(true);
-            processingLabel.setManaged(true);
-            confirmBtn.setDisable(true);
-            cardBtn.setDisable(true);
-            cashBtn.setDisable(true);
+            if (selected == Method.CARD) {
+                processingIndicator.setVisible(true);
+                processingIndicator.setManaged(true);
+                processingLabel.setVisible(true);
+                processingLabel.setManaged(true);
+                confirmBtn.setDisable(true);
+                cardBtn.setDisable(true);
+                cashBtn.setDisable(true);
 
-            // Simulate processing delay (5.5 seconds)
-            PauseTransition pause = new PauseTransition(Duration.seconds(5.5));
-            pause.setOnFinished(e -> {
+                // Simulate processing delay (5.5 seconds)
+                PauseTransition pause = new PauseTransition(Duration.seconds(5.5));
+                pause.setOnFinished(e -> {
+                    paymentService.processPayment();
+                    Payment result = paymentService.getCurrentPayment();
+                    logger.info("Card payment status: {}", result.getStatus());
+                    if ("Completed".equals(result.getStatus())) {
+                        processingLabel.setText("Payment successful! | Paiement réussi!");
+                    } else {
+                        processingLabel.setText("Payment failed! | Paiement échoué!");
+                    }
+                    goTo("/Fxml/PaymentSuccess.fxml", event);
+                });
+                pause.setOnFinished(e -> goTo("/Fxml/PaymentSuccess.fxml", event));
+                pause.play();
+
+            } else {
+                logger.info("Processing cash payment...");
                 paymentService.processPayment();
-                Payment result = paymentService.getCurrentPayment();
-                logger.info("Card payment status: {}", result.getStatus());
-                if ("Completed".equals(result.getStatus())) {
-                    processingLabel.setText("Payment successful! | Paiement réussi!");
-                } else {
-                    processingLabel.setText("Payment failed! | Paiement échoué!");
-                }
-                goTo("/Fxml/PaymentSuccess.fxml", event);
-            });
-            pause.setOnFinished(e -> goTo("/Fxml/PaymentSuccess.fxml", event));
-            pause.play();
-
-        } else {
-            logger.info("Processing cash payment...");
-            paymentService.processPayment();
-            // Go directly to cash submission flow
-            goTo("/Fxml/CashSubmission.fxml", event);
+                // Go directly to cash submission flow
+                goTo("/Fxml/CashSubmission.fxml", event);
+            }
         }
     }
-
-    /* ===== Footer Buttons ===== */
-    public void onCancelPayment(ActionEvent event) {
+    public void onCancelPayment(ActionEvent event){
         logger.info("Cancel payment pressed.");
         paymentService.cancelPayment();
         goTo("/Fxml/BuyNewTicket.fxml", event);
     }
 
-    public void onVolume(ActionEvent actionEvent) {
+    public void onVolume(ActionEvent event){
         logger.info("Volume button pressed.");
         // hook your volume control here
         // Hook volume control logic here (optional)
