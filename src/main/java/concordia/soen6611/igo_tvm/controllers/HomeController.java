@@ -108,7 +108,17 @@ public class HomeController {
         }
     }
     @FXML
-    private void onReload() { System.out.println("Reload Card clicked"); }
+    private void onReload(ActionEvent event) {
+        System.out.println("Reload Card clicked");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/CardReload.fxml"));
+            loader.setControllerFactory(appContext::getBean);  // CRITICAL
+            Parent view = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(view);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     @FXML
     private void onVolume() { System.out.println("Volume clicked"); }
 

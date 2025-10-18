@@ -281,22 +281,15 @@ public class BuyNewTicketController {
 
     @FXML
     private void onMakePayment(ActionEvent event) {
-//        System.out.printf("Added: %s - %s%s x%d @ %s (total %s)%n",
-//                selectedRiderName(),
-//                selectedTripName(),
-//                tripMulti.isSelected() ? (" (" + multiTrips() + " trips)") : "",
-//                qty(),
-//                unitValueLabel.getText(),
-//                totalValue.getText());
-
         String rider = selectedRiderName();
         String trip  = selectedTripName();
         int trips = tripMulti.isSelected() ? multiTrips() : 1;
         int quantity = qty();
         double unit = currentUnitPrice(); // already scaled for multiple trips
+
+
         // Save current order in the session
         paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, quantity, unit));
-
         // Navigate to the Payment page
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Payment.fxml"));

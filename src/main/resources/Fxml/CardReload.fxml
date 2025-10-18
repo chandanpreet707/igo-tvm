@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="concordia.soen6611.igo_tvm.controllers.CardReloadController"
+            prefHeight="700.0" prefWidth="1200.0"
+            stylesheets="@../styles/CardReload.css"
+            styleClass="">
+
+    <!-- ===== HEADER ===== -->
+    <top>
+        <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
+            <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="6">
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                    <image><Image url="@../images/maple.png"/></image>
+                </ImageView>
+                <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="Reload Card" styleClass="title" fx:id="reloadCardLabel"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
+                   text="Nov 27, 2024&#10;10:31 AM"/>
+        </HBox>
+    </top>
+
+
+    <center>
+        <StackPane>
+
+            <!-- your existing center content -->
+            <VBox spacing="22" alignment="TOP_CENTER">
+                <padding><Insets top="28" right="26" bottom="26" left="26"/></padding>
+
+                <Label text="Please tap your card / Veuillez passer votre carte"
+                       styleClass="cr-instruction"/>
+
+                <StackPane styleClass="cr-panel" maxWidth="980">
+                    <padding><Insets top="22" right="22" bottom="22" left="22"/></padding>
+
+                    <HBox spacing="22" alignment="CENTER_LEFT">
+
+                        <!-- Left: blue tap tile -->
+                        <StackPane styleClass="cr-tap-tile" prefWidth="520" prefHeight="360">
+                            <ImageView fitHeight="210" preserveRatio="true" smooth="true">
+                                <image><Image url="@../images/tap-to-pay.png"/></image>
+                            </ImageView>
+                        </StackPane>
+
+                        <!-- Right: progress + text -->
+                        <VBox spacing="18" alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <ProgressIndicator fx:id="readProgress"
+                                               progress="-1.0"
+                                               prefWidth="140" prefHeight="140"
+                                               styleClass="cr-ring" visible="false" managed="false"/>
+                            <Label fx:id="readStatus"
+                                   text="Ready to read / Prêt à lire"
+                                   styleClass="cr-status"/>
+                        </VBox>
+
+                    </HBox>
+                </StackPane>
+            </VBox>
+
+            <!-- Floating Start Reading button (bottom-right) -->
+            <Button fx:id="startReadBtn" onAction="#onStartReading"
+                    styleClass="cr-fab" prefWidth="42" prefHeight="42"
+                    StackPane.alignment="BOTTOM_RIGHT">
+                <graphic>
+                    <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
+                            glyphName="PLAY_CIRCLE" glyphSize="18" styleClass="cr-fab-icon"/>
+                </graphic>
+                <tooltip><Tooltip text="Start reading"/></tooltip>
+                <StackPane.margin>
+                    <Insets bottom="22" right="26"/>
+                </StackPane.margin>
+            </Button>
+
+        </StackPane>
+    </center>
+
+    <!-- ===== FOOTER ===== -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
+            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+
+            <Button fx:id="backBtn" onAction="#onBack" styleClass="back-btn"
+                    prefHeight="34" minHeight="34">
+                <graphic>
+                    <FontAwesomeIconView glyphName="ARROW_LEFT" glyphSize="18" styleClass="glyph-white-sm"/>
+                </graphic>
+                <tooltip><Tooltip text="Back to Home"/></tooltip>
+            </Button>
+
+            <Label fx:id="helpLabel" styleClass="help"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
+                    prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
+                <graphic>
+                    <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
+                </graphic>
+                <tooltip><Tooltip text="Volume"/></tooltip>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>
