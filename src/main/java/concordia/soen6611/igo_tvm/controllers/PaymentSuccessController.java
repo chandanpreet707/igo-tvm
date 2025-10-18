@@ -2,6 +2,7 @@ package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
+import concordia.soen6611.igo_tvm.Services.I18nService;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -22,18 +23,30 @@ import java.io.IOException;
 @org.springframework.context.annotation.Scope("prototype")
 public class PaymentSuccessController {
 
+    private final I18nService i18n;
     @FXML private Button printBtn;
     @FXML private Button doneBtn;
-    @FXML private Label brandLink, confirmationLabel, successTitleLabel,printingLineLabel, receiptInfoLabel, thankYouLabel, helpLabel, volumeLabel, clockLabel;
+    @FXML private Label successTitle;
+    @FXML private Label printingLine;
+    @FXML private Label printBtnLabel;
+    @FXML private Label doneBtnLabel;
+    @FXML private Label helpLabel;
+    @FXML private Label confirmationLabel;
+
+
+    @FXML private Label brandLink, successTitleLabel,printingLineLabel, receiptInfoLabel, thankYouLabel, volumeLabel, clockLabel;
     @FXML private javafx.scene.Parent root;
     private final ApplicationContext appContext;
 
-    public PaymentSuccessController(ApplicationContext appContext) {
+    public PaymentSuccessController(ApplicationContext appContext, I18nService i18n) {
         this.appContext = appContext;
+        this.i18n = i18n;
     }
 
     @FXML
     private void initialize() {
+        updateTexts();
+
         // Register text nodes for zooming
         Platform.runLater(() -> {
             TextZoomService.get().register(brandLink, confirmationLabel, successTitleLabel,
@@ -43,6 +56,15 @@ public class PaymentSuccessController {
         javafx.application.Platform.runLater(() -> {
             ContrastManager.getInstance().attach(root.getScene(), root);
         });
+    }
+
+    private void updateTexts() {
+        successTitle.setText(i18n.get("paymentSuccess.success"));
+        printingLine.setText(i18n.get("paymentSuccess.printing"));
+        printBtnLabel.setText(i18n.get("paymentSuccess.printReceipt"));
+        doneBtnLabel.setText(i18n.get("paymentSuccess.done"));
+        helpLabel.setText(i18n.get("help"));
+        confirmationLabel.setText(i18n.get("paymentSuccess.confirmation"));
     }
 
     /* ===== Actions ===== */

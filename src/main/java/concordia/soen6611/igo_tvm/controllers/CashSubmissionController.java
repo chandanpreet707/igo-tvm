@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
@@ -29,8 +31,9 @@ import java.util.Locale;
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
 public class CashSubmissionController {
+    private final I18nService i18n;
 
-    @FXML private Label brandLink, cashPaymentLabel, clockLabel;
+    @FXML private Label brandLink, clockLabel;
     @FXML private Label totalDueLabel;
     @FXML private Label instructionLabel;
     @FXML private Label insertedValue;
@@ -40,6 +43,11 @@ public class CashSubmissionController {
     @FXML private ImageView cashIllustration;
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
+    @FXML private Label cashPaymentLabel;
+    @FXML private Label amountInsertedLabel;
+    @FXML private Label remainingLabel;
+    @FXML private Button backBtn;
+
 
     private double total;       // amount due
     private double inserted;    // simulated inserted cash
@@ -47,9 +55,10 @@ public class CashSubmissionController {
     @FXML private javafx.scene.Parent root;
 
     public CashSubmissionController(ApplicationContext appContext,
-                                    PaymentSession paymentSession) {
+                                    PaymentSession paymentSession, I18nService i18n) {
         this.appContext = appContext;
         this.paymentSession = paymentSession;
+        this.i18n = i18n;
     }
 
     @FXML
@@ -81,7 +90,24 @@ public class CashSubmissionController {
         javafx.application.Platform.runLater(() -> {
             ContrastManager.getInstance().attach(root.getScene(), root);
         });
+
+        updateTexts();
     }
+
+    private void updateTexts() {
+        cashPaymentLabel.setText(i18n.get("cashPayment.title"));
+        java.util.Locale locale = i18n.getLocale();
+        java.text.NumberFormat fmt = locale.getLanguage().equals("fr") ?
+                java.text.NumberFormat.getCurrencyInstance(java.util.Locale.CANADA_FRENCH) :
+                java.text.NumberFormat.getCurrencyInstance(java.util.Locale.CANADA);
+        String totalText = i18n.get("cashPayment.totalDue", fmt.format(total));
+        totalDueLabel.setText(totalText);
+        instructionLabel.setText(i18n.get("cashPayment.instruction"));
+        amountInsertedLabel.setText(i18n.get("cashPayment.amountInserted"));
+        remainingLabel.setText(i18n.get("cashPayment.remaining"));
+        backBtn.setText(i18n.get("cashPayment.cancel"));
+    }
+
 
     /** Simulate a cash insert step. */
     private void stepInsert() {

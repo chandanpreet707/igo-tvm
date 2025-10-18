@@ -1,6 +1,7 @@
 package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
+import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
@@ -32,16 +34,23 @@ public class PaymentController {
     @FXML private Button cardBtn, cashBtn, confirmBtn, backBtn;
     @FXML private ProgressIndicator processingIndicator;
     @FXML private Label processingLabel, totalDueLabel, tapInsertHint;
+    @FXML private Label paymentLabel;
+    @FXML private Label selectMethodLabel;
+    @FXML private Label cashBtnLabel;
+    @FXML private Label cardBtnLabel;
+    @FXML private Tooltip backBtnLabel;
 
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
     private Method selected = Method.CARD; // default
-    @FXML private Label brandLink,paymentLabel, clockLabel, selectPaymentMethodLabel, payWithCashLabel, payWithCardLabel;
+    @FXML private Label brandLink, clockLabel, selectPaymentMethodLabel, payWithCashLabel, payWithCardLabel;
     @FXML private javafx.scene.Parent root;
+    private final I18nService i18n;
 
-    public PaymentController(ApplicationContext appContext, PaymentSession paymentSession) {
+    public PaymentController(ApplicationContext appContext, PaymentSession paymentSession, I18nService i18n) {
         this.appContext = appContext;
         this.paymentSession = paymentSession;
+        this.i18n = i18n;
     }
 
     @FXML
@@ -61,6 +70,19 @@ public class PaymentController {
         javafx.application.Platform.runLater(() -> {
             ContrastManager.getInstance().attach(root.getScene(), root);
         });
+        updateTexts();
+//        showTapHintIfNeeded();
+    }
+
+    private void updateTexts() {
+        paymentLabel.setText(i18n.get("payment.title"));
+        selectMethodLabel.setText(i18n.get("payment.selectMethod"));
+        cashBtnLabel.setText(i18n.get("payment.payWithCash"));
+        cardBtnLabel.setText(i18n.get("payment.creditDebit"));
+        tapInsertHint.setText(i18n.get("payment.tapInsert"));
+        processingLabel.setText(i18n.get("payment.processing"));
+        backBtnLabel.setText(i18n.get("payment.cancel"));
+        confirmBtn.setText(i18n.get("payment.confirm"));
     }
 
     /* ===== Total Due helper ===== */
@@ -74,7 +96,16 @@ public class PaymentController {
         String fr = NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH).format(total); // 12,34 $
 
         // Compose bilingual line
-        totalDueLabel.setText(String.format("Total Due: %s | Total à Payer: %s", en, fr));
+//        totalDueLabel.setText(String.format("Total Due: %s | Total à Payer: %s", en, fr));
+        Locale current = i18n.getLocale();
+        NumberFormat fmt = current.getLanguage().equals("fr") ?
+                NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH) :
+                NumberFormat.getCurrencyInstance(Locale.CANADA);
+        String amount = fmt.format(total);
+        totalDueLabel.setText(i18n.get("payment.totalDue", amount));
+
+
+
     }
 
     /* ====== Nav helpers ====== */
