@@ -89,7 +89,6 @@ public class HomeController {
             reflectZoomButtons();
         });
 
-//
         javafx.application.Platform.runLater(() -> {
             ContrastManager.getInstance().attach(root.getScene(), root);
             reflectContrastButtons();

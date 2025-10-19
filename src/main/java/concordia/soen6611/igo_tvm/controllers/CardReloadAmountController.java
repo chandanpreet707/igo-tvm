@@ -1,20 +1,31 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 @Controller
@@ -22,10 +33,31 @@ import java.util.Locale;
 public class CardReloadAmountController {
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
+
+    public Label brandLink;
+    public Label clockLabel;
+    public Label youCardLabel;
+    public ImageView opusCardImage;
+    public Label opusCardLabel;
+    public Label reloadOptionLabel;
+    public Label selectTypeLabel;
+    public Label estimatedTotalLabel;
+    public Button proceedBtn;
+    public BorderPane root;
+    public Label reloadCardLabel;
+    public Label helpLabel;
+    public String menuSingleLabel;
+    public String menuMultiLabel;
+    public String menuWeeklyabel;
+    public String menuMonthlyLabel;
+    public String menuDayPassLabel;
+    private Timeline clock;
     @FXML private ComboBox<String> passTypeBox;
     @FXML private ComboBox<Integer> qtyBox;
     @FXML private Label qtyLabel, estTotalValue;
     private final NumberFormat CAD = NumberFormat.getCurrencyInstance(Locale.CANADA);
+    private static final DateTimeFormatter CLOCK_FMT =
+            DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
 
 
@@ -36,6 +68,14 @@ public class CardReloadAmountController {
 
     @FXML
     private void initialize() {
+        // Live clock
+        clock = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> clockLabel.setText(LocalDateTime.now().format(CLOCK_FMT))),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
+
         // Guard: if items not defined in FXML, you can populate—
         if (passTypeBox.getItems().isEmpty()) {
             passTypeBox.getItems().addAll("Single Pass", "Multiple Pass", "Weekly Pass", "Monthly Pass", "Day Pass");
@@ -55,6 +95,16 @@ public class CardReloadAmountController {
         qtyBox.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> updateEstimate());
 
         updateEstimate();
+
+        Platform.runLater(() -> {
+            var zoom = TextZoomService.get();
+            zoom.register((Node) brandLink, reloadCardLabel, clockLabel, youCardLabel,opusCardImage, opusCardLabel, passTypeBox,
+                    qtyLabel, qtyBox, estimatedTotalLabel, estTotalValue, proceedBtn, helpLabel);
+        });
+
+        javafx.application.Platform.runLater(() -> {
+            ContrastManager.getInstance().attach(root.getScene(), root);
+        });
     }
 
     // ===== helpers required by onMakePayment pattern =====

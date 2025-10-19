@@ -32,8 +32,7 @@
             <Label text="Reload Card" styleClass="title" fx:id="reloadCardLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
 
-            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
-                   text="Nov 27, 2024&#10;10:31 AM"/>
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"/>
         </HBox>
     </top>
 
@@ -44,35 +43,35 @@
 
             <!-- ===== LEFT: YOUR CARD ===== -->
             <VBox spacing="14" prefWidth="520">
-                <Label text="Your Card | Votre Carte" styleClass="cra-section-title"/>
+                <Label text="Your Card | Votre Carte" styleClass="cra-section-title" fx:id="youCardLabel"/>
 
                 <StackPane styleClass="cra-cardbox" prefHeight="360">
                     <VBox spacing="14" alignment="CENTER">
-                        <ImageView fitHeight="86" preserveRatio="true" smooth="true">
+                        <ImageView fitHeight="86" preserveRatio="true" smooth="true" fx:id="opusCardImage">
                             <image><Image url="@../images/opus-card.png"/></image>
                         </ImageView>
-                        <Label text="OPUS Card" styleClass="cra-cardname"/>
+                        <Label text="OPUS Card" styleClass="cra-cardname" fx:id="opusCardLabel"/>
                     </VBox>
                 </StackPane>
             </VBox>
 
             <!-- ===== RIGHT: RELOAD OPTIONS ===== -->
             <VBox spacing="16" HBox.hgrow="ALWAYS">
-                <Label text="Reload Options | Options de Recharge" styleClass="cra-section-title"/>
+                <Label text="Reload Options | Options de Recharge" styleClass="cra-section-title" fx:id="reloadOptionLabel"/>
 
                 <StackPane styleClass="cra-panel">
                     <VBox spacing="12">
                         <!-- Pass Type -->
-                        <Label text="Select Pass Type..." styleClass="cra-field-label"/>
+                        <Label text="Select Pass Type..." styleClass="cra-field-label" fx:id="selectTypeLabel"/>
                         <ComboBox fx:id="passTypeBox" promptText="Select Pass..."
                                   prefWidth="440" styleClass="cra-combo">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Single Pass"/>
-                                    <String fx:value="Multiple Pass"/>
-                                    <String fx:value="Weekly Pass"/>
-                                    <String fx:value="Monthly Pass"/>
-                                    <String fx:value="Day Pass"/>
+                                    <String fx:id="menuSingleLabel" fx:value="Single Pass"/>
+                                    <String fx:id="menuMultiLabel" fx:value="Multiple Pass"/>
+                                    <String fx:id="menuWeeklyabel" fx:value="Weekly Pass"/>
+                                    <String fx:id="menuMonthlyLabel" fx:value="Monthly Pass"/>
+                                    <String fx:id="menuDayPassLabel" fx:value="Day Pass"/>
                                 </FXCollections>
                             </items>
                         </ComboBox>
@@ -94,7 +93,7 @@
 
                         <!-- Estimated total -->
                         <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Estimated Total | Total Estimé:" styleClass="cra-total-label"/>
+                            <Label text="Estimated Total | Total Estimé:" styleClass="cra-total-label" fx:id="estimatedTotalLabel"/>
                             <Label fx:id="estTotalValue" text="0.00" styleClass="cra-total-value"/>
                         </HBox>
                     </VBox>

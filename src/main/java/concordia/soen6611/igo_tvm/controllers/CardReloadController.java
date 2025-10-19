@@ -1,6 +1,11 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,25 +16,57 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
 public class CardReloadController {
+    public BorderPane root;
+    public Label brandLink;
+    public Label tapYouCardLabel;
+    public Label reloadCardLabel;
     @FXML private Button startReadBtn;
     @FXML private ProgressIndicator readProgress;
     @FXML private Label readStatus;
+    private Timeline clock;
+    @FXML private Label clockLabel;
 
     private final ApplicationContext appContext;
+    private static final DateTimeFormatter CLOCK_FMT =
+            DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
     public CardReloadController(ApplicationContext appContext) {
         this.appContext = appContext;
     }
 
+    @FXML
+    private void initialize() {
+
+        // Live clock
+        clock = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> clockLabel.setText(LocalDateTime.now().format(CLOCK_FMT))),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
+
+
+        Platform.runLater(() -> {
+            var zoom = TextZoomService.get();
+            zoom.register(brandLink, reloadCardLabel, clockLabel, tapYouCardLabel, readStatus, reloadCardLabel);
+        });
+
+        javafx.application.Platform.runLater(() -> {
+            ContrastManager.getInstance().attach(root.getScene(), root);
+        });
+    }
     @FXML
     private void onBrandClick(MouseEvent event) {
         goWelcomeScreen((Node) event.getSource());

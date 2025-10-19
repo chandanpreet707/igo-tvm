@@ -30,8 +30,7 @@
             <Label text="Reload Card" styleClass="title" fx:id="reloadCardLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
 
-            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
-                   text="Nov 27, 2024&#10;10:31 AM"/>
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"/>
         </HBox>
     </top>
 
@@ -44,7 +43,7 @@
                 <padding><Insets top="28" right="26" bottom="26" left="26"/></padding>
 
                 <Label text="Please tap your card / Veuillez passer votre carte"
-                       styleClass="cr-instruction"/>
+                       styleClass="cr-instruction" fx:id="tapYouCardLabel"/>
 
                 <StackPane styleClass="cr-panel" maxWidth="980">
                     <padding><Insets top="22" right="22" bottom="22" left="22"/></padding>
