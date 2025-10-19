@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="concordia.soen6611.igo_tvm.controllers.BuyNewTicketController"
             prefHeight="700.0" prefWidth="1200.0"
@@ -29,7 +29,7 @@
                         <Image url="@../images/maple.png"/>
                     </image>
                 </ImageView>
-                <Label text="STM" styleClass="brand"/>
+                <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
             </HBox>
             <Region HBox.hgrow="ALWAYS"/>
             <Label text="Fare Selection" styleClass="title" fx:id="buyNewTicketLabel"/>
@@ -41,19 +41,17 @@
 
     <center>
         <HBox spacing="18" alignment="TOP_LEFT">
-            <padding>
-                <Insets top="24" right="24" bottom="18" left="24"/>
-            </padding>
+            <padding><Insets top="24" right="12" bottom="18" left="12"/></padding>
             <VBox spacing="12" prefWidth="260" styleClass="leftMenu">
-                <Button styleClass="menu-btn" text="Single Trip"   onAction="#onMenuSingle"/>
-                <Button styleClass="menu-btn" text="Multiple Trip" onAction="#onMenuMulti"/>
-                <Button styleClass="menu-btn" text="Day Pass"      onAction="#onMenuDay"/>
-                <Button styleClass="menu-btn" text="Monthly Pass"  onAction="#onMenuMonthly"/>
-                <Button styleClass="menu-btn" text="Weekend Pass"  onAction="#onMenuWeekend"/>
+                <Button fx:id="menuSingleBtn" styleClass="menu-btn" text="Single Trip"   onAction="#onMenuSingle"/>
+                <Button fx:id="menuMultiBtn" styleClass="menu-btn" text="Multiple Trip" onAction="#onMenuMulti"/>
+                <Button fx:id="menuDayBtn" styleClass="menu-btn" text="Day Pass"      onAction="#onMenuDay"/>
+                <Button fx:id="menuMonthlyBtn" styleClass="menu-btn" text="Monthly Pass"  onAction="#onMenuMonthly"/>
+                <Button fx:id="menuWeekendBtn" styleClass="menu-btn" text="Weekend Pass"  onAction="#onMenuWeekend"/>
+
             </VBox>
             <VBox spacing="20" HBox.hgrow="ALWAYS">
-                <Label fx:id="questionLabel" styleClass="question"
-                       text="What would you like to buy? / Qu’aimeriez-vous acheter ?"/>
+                <Label fx:id="questionLabel" styleClass="question"/>
                 <GridPane hgap="14" vgap="12">
                     <columnConstraints>
                         <ColumnConstraints halignment="LEFT"  percentWidth="22"/>
@@ -61,7 +59,7 @@
                         <ColumnConstraints halignment="LEFT"  percentWidth="16"/>
                         <ColumnConstraints halignment="RIGHT" percentWidth="24"/>
                     </columnConstraints>
-                    <Label text="Rider Type | Type d’usager" styleClass="label"
+                    <Label fx:id="riderTypeLabel" styleClass="label"
                            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                     <FlowPane hgap="8" vgap="8" prefWrapLength="420"
                               GridPane.rowIndex="0" GridPane.columnIndex="1">
@@ -72,7 +70,7 @@
                                     <StackPane styleClass="seg-icon">
                                         <FontIcon iconLiteral="fas-user" iconSize="18" styleClass="seg-icon__glyph"/>
                                     </StackPane>
-                                    <Label text="Adult" styleClass="seg-text"/>
+                                    <Label styleClass="seg-text"/>
                                 </HBox>
                             </graphic>
                         </ToggleButton>
@@ -83,7 +81,7 @@
                                     <StackPane styleClass="seg-icon">
                                         <FontIcon iconLiteral="fas-user-graduate" iconSize="18" styleClass="seg-icon__glyph"/>
                                     </StackPane>
-                                    <Label text="Student" styleClass="seg-text"/>
+                                    <Label styleClass="seg-text"/>
                                 </HBox>
                             </graphic>
                         </ToggleButton>
@@ -94,7 +92,7 @@
                                     <StackPane styleClass="seg-icon">
                                         <FontIcon iconLiteral="fas-blind" iconSize="18" styleClass="seg-icon__glyph"/>
                                     </StackPane>
-                                    <Label text="Senior" styleClass="seg-text"/>
+                                    <Label styleClass="seg-text"/>
                                 </HBox>
                             </graphic>
                         </ToggleButton>
@@ -105,28 +103,28 @@
                                     <StackPane styleClass="seg-icon">
                                         <FontIcon iconLiteral="fas-suitcase-rolling" iconSize="18" styleClass="seg-icon__glyph"/>
                                     </StackPane>
-                                    <Label text="Tourist" styleClass="seg-text"/>
+                                    <Label styleClass="seg-text"/>
                                 </HBox>
                             </graphic>
                         </ToggleButton>
                     </FlowPane>
-                    <Label text="Trip Type | Type de titre" styleClass="label"
+                    <Label fx:id="tripTypeLabel" styleClass="label"
                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                     <FlowPane hgap="8" vgap="8" prefWrapLength="420"
                               GridPane.rowIndex="1" GridPane.columnIndex="1">
-                        <ToggleButton fx:id="tripSingle"  text="Single Trip"
+                        <ToggleButton fx:id="tripSingle"
                                       toggleGroup="$tripGroup" selected="true"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripMulti"   text="Multiple Trip"
+                        <ToggleButton fx:id="tripMulti"
                                       toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripDay"     text="Day Pass"
+                        <ToggleButton fx:id="tripDay"
                                       toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripMonthly" text="Monthly Pass"
+                        <ToggleButton fx:id="tripMonthly"
                                       toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripWeekend" text="Weekend Pass"
+                        <ToggleButton fx:id="tripWeekend"
                                       toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
                     </FlowPane>
@@ -134,11 +132,11 @@
                            GridPane.rowIndex="1" GridPane.columnIndex="2"/>
                     <ComboBox fx:id="multiCountCombo" prefWidth="120"
                               GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-                    <Label text="Price (each) | Prix (unité)" styleClass="label"
+                    <Label fx:id="priceLabel" styleClass="label"
                            GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <Label fx:id="unitPriceValue" text="" styleClass="value"
+                    <Label fx:id="unitValueLabel" styleClass="value"
                            GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                    <Label text="Quantity | Quantité" styleClass="label"
+                    <Label fx:id="quantityLabel" styleClass="label"
                            GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                     <HBox spacing="6" alignment="CENTER_LEFT"
                           GridPane.rowIndex="3" GridPane.columnIndex="1">
@@ -163,7 +161,7 @@
                             </graphic>
                         </Button>
                     </HBox>
-                    <Label text="Total:" styleClass="total-label"
+                    <Label fx:id="totalLabel" text="Total:" styleClass="total-label"
                            GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                     <Label fx:id="totalValue" text="" styleClass="total-value"
                            GridPane.rowIndex="4" GridPane.columnIndex="1"/>
@@ -190,7 +188,7 @@
                     <Tooltip text="Back to Home"/>
                 </tooltip>
             </Button>
-            <Label text="Help / Aide" styleClass="help"/>
+            <Label fx:id="helpLabel" styleClass="help"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
                     prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">

@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="concordia.soen6611.igo_tvm.controllers.CashSubmissionController"
             prefHeight="700.0" prefWidth="1200.0" stylesheets="@../styles/CashSubmission.css">
@@ -21,12 +21,12 @@
                 <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
                     <image><Image url="@../images/maple.png"/></image>
                 </ImageView>
-                <Label text="STM" styleClass="brand"/>
+                <Label text="STM" styleClass="brand" fx:id="brandLink"/>
             </HBox>
 
             <Region HBox.hgrow="ALWAYS"/>
 
-            <Label text="Cash Payment" styleClass="title" fx:id="cashPaymentLabel"/>
+            <Label styleClass="title" fx:id="cashPaymentLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
 
             <Label fx:id="clockLabel" styleClass="clock" minWidth="150" text="Nov 27, 2024&#10;10:31 AM"/>
@@ -40,12 +40,10 @@
 
             <!-- Total Due (bilingual) -->
             <Label fx:id="totalDueLabel"
-                   text="Total Due: $0.00 | Total à Payer: 0,00 $"
                    styleClass="cash-total"/>
 
             <!-- instruction -->
             <Label fx:id="instructionLabel"
-                   text="Please insert cash | Veuillez insérer l'argent"
                    styleClass="cash-instruction"/>
 
             <!-- Illustration -->
@@ -60,10 +58,10 @@
 
             <!-- Amounts line -->
             <HBox spacing="26" alignment="CENTER">
-                <Label text="Amount Inserted:" styleClass="cash-amount-label"/>
+                <Label fx:id="amountInsertedLabel" styleClass="cash-amount-label"/>
                 <Label fx:id="insertedValue" text="0.00" styleClass="cash-amount-value"/>
 
-                <Label text="Remaining:" styleClass="cash-amount-label"/>
+                <Label fx:id="remainingLabel" styleClass="cash-amount-label"/>
                 <Label fx:id="remainingValue" text="0.00" styleClass="cash-amount-value"/>
             </HBox>
         </VBox>

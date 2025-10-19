@@ -7,10 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0"
-            xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="concordia.soen6611.igo_tvm.controllers.HomeController"
+<BorderPane fx:id="root"  prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concordia.soen6611.igo_tvm.controllers.HomeController"
             stylesheets="@../styles/Home.css">
 
     <!-- HEADER -->
@@ -23,7 +20,7 @@
                         <Image url="@../images/maple.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="brandLabel" styleClass="brand"/>
+                <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
             </HBox>
             <Region HBox.hgrow="ALWAYS"/>
             <Label fx:id="homeLabel" styleClass="title"/>
@@ -68,8 +65,8 @@
                                         <Label text="🎟" styleClass="emoji-icon"/>
                                     </StackPane>
                                     <VBox spacing="4" alignment="CENTER_LEFT">
-                                        <Label fx:id="buyBtnTitle" styleClass="tile-title"/>
-                                        <Label fx:id="buyBtnSub" styleClass="tile-sub"/>
+                                        <Label fx:id="buyNewTicketLabel" text="Buy New Ticket" styleClass="tile-title"/>
+                                        <Label text="Acheter un Nouveau Titre" styleClass="tile-sub"/>
                                     </VBox>
                                 </HBox>
                             </graphic>
@@ -82,8 +79,8 @@
                                         <Label text="💳" styleClass="emoji-icon"/>
                                     </StackPane>
                                     <VBox spacing="4" alignment="CENTER_LEFT">
-                                        <Label fx:id="reloadBtnTitle" styleClass="tile-title"/>
-                                        <Label fx:id="reloadBtnSub" styleClass="tile-sub"/>
+                                        <Label text="Reload Card" fx:id="reloadCardLabel" styleClass="tile-title"/>
+                                        <Label text="Recharger une Carte" styleClass="tile-sub"/>
                                     </VBox>
                                 </HBox>
                             </graphic>
@@ -94,7 +91,8 @@
                     <StackPane.margin>
                         <Insets bottom="15" right="24"/>
                     </StackPane.margin>
-                    <Button fx:id="infoBtn" onAction="#onInfo" styleClass="round" prefWidth="48" prefHeight="48">
+
+                    <Button onAction="#onInfo" styleClass="round" prefWidth="48" prefHeight="48" fx:id="informationButton">
                         <graphic>
                             <FontAwesomeIconView glyphName="INFO_CIRCLE" styleClass="glyph-white" glyphSize="34"/>
                         </graphic>
@@ -109,8 +107,43 @@
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
             <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
-            <Label fx:id="helpLabel" styleClass="help"/>
-            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label text="Help" styleClass="help" fx:id="helpLabel"/>
+
+            <Region HBox.hgrow="ALWAYS"/>  <!-- pushes volume button to the right -->
+
+            <!-- zoom in/out -->
+            <Button fx:id="btnFontSizeOut" onAction="#onFontSizeOut" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
+                <graphic>
+                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@../images/magnifer_out.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip><Tooltip text="Make text Smaller"/></tooltip>
+            </Button>
+            <Button fx:id="btnFontSizeIn" onAction="#onFontSizeIn" styleClass="a11y-btn" prefWidth="40" prefHeight="32">
+                <graphic>
+                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@../images/magnifer_in.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip><Tooltip text="Make text Larger"/></tooltip>
+            </Button>
+
+            <!-- Contrast controls -->
+            <Button fx:id="btnContrastDown" text="C–" onAction="#onContrastDown"
+                    prefWidth="40" prefHeight="32">
+                <tooltip><Tooltip text="Decrease Contrast"/></tooltip>
+            </Button>
+            <Button fx:id="btnContrastUp" text="C+" onAction="#onContrastUp"
+                    prefWidth="40" prefHeight="32">
+                <tooltip><Tooltip text="Increase Contrast"/></tooltip>
+            </Button>
+
             <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
                     prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
                 <graphic>
