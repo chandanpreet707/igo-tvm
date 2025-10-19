@@ -1,15 +1,18 @@
 package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
+import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -23,14 +26,16 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
-public class CardReloadAmountController {
+public class CardReloadAmountController implements Initializable {
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
 
@@ -46,11 +51,11 @@ public class CardReloadAmountController {
     public BorderPane root;
     public Label reloadCardLabel;
     public Label helpLabel;
-    public String menuSingleLabel;
-    public String menuMultiLabel;
-    public String menuWeeklyabel;
-    public String menuMonthlyLabel;
-    public String menuDayPassLabel;
+    public String menuSinglePass;
+    public String menuMultiplePass;
+    public String menuWeeklyPass;
+    public String menuMonthlyPass;
+    public String menuDayPass;
     private Timeline clock;
     @FXML private ComboBox<String> passTypeBox;
     @FXML private ComboBox<Integer> qtyBox;
@@ -58,16 +63,29 @@ public class CardReloadAmountController {
     private final NumberFormat CAD = NumberFormat.getCurrencyInstance(Locale.CANADA);
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
+    private final I18nService i18n;
+
+    @FXML
+    private ResourceBundle resources;
+    @FXML
+    private ObservableList<String> passTypeList;
 
 
 
-    public CardReloadAmountController(ApplicationContext appContext, PaymentSession paymentSession) {
+    public CardReloadAmountController(ApplicationContext appContext, PaymentSession paymentSession, I18nService i18n) {
         this.appContext = appContext;
         this.paymentSession = paymentSession;
+        this.i18n = i18n;
     }
 
     @FXML
-    private void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
+        updateTexts();
+        i18n.localeProperty().addListener((obs, oldL, newL) -> {
+            System.out.println("Locale changed from " + oldL + " to " + newL);
+            updateTexts();
+        });
+
         // Live clock
         clock = new Timeline(
                 new KeyFrame(Duration.ZERO, e -> clockLabel.setText(LocalDateTime.now().format(CLOCK_FMT))),
@@ -105,6 +123,19 @@ public class CardReloadAmountController {
         javafx.application.Platform.runLater(() -> {
             ContrastManager.getInstance().attach(root.getScene(), root);
         });
+    }
+
+    private void updateTexts() {
+        reloadCardLabel.setText(i18n.get("cardReloadAmount.title"));
+        youCardLabel.setText(i18n.get("cardReloadAmount.youCard"));
+        opusCardLabel.setText(i18n.get("cardReloadAmount.opusCard"));
+        reloadOptionLabel.setText(i18n.get("cardReloadAmount.reloadOption"));
+        selectTypeLabel.setText(i18n.get("cardReloadAmount.selectType"));
+        qtyLabel.setText(i18n.get("cardReloadAmount.qty"));
+        estimatedTotalLabel.setText(i18n.get("cardReloadAmount.estimatedTotal"));
+        proceedBtn.setText(i18n.get("cardReloadAmount.proceed"));
+//        passTypeList.set(passTypeList.indexOf(menuSinglePass),this.resources.getString("cardReloadAmount.menu.single.pass"));
+
     }
 
     // ===== helpers required by onMakePayment pattern =====

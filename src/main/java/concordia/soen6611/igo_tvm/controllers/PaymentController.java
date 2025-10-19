@@ -7,7 +7,9 @@ import concordia.soen6611.igo_tvm.Services.PaymentService;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
 import concordia.soen6611.igo_tvm.models.Payment;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +29,8 @@ import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 @Controller
@@ -52,7 +56,10 @@ public class PaymentController {
     @FXML private Label brandLink, clockLabel, payWithCashLabel, payWithCardLabel;
     @FXML private javafx.scene.Parent root;
     private final I18nService i18n;
-
+    private Timeline clock;
+    @FXML private Label helpLabel;
+    private static final DateTimeFormatter CLOCK_FMT =
+            DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
     @Autowired
     private PaymentService paymentService;
 
@@ -65,6 +72,15 @@ public class PaymentController {
     @FXML
     private void initialize() {
         logger.info("Initializing PaymentController");
+        // Live clock
+        clock = new Timeline(
+                new KeyFrame(Duration.ZERO, e ->
+                        clockLabel.setText(LocalDateTime.now().format(CLOCK_FMT))),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
+
         setTotalDueFromSession();
         applySelectionStyles();
 

@@ -1,6 +1,7 @@
 package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
+import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -11,10 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
@@ -37,17 +35,23 @@ public class CardReloadController {
     @FXML private Label readStatus;
     private Timeline clock;
     @FXML private Label clockLabel;
+    private final I18nService i18n;
 
     private final ApplicationContext appContext;
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
-    public CardReloadController(ApplicationContext appContext) {
+    public CardReloadController(I18nService i18n, ApplicationContext appContext) {
+        this.i18n = i18n;
         this.appContext = appContext;
     }
-
     @FXML
     private void initialize() {
+        updateTexts();
+        i18n.localeProperty().addListener((obs, oldL, newL) -> {
+            System.out.println("Locale changed from " + oldL + " to " + newL);
+            updateTexts();
+        });
 
         // Live clock
         clock = new Timeline(
@@ -66,6 +70,12 @@ public class CardReloadController {
         javafx.application.Platform.runLater(() -> {
             ContrastManager.getInstance().attach(root.getScene(), root);
         });
+    }
+
+    private void updateTexts() {
+        reloadCardLabel.setText(i18n.get("cardReload.title"));
+        tapYouCardLabel.setText(i18n.get("cardReload.message"));
+        readStatus.setText(i18n.get("cardReload.readyToReadMessage"));
     }
     @FXML
     private void onBrandClick(MouseEvent event) {
@@ -103,22 +113,27 @@ public class CardReloadController {
         startReadBtn.setDisable(true);
         readProgress.setVisible(true);
         readProgress.setManaged(true);
-        readStatus.setText("Reading card… / Lecture de la carte…");
+        readStatus.setText(i18n.get("cardReload.readingStartedMessage"));
 
         // Simulate 10-second read
         PauseTransition wait = new PauseTransition(Duration.seconds(5));
         wait.setOnFinished(e -> {
-            readStatus.setText("Card reading done. / Lecture terminée.");
+            readStatus.setText(i18n.get("cardReload.readingDoneMessage"));
             readProgress.setVisible(false);
             readProgress.setManaged(false);
 
             // Inform user
             Alert ok = new Alert(Alert.AlertType.INFORMATION);
-            ok.setTitle("Card Read");
+            ok.setTitle(i18n.get("cardReload.modalTitle"));
             ok.setHeaderText(null);
-            ok.setContentText("Card reading done. Proceeding…");
-            ok.show();
+            ok.setContentText(i18n.get("cardReload.readingSuccessfulMessage"));
 
+            Button okButton = (Button) ok.getDialogPane().lookupButton(ButtonType.OK);
+            if (okButton != null) {
+                okButton.setText(i18n.get("cardReload.ok"));
+            }
+
+            ok.show();
             // Short pause so they see the dialog, then go to next page
             PauseTransition after = new PauseTransition(Duration.seconds(2));
             after.setOnFinished(x -> {

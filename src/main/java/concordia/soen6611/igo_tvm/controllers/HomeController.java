@@ -14,7 +14,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -145,8 +144,8 @@ public class HomeController {
         homeLabel.setText(i18n.get("home.title"));
         promptLabel.setText(i18n.get("home.prompt"));
         helpLabel.setText(i18n.get("home.help"));
-        buyBtn.setText(i18n.get("home.buyBtn.title"));
-        reloadBtn.setText(i18n.get("home.reloadBtn.title"));
+//        buyBtn.setText(i18n.get("home.buyBtn.title"));
+//        reloadBtn.setText(i18n.get("home.reloadBtn.title"));
         informationLabel.setText(i18n.get("home.information"));
 
         // Tooltips

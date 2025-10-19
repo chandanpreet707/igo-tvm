@@ -29,7 +29,7 @@
 
             <Region HBox.hgrow="ALWAYS"/>
 
-            <Label text="Reload Card" styleClass="title" fx:id="reloadCardLabel"/>
+            <Label styleClass="title" fx:id="reloadCardLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
 
             <Label fx:id="clockLabel" styleClass="clock" minWidth="150"/>
@@ -43,21 +43,21 @@
 
             <!-- ===== LEFT: YOUR CARD ===== -->
             <VBox spacing="14" prefWidth="520">
-                <Label text="Your Card | Votre Carte" styleClass="cra-section-title" fx:id="youCardLabel"/>
+                <Label styleClass="cra-section-title" fx:id="youCardLabel"/>
 
                 <StackPane styleClass="cra-cardbox" prefHeight="360">
                     <VBox spacing="14" alignment="CENTER">
                         <ImageView fitHeight="86" preserveRatio="true" smooth="true" fx:id="opusCardImage">
                             <image><Image url="@../images/opus-card.png"/></image>
                         </ImageView>
-                        <Label text="OPUS Card" styleClass="cra-cardname" fx:id="opusCardLabel"/>
+                        <Label styleClass="cra-cardname" fx:id="opusCardLabel"/>
                     </VBox>
                 </StackPane>
             </VBox>
 
             <!-- ===== RIGHT: RELOAD OPTIONS ===== -->
             <VBox spacing="16" HBox.hgrow="ALWAYS">
-                <Label text="Reload Options | Options de Recharge" styleClass="cra-section-title" fx:id="reloadOptionLabel"/>
+                <Label styleClass="cra-section-title" fx:id="reloadOptionLabel"/>
 
                 <StackPane styleClass="cra-panel">
                     <VBox spacing="12">
@@ -67,18 +67,17 @@
                                   prefWidth="440" styleClass="cra-combo">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:id="menuSingleLabel" fx:value="Single Pass"/>
-                                    <String fx:id="menuMultiLabel" fx:value="Multiple Pass"/>
-                                    <String fx:id="menuWeeklyabel" fx:value="Weekly Pass"/>
-                                    <String fx:id="menuMonthlyLabel" fx:value="Monthly Pass"/>
-                                    <String fx:id="menuDayPassLabel" fx:value="Day Pass"/>
+                                    <String fx:id="menuSinglePass" fx:value="Single Pass"/>
+                                    <String fx:id="menuMultiplePass" fx:value="Multiple Pass"/>
+                                    <String fx:id="menuWeeklyPass" fx:value="Weekly Pass"/>
+                                    <String fx:id="menuMonthlyPass" fx:value="Monthly Pass"/>
+                                    <String fx:id="menuDayPass" fx:value="Day Pass"/>
                                 </FXCollections>
                             </items>
                         </ComboBox>
 
                         <!-- Quantity (only for Multiple Pass) -->
-                        <Label fx:id="qtyLabel" text="Quantity | Quantité"
-                               styleClass="cra-field-label" visible="false" managed="false"/>
+                        <Label fx:id="qtyLabel" styleClass="cra-field-label" visible="false" managed="false"/>
                         <ComboBox fx:id="qtyBox" promptText="1" prefWidth="220"
                                   styleClass="cra-combo" visible="false" managed="false">
                             <items>
@@ -93,15 +92,14 @@
 
                         <!-- Estimated total -->
                         <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label text="Estimated Total | Total Estimé:" styleClass="cra-total-label" fx:id="estimatedTotalLabel"/>
-                            <Label fx:id="estTotalValue" text="0.00" styleClass="cra-total-value"/>
+                            <Label styleClass="cra-total-label" fx:id="estimatedTotalLabel"/>
+                            <Label fx:id="estTotalValue" styleClass="cra-total-value"/>
                         </HBox>
                     </VBox>
                 </StackPane>
 
                 <!-- CTA -->
-                <Button fx:id="proceedBtn" text="Proceed to Payment | Passer au Paiement"
-                        styleClass="cra-primary" prefHeight="58" maxWidth="520" onAction="#onProceedToPayment"/>
+                <Button fx:id="proceedBtn" styleClass="cra-primary" prefHeight="58" maxWidth="520" onAction="#onProceedToPayment"/>
             </VBox>
         </HBox>
     </center>

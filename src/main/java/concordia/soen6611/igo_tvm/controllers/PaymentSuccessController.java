@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -124,4 +125,20 @@ public class PaymentSuccessController {
 
     /* Optional: footer volume/help handlers if you want */
     public void onVolume(ActionEvent e) { /* no-op */ }
+
+    @FXML
+    private void onBrandClick(MouseEvent event) {
+        goWelcomeScreen((Node) event.getSource());
+    }
+
+    private void goWelcomeScreen(Node anyNodeInScene) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent home = loader.load();
+            anyNodeInScene.getScene().setRoot(home);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }
