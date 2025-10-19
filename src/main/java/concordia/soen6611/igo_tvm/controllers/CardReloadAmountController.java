@@ -152,6 +152,7 @@ public class CardReloadAmountController {
         double unit  = currentUnitPrice(); // already scaled for multiple trips
 
         // Save current order in the session
+        paymentSession.setOrigin(PaymentSession.Origin.RELOAD_CARD);
         paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, quantity, unit));
 
         // Navigate to the Payment page

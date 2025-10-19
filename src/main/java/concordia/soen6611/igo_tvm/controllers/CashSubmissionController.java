@@ -137,6 +137,7 @@ public class CashSubmissionController {
             PauseTransition wait = new PauseTransition(Duration.seconds(3));
             wait.setOnFinished(ev -> {
                 ok.close();
+                paymentSession.clear();
                 goWelcomePage();
             });
             wait.play();

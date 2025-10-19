@@ -1,8 +1,9 @@
 package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
-import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.Services.I18nService;
+import concordia.soen6611.igo_tvm.Services.PaymentSession;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -37,10 +38,12 @@ public class PaymentSuccessController {
     @FXML private Label brandLink, successTitleLabel,printingLineLabel, receiptInfoLabel, thankYouLabel, volumeLabel, clockLabel;
     @FXML private javafx.scene.Parent root;
     private final ApplicationContext appContext;
+    private final PaymentSession paymentSession;
 
-    public PaymentSuccessController(ApplicationContext appContext, I18nService i18n) {
+    public PaymentSuccessController(ApplicationContext appContext, I18nService i18n, PaymentSession paymentSession) {
         this.appContext = appContext;
         this.i18n = i18n;
+        this.paymentSession = paymentSession;
     }
 
     @FXML
@@ -87,14 +90,29 @@ public class PaymentSuccessController {
         PauseTransition wait = new PauseTransition(Duration.seconds(5));
         wait.setOnFinished(e -> {
             alert.close();
-            goHome(event);
+            paymentSession.clear();
+            goHome((Node) e.getSource());
         });
         wait.play();
     }
 
     @FXML
     private void onDone(ActionEvent event) {
-        goHome(event);
+        // we are finished with this order
+        paymentSession.clear();
+        goHome((Node) event.getSource());
+    }
+
+    /* ===== Navigation helper ===== */
+    private void goHome(Node node) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Home.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent view = loader.load();
+            node.getScene().setRoot(view);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void setButtonsDisabled(boolean b) {
@@ -102,17 +120,7 @@ public class PaymentSuccessController {
         if (doneBtn  != null) doneBtn.setDisable(b);
     }
 
-    /* ===== Navigation helper ===== */
-    private void goHome(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Home.fxml"));
-            loader.setControllerFactory(appContext::getBean);
-            Parent home = loader.load();
-            ((Node) event.getSource()).getScene().setRoot(home);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+
 
     /* Optional: footer volume/help handlers if you want */
     public void onVolume(ActionEvent e) { /* no-op */ }

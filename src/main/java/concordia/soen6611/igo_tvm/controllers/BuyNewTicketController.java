@@ -289,6 +289,7 @@ public class BuyNewTicketController {
 
 
         // Save current order in the session
+        paymentSession.setOrigin(PaymentSession.Origin.BUY_TICKET);
         paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, quantity, unit));
         // Navigate to the Payment page
         try {

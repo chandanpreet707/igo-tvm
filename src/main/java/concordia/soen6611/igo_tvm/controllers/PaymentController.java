@@ -186,8 +186,39 @@ public class PaymentController {
 
     /* ====== Footer buttons ====== */
     public void onCancelPayment(ActionEvent event) {
-        goTo("/Fxml/BuyNewTicket.fxml", event);
+//        goTo("/Fxml/BuyNewTicket.fxml", event);
+        // same action for Back/Cancel
+        goBack((Node) event.getSource());
     }
+
+    private void goBack(Node nodeInScene) {
+        String fxml;
+        switch (paymentSession.getOrigin()) {
+            case RELOAD_CARD:
+                fxml = "/Fxml/CardReloadAmount.fxml"; // or CardReload.fxml if that’s where you want to return
+                break;
+            case BUY_TICKET:
+            default:
+                fxml = "/Fxml/BuyNewTicket.fxml";
+                break;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            loader.setControllerFactory(appContext::getBean);
+            Parent view = loader.load();
+            nodeInScene.getScene().setRoot(view);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // Hard fallback to Home if something goes wrong
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Home.fxml"));
+                loader.setControllerFactory(appContext::getBean);
+                Parent home = loader.load();
+                nodeInScene.getScene().setRoot(home);
+            } catch (IOException ignored) {}
+        }
+    }
+
     public void onVolume(ActionEvent actionEvent) {
         // hook your volume control here
     }
