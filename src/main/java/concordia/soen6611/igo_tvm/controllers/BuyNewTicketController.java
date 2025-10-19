@@ -1,5 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.FareRateService;
 import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
@@ -16,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
@@ -43,19 +45,15 @@ public class BuyNewTicketController {
     @FXML private Label questionLabel;
     @FXML private Label helpLabel;
 
-    // Rider segmented buttons (4 options)
     @FXML private ToggleButton adultBtn, studentBtn, seniorBtn, touristBtn;
-    @FXML private ToggleGroup  riderGroup;     // injected via <fx:define>
+    @FXML private ToggleGroup  riderGroup;
 
-    // Trip type segmented buttons (5 options)
     @FXML private ToggleButton tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend;
-    @FXML private ToggleGroup  tripGroup;      // injected via <fx:define>
+    @FXML private ToggleGroup  tripGroup;
 
-    // Multiple Trip controls
     @FXML private Label multiCountLabel;
     @FXML private ComboBox<Integer> multiCountCombo;
 
-    // Qty & totals
     @FXML private TextField qtyField;
     @FXML private Label unitValueLabel, totalValue;
     @FXML private Button makePaymentBtn;
@@ -66,11 +64,14 @@ public class BuyNewTicketController {
     private final I18nService i18n;
 
 
+    @Autowired
+    private FareRateService fareRateService;
 
     private Timeline clock;
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh:mm a");
 
+    public BuyNewTicketController(ApplicationContext appContext, PaymentSession paymentSession) {
     // ======= Price table (per rider; set to your real fares) =======
     // Adult
     private static final double ADULT_SINGLE   = 3.75;
@@ -108,7 +109,6 @@ public class BuyNewTicketController {
 
     @FXML
     private void initialize() {
-        // Live clock
         clock = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         e -> clockLabel.setText(LocalDateTime.now().format(CLOCK_FMT))),
@@ -117,26 +117,21 @@ public class BuyNewTicketController {
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
 
-        // Defaults
         if (riderGroup.getSelectedToggle() == null && adultBtn != null)   adultBtn.setSelected(true);
         if (tripGroup.getSelectedToggle()  == null && tripSingle != null) tripSingle.setSelected(true);
 
-        // Init multiple-trip combo (1..10, default 1)
         for (int i = 1; i <= 10; i++) multiCountCombo.getItems().add(i);
         multiCountCombo.setValue(1);
 
-        // Show/hide multiple-trip chooser depending on selection
         bindMultipleTripVisibility();
         multiCountCombo.setOnAction(e -> recalc());
 
-        // React to changes
         riderGroup.selectedToggleProperty().addListener((o, ov, nv) -> recalc());
         tripGroup.selectedToggleProperty().addListener((o, ov, nv) -> {
             bindMultipleTripVisibility();
             recalc();
         });
 
-        // Quantity numeric guard
         qtyField.textProperty().addListener((o, oldV, newV) -> {
             if (!newV.matches("\\d*")) {
                 qtyField.setText(oldV);
@@ -195,18 +190,15 @@ public class BuyNewTicketController {
 
     private void bindMultipleTripVisibility() {
         boolean show = tripMulti != null && tripMulti.isSelected();
-        // When hidden, managed=false removes it from layout spacing
         multiCountLabel.setVisible(show);
         multiCountLabel.setManaged(show);
         multiCountCombo.setVisible(show);
         multiCountCombo.setManaged(show);
     }
 
-    // Handlers from segmented controls
     @FXML private void onRiderTypeChange(ActionEvent e) { recalc(); }
-    @FXML private void onTripChange(ActionEvent e)      { /* handled via listener; keep for FXML */ }
+    @FXML private void onTripChange(ActionEvent e)      { /* handled via listener */ }
 
-    // Left menu shortcuts → select trip type
     @FXML private void onMenuSingle(ActionEvent e)  { if (tripSingle  != null) { tripSingle.setSelected(true);  recalc(); bindMultipleTripVisibility(); } }
     @FXML private void onMenuMulti(ActionEvent e)   { if (tripMulti   != null) { tripMulti.setSelected(true);   recalc(); bindMultipleTripVisibility(); } }
     @FXML private void onMenuDay(ActionEvent e)     { if (tripDay     != null) { tripDay.setSelected(true);     recalc(); bindMultipleTripVisibility(); } }
@@ -231,66 +223,33 @@ public class BuyNewTicketController {
         int q = qty();
         unitValueLabel.setText(String.format("$%.2f", unit));
         totalValue.setText(String.format("$%.2f", unit * q));
-        // Selected visuals via CSS (.seg-btn:selected)
     }
 
     private double currentUnitPrice() {
-        // Determine the rider’s single-trip price
-        double single = riderSinglePrice();
+        String rider = selectedRiderName();
+        String trip = selectedTripName();
+        double baseRate = fareRateService.getRate(rider, trip);
 
-        if (tripSingle.isSelected())  return single;
-        if (tripMulti.isSelected())   return single * multiTrips();  // scale by chosen trip count
-        if (tripDay.isSelected())     return riderDayPrice();
-        if (tripMonthly.isSelected()) return riderMonthlyPrice();
-        if (tripWeekend.isSelected()) return riderWeekendPrice();
-
-        return single;
-    }
-
-    private double riderSinglePrice() {
-        if (adultBtn   != null && adultBtn.isSelected())   return ADULT_SINGLE;
-        if (studentBtn != null && studentBtn.isSelected()) return STUDENT_SINGLE;
-        if (seniorBtn  != null && seniorBtn.isSelected())  return SENIOR_SINGLE;
-        if (touristBtn != null && touristBtn.isSelected()) return TOURIST_SINGLE;
-        return ADULT_SINGLE;
-    }
-
-    private double riderDayPrice() {
-        if (adultBtn   != null && adultBtn.isSelected())   return ADULT_DAY;
-        if (studentBtn != null && studentBtn.isSelected()) return STUDENT_DAY;
-        if (seniorBtn  != null && seniorBtn.isSelected())  return SENIOR_DAY;
-        if (touristBtn != null && touristBtn.isSelected()) return TOURIST_DAY;
-        return ADULT_DAY;
-    }
-
-    private double riderMonthlyPrice() {
-        if (adultBtn   != null && adultBtn.isSelected())   return ADULT_MONTHLY;
-        if (studentBtn != null && studentBtn.isSelected()) return STUDENT_MONTHLY;
-        if (seniorBtn  != null && seniorBtn.isSelected())  return SENIOR_MONTHLY;
-        if (touristBtn != null && touristBtn.isSelected()) return TOURIST_MONTHLY;
-        return ADULT_MONTHLY;
-    }
-
-    private double riderWeekendPrice() {
-        if (adultBtn   != null && adultBtn.isSelected())   return ADULT_WEEKEND;
-        if (studentBtn != null && studentBtn.isSelected()) return STUDENT_WEEKEND;
-        if (seniorBtn  != null && seniorBtn.isSelected())  return SENIOR_WEEKEND;
-        if (touristBtn != null && touristBtn.isSelected()) return TOURIST_WEEKEND;
-        return ADULT_WEEKEND;
+        if (tripMulti != null && tripMulti.isSelected()) {
+            return baseRate * multiTrips();
+        }
+        return baseRate;
     }
 
     @FXML
     private void onMakePayment(ActionEvent event) {
         String rider = selectedRiderName();
         String trip  = selectedTripName();
-        int trips = tripMulti.isSelected() ? multiTrips() : 1;
+        int trips = tripMulti != null && tripMulti.isSelected() ? multiTrips() : 1;
         int quantity = qty();
+        double unit = currentUnitPrice();
         double unit = currentUnitPrice(); // already scaled for multiple trips
 
 
         // Save current order in the session
         paymentSession.setOrigin(PaymentSession.Origin.BUY_TICKET);
         paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, quantity, unit));
+
         // Navigate to the Payment page
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Payment.fxml"));
@@ -319,7 +278,6 @@ public class BuyNewTicketController {
         return "Single Trip";
     }
 
-    // Back to Home
     public void onBack(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Home.fxml"));
@@ -349,13 +307,4 @@ public class BuyNewTicketController {
 
     public void onVolume(ActionEvent actionEvent) {
     }
-
-//    @FXML private void onFontSizeIn()  { TextZoomService.get().zoomIn();  reflectZoomButtons(); }
-//    @FXML private void onFontSizeOut() { TextZoomService.get().zoomOut(); reflectZoomButtons(); }
-//
-//    private void reflectZoomButtons() {
-//        double s = TextZoomService.get().getScale();
-//        btnFontSizeOut.setDisable(s <= 1.00);
-//        btnFontSizeIn.setDisable(s >= 1.50);
-//    }
 }

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
-
-
-
 
 <BorderPane fx:id="root"  prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="concordia.soen6611.igo_tvm.controllers.HomeController"
             stylesheets="@../styles/Home.css">
@@ -19,8 +14,6 @@
     <top>
         <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
             <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
-
-            <!-- Maple + STM -->
             <HBox alignment="CENTER_LEFT" spacing="6">
                 <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
                     <image>
@@ -29,15 +22,10 @@
                 </ImageView>
                 <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
             </HBox>
-
             <Region HBox.hgrow="ALWAYS"/>
-
-            <Label text="Home" styleClass="title" fx:id="homeLabel"/>
+            <Label fx:id="homeLabel" styleClass="title"/>
             <Region HBox.hgrow="ALWAYS"/>
-
-            <!-- Language Switch (icon buttons) -->
             <HBox spacing="8" alignment="CENTER_RIGHT">
-                <!-- English (Canada flag) -->
                 <Button fx:id="btnEN" onAction="#onLanguageChange" styleClass="flag-btn" prefWidth="40" prefHeight="28">
                     <graphic>
                         <ImageView fitWidth="26" preserveRatio="true" smooth="true">
@@ -46,10 +34,7 @@
                             </image>
                         </ImageView>
                     </graphic>
-                    <tooltip><Tooltip text="English (Canada)"/></tooltip>
                 </Button>
-
-                <!-- French (Québec flag) -->
                 <Button fx:id="btnFR" onAction="#onLanguageChange" styleClass="flag-btn" prefWidth="40" prefHeight="28">
                     <graphic>
                         <ImageView fitWidth="26" preserveRatio="true" smooth="true">
@@ -58,16 +43,10 @@
                             </image>
                         </ImageView>
                     </graphic>
-                    <tooltip><Tooltip text="Français (Québec)"/></tooltip>
                 </Button>
-
                 <Separator orientation="VERTICAL" styleClass="header-sep"/>
-
-                <Label fx:id="clockLabel" styleClass="clock" minWidth="150" text="Nov 27, 2024&#10;10:31 AM"/>
+                <Label fx:id="clockLabel" styleClass="clock" minWidth="150"/>
             </HBox>
-
-<!--            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"-->
-<!--                   text="Nov 27, 2024&#10;10:31 AM"/>-->
         </HBox>
     </top>
 
@@ -77,16 +56,12 @@
             <children>
                 <VBox spacing="66" alignment="TOP_CENTER" pickOnBounds="false" fx:id="contentBox">
                     <padding><Insets top="56" right="26" bottom="26" left="26"/></padding>
-
-                    <Label fx:id="promptLabel" styleClass="prompt" text="How can I help you today?"/>
-
+                    <Label fx:id="promptLabel" styleClass="prompt"/>
                     <HBox spacing="28" alignment="CENTER">
-                        <!-- BUY TICKET -->
                         <Button fx:id="buyBtn" onAction="#onBuyTicket" styleClass="tile" prefWidth="440" prefHeight="210" minWidth="380" minHeight="180">
                             <graphic>
                                 <HBox spacing="16" alignment="CENTER_LEFT">
                                     <StackPane styleClass="tile-icon">
-                                        <!-- simple ticket glyph via text (kept as label for simplicity) -->
                                         <Label text="🎟" styleClass="emoji-icon"/>
                                     </StackPane>
                                     <VBox spacing="4" alignment="CENTER_LEFT">
@@ -96,8 +71,6 @@
                                 </HBox>
                             </graphic>
                         </Button>
-
-                        <!-- RELOAD CARD -->
                         <Button fx:id="reloadBtn" onAction="#onReload" styleClass="tile"
                                 prefWidth="440" prefHeight="210" minWidth="380" minHeight="180">
                             <graphic>
@@ -114,8 +87,6 @@
                         </Button>
                     </HBox>
                 </VBox>
-
-                <!-- Floating INFO button + caption (bottom-right, above footer) -->
                 <VBox spacing="6" alignment="BOTTOM_RIGHT" StackPane.alignment="BOTTOM_RIGHT" pickOnBounds="false">
                     <StackPane.margin>
                         <Insets bottom="15" right="24"/>
@@ -123,21 +94,16 @@
 
                     <Button onAction="#onInfo" styleClass="round" prefWidth="48" prefHeight="48" fx:id="informationButton">
                         <graphic>
-                            <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
-                                    glyphName="INFO_CIRCLE" styleClass="glyph-white" glyphSize="34"/>
+                            <FontAwesomeIconView glyphName="INFO_CIRCLE" styleClass="glyph-white" glyphSize="34"/>
                         </graphic>
-                        <tooltip><Tooltip text="Information"/></tooltip>
                     </Button>
-
-                    <!-- Caption under the button -->
-                    <Label text="Information" styleClass="info-caption" fx:id="informationLabel"/>
+                    <Label fx:id="informationLabel" styleClass="info-caption"/>
                 </VBox>
-
             </children>
         </StackPane>
     </center>
 
-    <!-- ===== FOOTER (volume on the right corner) ===== -->
+    <!-- ===== FOOTER ===== -->
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
             <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
@@ -183,9 +149,7 @@
                 <graphic>
                     <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
                 </graphic>
-                <tooltip><Tooltip text="Volume"/></tooltip>
             </Button>
         </HBox>
     </bottom>
-
 </BorderPane>

@@ -6,7 +6,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -15,40 +14,34 @@
             stylesheets="@../styles/BuyNewTicket.css"
             styleClass="buy-page">
 
-    <!-- GLOBAL SCOPE DEFINITIONS -->
     <fx:define>
         <ToggleGroup fx:id="riderGroup"/>
         <ToggleGroup fx:id="tripGroup"/>
     </fx:define>
 
-    <!-- ===== HEADER ===== -->
     <top>
         <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
-            <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
-
+            <padding><Insets top="14" right="22" bottom="14" left="22"/>
+            </padding>
             <HBox alignment="CENTER_LEFT" spacing="6">
                 <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
-                    <image><Image url="@../images/maple.png"/></image>
+                    <image>
+                        <Image url="@../images/maple.png"/>
+                    </image>
                 </ImageView>
                 <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
             </HBox>
-
             <Region HBox.hgrow="ALWAYS"/>
-
             <Label text="Fare Selection" styleClass="title" fx:id="buyNewTicketLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
-
             <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
                    text="Nov 27, 2024&#10;10:31 AM"/>
         </HBox>
     </top>
 
-    <!-- ===== CENTER ===== -->
     <center>
-        <HBox spacing="10" alignment="TOP_LEFT">
+        <HBox spacing="18" alignment="TOP_LEFT">
             <padding><Insets top="24" right="12" bottom="18" left="12"/></padding>
-
-            <!-- Left menu: trip shortcuts -->
             <VBox spacing="12" prefWidth="260" styleClass="leftMenu">
                 <Button fx:id="menuSingleBtn" styleClass="menu-btn" onAction="#onMenuSingle"/>
                 <Button fx:id="menuMultiBtn" styleClass="menu-btn" onAction="#onMenuMulti"/>
@@ -57,11 +50,8 @@
                 <Button fx:id="menuWeekendBtn" styleClass="menu-btn" onAction="#onMenuWeekend"/>
 
             </VBox>
-
-            <!-- Main panel -->
             <VBox spacing="20" HBox.hgrow="ALWAYS">
                 <Label fx:id="questionLabel" styleClass="question"/>
-
                 <GridPane hgap="14" vgap="12">
                     <columnConstraints>
                         <ColumnConstraints halignment="LEFT"  percentWidth="22"/>
@@ -69,14 +59,10 @@
                         <ColumnConstraints halignment="LEFT"  percentWidth="16"/>
                         <ColumnConstraints halignment="RIGHT" percentWidth="24"/>
                     </columnConstraints>
-
-                    <!-- Rider segmented (icons + labels) -->
                     <Label fx:id="riderTypeLabel" styleClass="label"
                            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                     <FlowPane hgap="8" vgap="8" prefWrapLength="420"
                               GridPane.rowIndex="0" GridPane.columnIndex="1">
-
-                        <!-- Adult -->
                         <ToggleButton fx:id="adultBtn" toggleGroup="$riderGroup" selected="true"
                                       onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
                             <graphic>
@@ -88,8 +74,6 @@
                                 </HBox>
                             </graphic>
                         </ToggleButton>
-
-                        <!-- Student -->
                         <ToggleButton fx:id="studentBtn" toggleGroup="$riderGroup"
                                       onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
                             <graphic>
@@ -101,8 +85,6 @@
                                 </HBox>
                             </graphic>
                         </ToggleButton>
-
-                        <!-- Senior -->
                         <ToggleButton fx:id="seniorBtn" toggleGroup="$riderGroup"
                                       onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
                             <graphic>
@@ -114,8 +96,6 @@
                                 </HBox>
                             </graphic>
                         </ToggleButton>
-
-                        <!-- Tourist -->
                         <ToggleButton fx:id="touristBtn" toggleGroup="$riderGroup"
                                       onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
                             <graphic>
@@ -128,8 +108,6 @@
                             </graphic>
                         </ToggleButton>
                     </FlowPane>
-
-                    <!-- Trip type segmented -->
                     <Label fx:id="tripTypeLabel" styleClass="label"
                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                     <FlowPane hgap="8" vgap="8" prefWrapLength="420"
@@ -150,20 +128,14 @@
                                       toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
                     </FlowPane>
-
-                    <!-- Multiple Trip count (shown only when 'Multiple Trip' is selected) -->
                     <Label fx:id="multiCountLabel" text="Trips" styleClass="label"
                            GridPane.rowIndex="1" GridPane.columnIndex="2"/>
                     <ComboBox fx:id="multiCountCombo" prefWidth="120"
                               GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-
-                    <!-- Unit price -->
                     <Label fx:id="priceLabel" styleClass="label"
                            GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                     <Label fx:id="unitValueLabel" text="3.75" styleClass="value"
                            GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                    <!-- Quantity -->
                     <Label fx:id="quantityLabel" styleClass="label"
                            GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                     <HBox spacing="6" alignment="CENTER_LEFT"
@@ -171,7 +143,9 @@
                         <Button onAction="#decrementQty" styleClass="qty-btn" prefWidth="56" prefHeight="36">
                             <graphic>
                                 <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
-                                    <image><Image url="@../images/minus.png"/></image>
+                                    <image>
+                                        <Image url="@../images/minus.png"/>
+                                    </image>
                                 </ImageView>
                             </graphic>
                         </Button>
@@ -180,19 +154,17 @@
                         <Button onAction="#incrementQty" styleClass="qty-btn" prefWidth="56" prefHeight="36">
                             <graphic>
                                 <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
-                                    <image><Image url="@../images/plus.png"/></image>
+                                    <image>
+                                        <Image url="@../images/plus.png"/>
+                                    </image>
                                 </ImageView>
                             </graphic>
                         </Button>
                     </HBox>
-
-                    <!-- Total -->
-                    <Label fx:id="totalLabel" styleClass="total-label"
+                    <Label text="Total:" styleClass="total-label"
                            GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                    <Label fx:id="totalValue" text="3.75" styleClass="total-value"
+                    <Label fx:id="totalValue" text="" styleClass="total-value"
                            GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
-                    <!-- Make Payment -->
                     <Button fx:id="makePaymentBtn" onAction="#onMakePayment"
                             text="Make Payment | Passer au Paiement"
                             styleClass="primary" prefWidth="260" prefHeight="44"
@@ -202,50 +174,30 @@
         </HBox>
     </center>
 
-    <!-- ===== FOOTER ===== -->
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
-            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
-
+            <padding>
+                <Insets top="10" right="18" bottom="10" left="18"/>
+            </padding>
             <Button fx:id="backBtn" onAction="#onBack" styleClass="back-btn"
                     prefHeight="34" minHeight="34">
                 <graphic>
-                    <FontAwesomeIconView glyphName="ARROW_LEFT" glyphSize="18" styleClass="glyph-white-sm"/>
+                    <FontIcon iconLiteral="fas-arrow-left" iconSize="18" styleClass="glyph-white-sm"/>
                 </graphic>
-                <tooltip><Tooltip text="Back to Home"/></tooltip>
+                <tooltip>
+                    <Tooltip text="Back to Home"/>
+                </tooltip>
             </Button>
-
             <Label fx:id="helpLabel" styleClass="help"/>
             <Region HBox.hgrow="ALWAYS"/>
-
-
-<!--            <Button fx:id="btnFontSizeOut" onAction="#onFontSizeOut" styleClass="a11y-btn" prefWidth="40" prefHeight="32">-->
-<!--                <graphic>-->
-<!--                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">-->
-<!--                        <image>-->
-<!--                            <Image url="@../images/magnifer_out.png"/>-->
-<!--                        </image>-->
-<!--                    </ImageView>-->
-<!--                </graphic>-->
-<!--                <tooltip><Tooltip text="Make text Smaller"/></tooltip>-->
-<!--            </Button>-->
-<!--            <Button fx:id="btnFontSizeIn" onAction="#onFontSizeIn" styleClass="a11y-btn" prefWidth="40" prefHeight="32">-->
-<!--                <graphic>-->
-<!--                    <ImageView fitWidth="26" preserveRatio="true" smooth="true">-->
-<!--                        <image>-->
-<!--                            <Image url="@../images/magnifer_in.png"/>-->
-<!--                        </image>-->
-<!--                    </ImageView>-->
-<!--                </graphic>-->
-<!--                <tooltip><Tooltip text="Make text Larger"/></tooltip>-->
-<!--            </Button>-->
-
             <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
                     prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
                 <graphic>
-                    <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
+                    <FontIcon iconLiteral="fas-volume-up" iconSize="24" styleClass="glyph-white-sm"/>
                 </graphic>
-                <tooltip><Tooltip text="Volume"/></tooltip>
+                <tooltip>
+                    <Tooltip text="Volume"/>
+                </tooltip>
             </Button>
         </HBox>
     </bottom>
