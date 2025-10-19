@@ -71,3 +71,12 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 8, 0.25, 0, 2);
 }
 .cra-primary-btn:hover { -fx-background-color: #0a69c9; }
+
+.cra-rider-tag {
+    -fx-background-color: #e8f1ff;
+    -fx-text-fill: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-padding: 2 10;
+    -fx-background-radius: 999;
+}

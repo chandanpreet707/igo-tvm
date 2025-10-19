@@ -56,6 +56,7 @@ public class CardReloadAmountController implements Initializable {
     public String menuWeeklyPass;
     public String menuMonthlyPass;
     public String menuDayPass;
+    public Label riderTypeTag;
     private Timeline clock;
     @FXML private ComboBox<String> passTypeBox;
     @FXML private ComboBox<Integer> qtyBox;
@@ -80,6 +81,7 @@ public class CardReloadAmountController implements Initializable {
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        riderTypeTag.setText("Adult"); // "Adult", "Student", etc.
         updateTexts();
         i18n.localeProperty().addListener((obs, oldL, newL) -> {
             System.out.println("Locale changed from " + oldL + " to " + newL);
@@ -226,7 +228,7 @@ public class CardReloadAmountController implements Initializable {
 
     @FXML
     private void onProceedToPayment(ActionEvent event) {
-        String rider = selectedRiderName();
+        String rider = riderTypeTag.getText();
         String trip  = selectedTripName();
         int trips    = isMultiple(passTypeBox.getSelectionModel().getSelectedItem()) ? multiTrips() : 1;
         int quantity = qty();

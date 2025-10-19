@@ -43,7 +43,11 @@
 
             <!-- ===== LEFT: YOUR CARD ===== -->
             <VBox spacing="14" prefWidth="520">
-                <Label styleClass="cra-section-title" fx:id="youCardLabel"/>
+                <HBox spacing="8" alignment="TOP_LEFT">
+                    <Label styleClass="cra-section-title" fx:id="youCardLabel"/>
+                    <!-- Rider tag beside the card name -->
+                    <Label fx:id="riderTypeTag" text="Adult" styleClass="cra-rider-tag"/>
+                </HBox>
 
                 <StackPane styleClass="cra-cardbox" prefHeight="360">
                     <VBox spacing="14" alignment="CENTER">
