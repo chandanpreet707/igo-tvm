@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="concordia.soen6611.igo_tvm.controllers.ErrorDialogController"
+            prefWidth="420" prefHeight="180"
+            stylesheets="@../styles/ErrorDialog.css">
+
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="header">
+            <padding><Insets top="10" right="12" bottom="10" left="12"/></padding>
+            <Label fx:id="errorIcon" text="❗" styleClass="error-icon"/>
+            <Label text="Error" styleClass="title" fx:id="titleLabel"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Close" onAction="#onClose" fx:id="closeBtn"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="8">
+            <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+
+            <GridPane hgap="8" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="80" halignment="RIGHT"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label text="Time:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="timestampLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="typeLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="User message:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <Label fx:id="userMessageLabel" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+            </GridPane>
+        </VBox>
+    </center>
+</BorderPane>

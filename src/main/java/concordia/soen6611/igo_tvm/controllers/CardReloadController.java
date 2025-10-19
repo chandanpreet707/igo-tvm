@@ -1,9 +1,13 @@
 package concordia.soen6611.igo_tvm.controllers;
 
+import concordia.soen6611.igo_tvm.Services.CardReloadService;
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
+import concordia.soen6611.igo_tvm.Services.FareRateService;
 import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
+import concordia.soen6611.igo_tvm.exceptions.*;
+import concordia.soen6611.igo_tvm.models.ExceptionDialog;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -23,6 +27,9 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
@@ -31,31 +38,40 @@ public class CardReloadController {
     public Label brandLink;
     public Label tapYouCardLabel;
     public Label reloadCardLabel;
-    @FXML private Button startReadBtn;
-    @FXML private ProgressIndicator readProgress;
-    @FXML private Label readStatus;
+    @FXML
+    private Button startReadBtn;
+    @FXML
+    private ProgressIndicator readProgress;
+    @FXML
+    private Label readStatus;
     private Timeline clock;
-    @FXML private Label clockLabel;
+    @FXML
+    private Label clockLabel;
     private final I18nService i18n;
-
+    private final FareRateService fareRateService;
     private final ApplicationContext appContext;
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
     private final PaymentSession paymentSession;
+    private final CardReloadService cardReloadService;
 
-    public CardReloadController(I18nService i18n, ApplicationContext appContext, PaymentSession paymentSession) {
+    public CardReloadController(I18nService i18n,
+                                FareRateService fareRateService,
+                                ApplicationContext appContext,
+                                PaymentSession paymentSession,
+                                CardReloadService cardReloadService) {
         this.i18n = i18n;
+        this.fareRateService = fareRateService;
         this.appContext = appContext;
         this.paymentSession = paymentSession;
+        this.cardReloadService = cardReloadService;
     }
+
     @FXML
     private void initialize() {
         updateTexts();
-        i18n.localeProperty().addListener((obs, oldL, newL) -> {
-            System.out.println("Locale changed from " + oldL + " to " + newL);
-            updateTexts();
-        });
+        i18n.localeProperty().addListener((obs, oldL, newL) -> updateTexts());
 
         // Live clock
         clock = new Timeline(
@@ -64,7 +80,6 @@ public class CardReloadController {
         );
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
-
 
         Platform.runLater(() -> {
             var zoom = TextZoomService.get();
@@ -81,6 +96,11 @@ public class CardReloadController {
         tapYouCardLabel.setText(i18n.get("cardReload.message"));
         readStatus.setText(i18n.get("cardReload.readyToReadMessage"));
     }
+
+    public double getFare(String riderType, String passType) {
+        return cardReloadService.getFare(riderType, passType);
+    }
+
     @FXML
     private void onBrandClick(MouseEvent event) {
         paymentSession.clear();
@@ -114,53 +134,104 @@ public class CardReloadController {
 
     @FXML
     private void onStartReading(javafx.event.ActionEvent event) {
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("success",
+                "success", "network", "hardware", "database", "user");
+        dialog.setTitle("Simulation Options");
+        dialog.setHeaderText("Choose simulation scenario");
+        dialog.setContentText("Scenario:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isEmpty()) {
+            return; // User cancelled
+        }
+
+        String choice = result.get();
+
         // UI: show spinner & status
         startReadBtn.setDisable(true);
         readProgress.setVisible(true);
         readProgress.setManaged(true);
         readStatus.setText(i18n.get("cardReload.readingStartedMessage"));
 
-        // Simulate 10-second read
-        PauseTransition wait = new PauseTransition(Duration.seconds(5));
-        wait.setOnFinished(e -> {
-            readStatus.setText(i18n.get("cardReload.readingDoneMessage"));
-            readProgress.setVisible(false);
-            readProgress.setManaged(false);
+        // Start with the async operation, then chain based on choice
+        cardReloadService.readCardAsync(false) // Use false for normal flow
+                .thenCompose(v -> {
+                    // After the read completes, check if we should simulate an exception
+                    if (!choice.equals("success")) {
+                        // Create a failed future with the appropriate exception
+                        CompletableFuture<Void> failedFuture = new CompletableFuture<>();
+                        switch (choice) {
+                            case "network":
+                                failedFuture.completeExceptionally(new NetworkException("Simulated network failure during card read"));
+                                break;
+                            case "hardware":
+                                failedFuture.completeExceptionally(new HardwareException("Simulated hardware failure during card read"));
+                                break;
+                            case "database":
+                                failedFuture.completeExceptionally(new DatabaseException("Simulated database failure during card read"));
+                                break;
+                            case "user":
+                                failedFuture.completeExceptionally(new UserException("Simulated user error during card read"));
+                                break;
+                        }
+                        return failedFuture;
+                    }
+                    // Success case - return completed future
+                    return CompletableFuture.completedFuture(null);
+                })
+                .thenRun(() -> Platform.runLater(() -> {
+                    // Success path: update UI and show success modal, then navigate
+                    readStatus.setText(i18n.get("cardReload.readingDoneMessage"));
+                    readProgress.setVisible(false);
+                    readProgress.setManaged(false);
 
-            // Inform user
-            Alert ok = new Alert(Alert.AlertType.INFORMATION);
-            ok.setTitle(i18n.get("cardReload.modalTitle"));
-            ok.setHeaderText(null);
-            ok.setContentText(i18n.get("cardReload.readingSuccessfulMessage"));
+                    Alert ok = new Alert(Alert.AlertType.INFORMATION);
+                    ok.setTitle(i18n.get("cardReload.modalTitle"));
+                    ok.setHeaderText(null);
+                    ok.setContentText(i18n.get("cardReload.readingSuccessfulMessage"));
 
-            Button okButton = (Button) ok.getDialogPane().lookupButton(ButtonType.OK);
-            if (okButton != null) {
-                okButton.setText(i18n.get("cardReload.ok"));
-            }
+                    Button okButton = (Button) ok.getDialogPane().lookupButton(ButtonType.OK);
+                    if (okButton != null) {
+                        okButton.setText(i18n.get("cardReload.ok"));
+                    }
 
-            ok.show();
-            // Short pause so they see the dialog, then go to next page
-            PauseTransition after = new PauseTransition(Duration.seconds(2));
-            after.setOnFinished(x -> {
-                ok.close();
-                goNext((Node) event.getSource());
-            });
-            after.play();
-        });
-        wait.play();
+                    ok.show();
+
+                    PauseTransition after = new PauseTransition(Duration.seconds(2));
+                    after.setOnFinished(x -> {
+                        ok.close();
+                        goNext((Node) event.getSource());
+                    });
+                    after.play();
+                }))
+                .exceptionally(t -> {
+                    Throwable cause = (t instanceof CompletionException && t.getCause() != null) ? t.getCause() : t;
+                    Platform.runLater(() -> {
+                        // Show dialog for known AbstractCustomException or wrap otherwise
+                        if (cause instanceof AbstractCustomException) {
+                            ExceptionDialog.show((AbstractCustomException) cause, ((Node) event.getSource()).getScene().getWindow(), appContext);
+                        } else {
+                            ExceptionDialog.showAsUserException(cause, ((Node) event.getSource()).getScene().getWindow(), appContext);
+                        }
+                        // Reset UI
+                        startReadBtn.setDisable(false);
+                        readProgress.setVisible(false);
+                        readProgress.setManaged(false);
+                        readStatus.setText(i18n.get("cardReload.readingFailedMessage"));
+                    });
+                    return null;
+                });
     }
 
-    /** Load your next page after reading completes. */
     private void goNext(Node source) {
         try {
-            // TODO: change to your real "next" screen
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/CardReloadAmount.fxml"));
             loader.setControllerFactory(appContext::getBean);
             Parent next = loader.load();
             source.getScene().setRoot(next);
         } catch (Exception ex) {
             ex.printStackTrace();
-            // Fallback: just re-enable the button if navigation fails
             startReadBtn.setDisable(false);
         }
     }

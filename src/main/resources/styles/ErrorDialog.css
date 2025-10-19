@@ -1,0 +1,63 @@
+/* ErrorDialog.css - styles for the error dialog */
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: linear-gradient(#f7f9fc, #e9eef5);
+}
+
+.header {
+    -fx-background-color: linear-gradient(#2b6ea3, #1e556f);
+    -fx-padding: 10 12 10 12;
+    -fx-spacing: 12;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.header .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255,255,255,0.15);
+    -fx-border-radius: 4;
+    -fx-padding: 6 10;
+}
+
+/* Labels in the grid (field names) */
+.grid-pane .label {
+    -fx-text-fill: #333333;
+    -fx-font-weight: 600;
+}
+
+/* Values (right column) */
+.label {
+    -fx-text-fill: #222222;
+    -fx-wrap-text: true;
+}
+
+/* Hint in the bottom */
+.hint {
+    -fx-text-fill: #6b6f76;
+    -fx-font-size: 11px;
+}
+
+/* Details area (stacktrace) */
+.text-area {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-control-inner-background: #ffffff;
+    -fx-background-color: white;
+    -fx-border-color: #d0d7de;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 6;
+}
+
+/* Minor spacing adjustments for center VBox */
+.vbox {
+    -fx-padding: 12;
+    -fx-spacing: 10;
+}
