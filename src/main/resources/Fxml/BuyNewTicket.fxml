@@ -43,11 +43,11 @@
         <HBox spacing="18" alignment="TOP_LEFT">
             <padding><Insets top="24" right="12" bottom="18" left="12"/></padding>
             <VBox spacing="12" prefWidth="260" styleClass="leftMenu">
-                <Button fx:id="menuSingleBtn" styleClass="menu-btn" onAction="#onMenuSingle"/>
-                <Button fx:id="menuMultiBtn" styleClass="menu-btn" onAction="#onMenuMulti"/>
-                <Button fx:id="menuDayBtn" styleClass="menu-btn" onAction="#onMenuDay"/>
-                <Button fx:id="menuMonthlyBtn" styleClass="menu-btn" onAction="#onMenuMonthly"/>
-                <Button fx:id="menuWeekendBtn" styleClass="menu-btn" onAction="#onMenuWeekend"/>
+                <Button fx:id="menuSingleBtn" styleClass="menu-btn" text="Single Trip"   onAction="#onMenuSingle"/>
+                <Button fx:id="menuMultiBtn" styleClass="menu-btn" text="Multiple Trip" onAction="#onMenuMulti"/>
+                <Button fx:id="menuDayBtn" styleClass="menu-btn" text="Day Pass"      onAction="#onMenuDay"/>
+                <Button fx:id="menuMonthlyBtn" styleClass="menu-btn" text="Monthly Pass"  onAction="#onMenuMonthly"/>
+                <Button fx:id="menuWeekendBtn" styleClass="menu-btn" text="Weekend Pass"  onAction="#onMenuWeekend"/>
 
             </VBox>
             <VBox spacing="20" HBox.hgrow="ALWAYS">
@@ -134,7 +134,7 @@
                               GridPane.rowIndex="1" GridPane.columnIndex="3"/>
                     <Label fx:id="priceLabel" styleClass="label"
                            GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <Label fx:id="unitValueLabel" text="3.75" styleClass="value"
+                    <Label fx:id="unitValueLabel" styleClass="value"
                            GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                     <Label fx:id="quantityLabel" styleClass="label"
                            GridPane.rowIndex="3" GridPane.columnIndex="0"/>
@@ -161,7 +161,7 @@
                             </graphic>
                         </Button>
                     </HBox>
-                    <Label text="Total:" styleClass="total-label"
+                    <Label fx:id="totalLabel" text="Total:" styleClass="total-label"
                            GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                     <Label fx:id="totalValue" text="" styleClass="total-value"
                            GridPane.rowIndex="4" GridPane.columnIndex="1"/>

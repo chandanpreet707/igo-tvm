@@ -24,88 +24,86 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
 public class BuyNewTicketController {
 
-    @FXML private Label buyNewTicketLabel;
-    @FXML private Label totalLabel;
-    @FXML private Label riderTypeLabel;
-    @FXML private Label tripTypeLabel;
-    @FXML private Label priceLabel;
-    @FXML private Label quantityLabel;
-    @FXML private Button menuSingleBtn;
-    @FXML private Button menuMultiBtn;
-    @FXML private Button menuDayBtn;
-    @FXML private Button menuMonthlyBtn;
-    @FXML private Button menuWeekendBtn;
-    @FXML private Label promptLabel;
-    @FXML private Label clockLabel;
-    @FXML private Label questionLabel;
-    @FXML private Label helpLabel;
+    @FXML
+    private Label buyNewTicketLabel;
+    @FXML
+    private Label totalLabel;
+    @FXML
+    private Label riderTypeLabel;
+    @FXML
+    private Label tripTypeLabel;
+    @FXML
+    private Label priceLabel;
+    @FXML
+    private Label quantityLabel;
+    @FXML
+    private Button menuSingleBtn;
+    @FXML
+    private Button menuMultiBtn;
+    @FXML
+    private Button menuDayBtn;
+    @FXML
+    private Button menuMonthlyBtn;
+    @FXML
+    private Button menuWeekendBtn;
+    @FXML
+    private Label clockLabel;
+    @FXML
+    private Label questionLabel;
+    @FXML
+    private Label helpLabel;
 
-    @FXML private ToggleButton adultBtn, studentBtn, seniorBtn, touristBtn;
-    @FXML private ToggleGroup  riderGroup;
+    @FXML
+    private ToggleButton adultBtn, studentBtn, seniorBtn, touristBtn;
+    @FXML
+    private ToggleGroup riderGroup;
 
-    @FXML private ToggleButton tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend;
-    @FXML private ToggleGroup  tripGroup;
+    @FXML
+    private ToggleButton tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend;
+    @FXML
+    private ToggleGroup tripGroup;
 
-    @FXML private Label multiCountLabel;
-    @FXML private ComboBox<Integer> multiCountCombo;
+    @FXML
+    private Label multiCountLabel;
+    @FXML
+    private ComboBox<Integer> multiCountCombo;
 
-    @FXML private TextField qtyField;
-    @FXML private Label unitValueLabel, totalValue;
-    @FXML private Button makePaymentBtn;
-    @FXML private Button backBtn;
+    @FXML
+    private TextField qtyField;
+    @FXML
+    private Label unitValueLabel, totalValue;
+    @FXML
+    private Button makePaymentBtn;
+    @FXML
+    private Button backBtn;
 
-    private final ApplicationContext appContext;
-    private final PaymentSession paymentSession;
-    private final I18nService i18n;
+    @Autowired
+    private  ApplicationContext appContext;
+    @Autowired
+    private PaymentSession paymentSession;
+    @Autowired
+    private I18nService i18n;
 
 
     @Autowired
     private FareRateService fareRateService;
 
     private Timeline clock;
-    private static final DateTimeFormatter CLOCK_FMT =
-            DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh:mm a");
+    private static final DateTimeFormatter CLOCK_FMT = DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh:mm a");
 
-    public BuyNewTicketController(ApplicationContext appContext, PaymentSession paymentSession) {
-    // ======= Price table (per rider; set to your real fares) =======
-    // Adult
-    private static final double ADULT_SINGLE   = 3.75;
-    private static final double ADULT_DAY      = 11.00;
-    private static final double ADULT_MONTHLY  = 94.00;
-    private static final double ADULT_WEEKEND  = 14.00;
-
-    // Student
-    private static final double STUDENT_SINGLE  = 3.00;
-    private static final double STUDENT_DAY     = 8.00;
-    private static final double STUDENT_MONTHLY = 70.00;
-    private static final double STUDENT_WEEKEND = 10.00;
-
-    // Senior
-    private static final double SENIOR_SINGLE   = 2.50;
-    private static final double SENIOR_DAY      = 7.00;
-    private static final double SENIOR_MONTHLY  = 60.00;
-    private static final double SENIOR_WEEKEND  = 9.00;
-
-    // Tourist
-    private static final double TOURIST_SINGLE  = 4.00;
-    private static final double TOURIST_DAY     = 12.00;
-    private static final double TOURIST_MONTHLY = 99.00;
-    private static final double TOURIST_WEEKEND = 16.00;
-//    @FXML private Button btnFontSizeIn, btnFontSizeOut;
-    @FXML private Label brandLink;
-    @FXML private javafx.scene.Parent root;
+    //    @FXML private Button btnFontSizeIn, btnFontSizeOut;
+    @FXML
+    private Label brandLink;
+    @FXML
+    private javafx.scene.Parent root;
     // ===============================================================
 
-    public BuyNewTicketController(I18nService i18n, ApplicationContext appContext, PaymentSession paymentSession) {
-        this.i18n = i18n;
-        this.appContext = appContext;
-        this.paymentSession = paymentSession;
-    }
 
     @FXML
     private void initialize() {
@@ -117,8 +115,8 @@ public class BuyNewTicketController {
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
 
-        if (riderGroup.getSelectedToggle() == null && adultBtn != null)   adultBtn.setSelected(true);
-        if (tripGroup.getSelectedToggle()  == null && tripSingle != null) tripSingle.setSelected(true);
+        if (riderGroup.getSelectedToggle() == null && adultBtn != null) adultBtn.setSelected(true);
+        if (tripGroup.getSelectedToggle() == null && tripSingle != null) tripSingle.setSelected(true);
 
         for (int i = 1; i <= 10; i++) multiCountCombo.getItems().add(i);
         multiCountCombo.setValue(1);
@@ -196,21 +194,75 @@ public class BuyNewTicketController {
         multiCountCombo.setManaged(show);
     }
 
-    @FXML private void onRiderTypeChange(ActionEvent e) { recalc(); }
-    @FXML private void onTripChange(ActionEvent e)      { /* handled via listener */ }
+    @FXML
+    private void onRiderTypeChange(ActionEvent e) {
+        recalc();
+    }
 
-    @FXML private void onMenuSingle(ActionEvent e)  { if (tripSingle  != null) { tripSingle.setSelected(true);  recalc(); bindMultipleTripVisibility(); } }
-    @FXML private void onMenuMulti(ActionEvent e)   { if (tripMulti   != null) { tripMulti.setSelected(true);   recalc(); bindMultipleTripVisibility(); } }
-    @FXML private void onMenuDay(ActionEvent e)     { if (tripDay     != null) { tripDay.setSelected(true);     recalc(); bindMultipleTripVisibility(); } }
-    @FXML private void onMenuMonthly(ActionEvent e) { if (tripMonthly != null) { tripMonthly.setSelected(true); recalc(); bindMultipleTripVisibility(); } }
-    @FXML private void onMenuWeekend(ActionEvent e) { if (tripWeekend != null) { tripWeekend.setSelected(true); recalc(); bindMultipleTripVisibility(); } }
+    @FXML
+    private void onTripChange(ActionEvent e) { /* handled via listener */ }
 
-    @FXML private void incrementQty() { qtyField.setText(String.valueOf(qty() + 1)); }
-    @FXML private void decrementQty() { qtyField.setText(String.valueOf(Math.max(1, qty() - 1))); }
+    @FXML
+    private void onMenuSingle(ActionEvent e) {
+        if (tripSingle != null) {
+            tripSingle.setSelected(true);
+            recalc();
+            bindMultipleTripVisibility();
+        }
+    }
+
+    @FXML
+    private void onMenuMulti(ActionEvent e) {
+        if (tripMulti != null) {
+            tripMulti.setSelected(true);
+            recalc();
+            bindMultipleTripVisibility();
+        }
+    }
+
+    @FXML
+    private void onMenuDay(ActionEvent e) {
+        if (tripDay != null) {
+            tripDay.setSelected(true);
+            recalc();
+            bindMultipleTripVisibility();
+        }
+    }
+
+    @FXML
+    private void onMenuMonthly(ActionEvent e) {
+        if (tripMonthly != null) {
+            tripMonthly.setSelected(true);
+            recalc();
+            bindMultipleTripVisibility();
+        }
+    }
+
+    @FXML
+    private void onMenuWeekend(ActionEvent e) {
+        if (tripWeekend != null) {
+            tripWeekend.setSelected(true);
+            recalc();
+            bindMultipleTripVisibility();
+        }
+    }
+
+    @FXML
+    private void incrementQty() {
+        qtyField.setText(String.valueOf(qty() + 1));
+    }
+
+    @FXML
+    private void decrementQty() {
+        qtyField.setText(String.valueOf(Math.max(1, qty() - 1)));
+    }
 
     private int qty() {
-        try { return Math.max(1, Integer.parseInt(qtyField.getText())); }
-        catch (NumberFormatException ex) { return 1; }
+        try {
+            return Math.max(1, Integer.parseInt(qtyField.getText()));
+        } catch (NumberFormatException ex) {
+            return 1;
+        }
     }
 
     private int multiTrips() {
@@ -239,11 +291,10 @@ public class BuyNewTicketController {
     @FXML
     private void onMakePayment(ActionEvent event) {
         String rider = selectedRiderName();
-        String trip  = selectedTripName();
+        String trip = selectedTripName();
         int trips = tripMulti != null && tripMulti.isSelected() ? multiTrips() : 1;
         int quantity = qty();
         double unit = currentUnitPrice();
-        double unit = currentUnitPrice(); // already scaled for multiple trips
 
 
         // Save current order in the session
@@ -262,17 +313,17 @@ public class BuyNewTicketController {
     }
 
     private String selectedRiderName() {
-        if (adultBtn   != null && adultBtn.isSelected())   return "Adult";
+        if (adultBtn != null && adultBtn.isSelected()) return "Adult";
         if (studentBtn != null && studentBtn.isSelected()) return "Student";
-        if (seniorBtn  != null && seniorBtn.isSelected())  return "Senior";
+        if (seniorBtn != null && seniorBtn.isSelected()) return "Senior";
         if (touristBtn != null && touristBtn.isSelected()) return "Tourist";
         return "Adult";
     }
 
     private String selectedTripName() {
-        if (tripSingle  != null && tripSingle.isSelected())  return "Single Trip";
-        if (tripMulti   != null && tripMulti.isSelected())   return "Multiple Trip";
-        if (tripDay     != null && tripDay.isSelected())     return "Day Pass";
+        if (tripSingle != null && tripSingle.isSelected()) return "Single Trip";
+        if (tripMulti != null && tripMulti.isSelected()) return "Multiple Trip";
+        if (tripDay != null && tripDay.isSelected()) return "Day Pass";
         if (tripMonthly != null && tripMonthly.isSelected()) return "Monthly Pass";
         if (tripWeekend != null && tripWeekend.isSelected()) return "Weekend Pass";
         return "Single Trip";
@@ -288,7 +339,11 @@ public class BuyNewTicketController {
             ex.printStackTrace();
         }
     }
-    public void shutdown() { if (clock != null) clock.stop(); }
+
+    public void shutdown() {
+        if (clock != null) clock.stop();
+    }
+
     @FXML
     private void onBrandClick(MouseEvent event) {
         goWelcomeScreen((Node) event.getSource());

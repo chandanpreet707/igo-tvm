@@ -33,7 +33,7 @@ import java.util.Locale;
 @org.springframework.context.annotation.Scope("prototype")
 public class HomeController {
 
-    @FXML private Label brandLabel;
+    @FXML private Label brandLink;
     @FXML private Button informationButton;
     @FXML private BorderPane root;
     @FXML private Label homeLabel;
@@ -44,12 +44,8 @@ public class HomeController {
     @FXML private Button reloadBtn;
     @FXML private Button btnEN;
     @FXML private Button btnFR;
-    @FXML private Button infoBtn;
+
     @FXML private Button volumeBtn;
-    @FXML private Label buyBtnTitle;
-    @FXML private Label buyBtnSub;
-    @FXML private Label reloadBtnTitle;
-    @FXML private Label reloadBtnSub;
     @FXML private Label informationLabel;
 
     private Timeline clock;
@@ -60,7 +56,6 @@ public class HomeController {
 
     @FXML private Button btnFontSizeIn, btnFontSizeOut;
 
-    @FXML private Label brandLink;
     @FXML private Label buyNewTicketLabel;
     @FXML private Label reloadCardLabel;
     @FXML private Button btnContrastUp, btnContrastDown;
@@ -146,20 +141,18 @@ public class HomeController {
     }
 
     private void updateTexts() {
-        brandLabel.setText(i18n.get("home.brand"));
+        brandLink.setText(i18n.get("home.brand"));
         homeLabel.setText(i18n.get("home.title"));
         promptLabel.setText(i18n.get("home.prompt"));
         helpLabel.setText(i18n.get("home.help"));
-        buyBtnTitle.setText(i18n.get("home.buyBtn.title"));
-        buyBtnSub.setText(i18n.get("home.buyBtn.sub"));
-        reloadBtnTitle.setText(i18n.get("home.reloadBtn.title"));
-        reloadBtnSub.setText(i18n.get("home.reloadBtn.sub"));
+        buyBtn.setText(i18n.get("home.buyBtn.title"));
+        reloadBtn.setText(i18n.get("home.reloadBtn.title"));
         informationLabel.setText(i18n.get("home.information"));
 
         // Tooltips
         btnEN.setTooltip(new Tooltip(i18n.get("home.lang.en")));
         btnFR.setTooltip(new Tooltip(i18n.get("home.lang.fr")));
-        infoBtn.setTooltip(new Tooltip(i18n.get("home.info.tooltip")));
+        informationButton.setTooltip(new Tooltip(i18n.get("home.info.tooltip")));
         volumeBtn.setTooltip(new Tooltip(i18n.get("home.volume.tooltip")));
     }
 
