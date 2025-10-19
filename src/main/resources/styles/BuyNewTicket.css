@@ -1,0 +1,164 @@
+/* Background (same vibe as home) */
+.root {
+    -fx-font-family: "Segoe UI", "SF Pro Text", "Helvetica Neue", Arial;
+    -fx-background-color: linear-gradient(to bottom, #f7f9fc, #eef3f8);
+    -fx-background-image:
+            repeating-linear-gradient(60deg, rgba(255,255,255,0.22) 0, rgba(255,255,255,0.22) 1px, transparent 1px, transparent 18px),
+            repeating-linear-gradient(-60deg, rgba(255,255,255,0.22) 0, rgba(255,255,255,0.22) 1px, transparent 1px, transparent 18px);
+}
+
+/* Header */
+/* Header */
+.buy-page .header {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
+}
+.buy-page .brand { -fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: 700;-fx-padding: 6 10;}
+
+.buy-page .title { -fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: 700; }
+.buy-page .clock { -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: 700; -fx-alignment: center-right; -fx-fill: white}
+
+.leftMenu {-fx-background-color: rgb(143, 185, 231); -fx-padding: 15px;}
+/* Question */
+.question { -fx-text-fill: #3b4556; -fx-font-size: 28px !important; -fx-font-weight: 700; -fx-padding: 20 0;}
+
+/* Left menu buttons */
+.menu-btn {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(255,255,255,0.8);
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-padding: 12 16;
+    -fx-cursor: hand;
+}
+.menu-btn:hover { -fx-background-color: linear-gradient(to bottom, #46adff, #0b74ff); }
+
+/* Tiles */
+.tile {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: rgba(255,255,255,0.85);
+    -fx-border-width: 2;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 10, 0.25, 0, 2);
+}
+.tile:selected, .tile-selected {
+    -fx-background-color: linear-gradient(to bottom, #1aa2ff, #0a6ef7);
+    -fx-border-color: white;
+}
+.tile .tile-title { -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: 700; }
+.tile-icon { -fx-background-color: rgba(255,255,255,0.22); -fx-background-radius: 12; -fx-padding: 14; }
+.icon-white { -fx-icon-color: white; }
+
+/* Quantity */
+.label { -fx-text-fill: #475569; -fx-font-size: 14px; }
+.qty-field {
+    -fx-background-color: white;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-size: 16px;
+    -fx-pref-height: 36;
+}
+.qty-btn {
+    -fx-background-color: #e6f2ff;
+    -fx-border-color: #b6d6ff;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+}
+.qty-btn:hover { -fx-background-color: #d8ecff; }
+
+/* Total + Add to cart */
+.total-label { -fx-text-fill: #0f172a; -fx-font-size: 20px; -fx-font-weight: 700; }
+.total-value { -fx-text-fill: #0f172a; -fx-font-size: 20px; -fx-font-weight: 700; }
+.primary {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-text-fill: white; -fx-font-weight: 700;
+    -fx-background-radius: 10; -fx-border-radius: 10;
+    -fx-border-color: rgba(255,255,255,0.9); -fx-border-width: 1.4;
+    -fx-cursor: hand;
+    -fx-font-size: 16px;
+}
+.primary:hover { -fx-background-color: linear-gradient(to bottom, #33a0ff, #0a6ef7); }
+
+/* Footer */
+.footer { -fx-background-color: #1f2a44; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 12, 0.25, 0, -2); }
+.help   { -fx-text-fill: white; -fx-font-size: 16px; }
+.footer-ghost {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-text-fill: white;
+    -fx-background-radius: 8; -fx-border-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.45); -fx-border-width: 1;
+}
+
+/* Press feedback */
+.button:pressed { -fx-scale-x: .98; -fx-scale-y: .98; }
+
+/* Your existing selected state */
+.seg-btn:selected {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+}
+
+/* Icon variant styles from earlier step */
+.seg-btn--icon { -fx-padding: 8 14; }
+.seg-icon {
+    -fx-background-color: rgba(0,0,0,0.06);
+    -fx-background-radius: 999;
+    -fx-padding: 6;
+    -fx-alignment: center;
+    -fx-min-width: 28;
+    -fx-min-height: 28;
+}
+.seg-icon__glyph { -fx-fill: -fx-text-base-color; }
+.seg-btn:selected .seg-icon { -fx-background-color: rgba(255,255,255,0.25); }
+.seg-btn:selected .seg-icon__glyph,
+.seg-btn:selected .seg-text { -fx-text-fill: white; -fx-fill: white; }
+
+/* Help Dialog container */
+.help-content {
+    -fx-padding: 18 22 18 22;
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f6f9ff);
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(16,33,68,0.18), 14, 0.25, 0, 3);
+}
+
+/* Title row */
+.help-icon  { -fx-font-size: 20px; }
+.help-title { -fx-font-size: 18px; -fx-font-weight: 800; -fx-text-fill: #0f1a2b; }
+
+/* Body rows */
+.help-label { -fx-text-fill: #5b6677; -fx-font-size: 14px; -fx-min-width: 70; }
+.help-value { -fx-text-fill: #0b74de; -fx-font-size: 14px; -fx-font-weight: 700; }
+
+/* Buttons */
+.help-close-btn {
+    -fx-background-color: #0b74de; -fx-text-fill: white;
+    -fx-font-weight: 700; -fx-background-radius: 10; -fx-padding: 8 18;
+}
+.help-close-btn:hover { -fx-background-color: #0a69c9; }
+
+.help-copy-btn {
+    -fx-background-color: rgba(11,116,222,0.10);
+    -fx-text-fill: #0b74de;
+    -fx-background-radius: 8; -fx-padding: 4 10;
+    -fx-font-weight: 700; -fx-border-color: #0b74de; -fx-border-radius: 8;
+}
+.help-copy-btn:hover { -fx-background-color: rgba(11,116,222,0.18); }
+
+/* Make the footer Help label look clickable */
+.help {
+    -fx-cursor: hand;
+    -fx-underline: false;
+}
+.help:hover { -fx-underline: true; -fx-opacity: 0.9; }
+
+
+
+

@@ -1,0 +1,335 @@
+package concordia.soen6611.igo_tvm.controllers;
+
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
+import concordia.soen6611.igo_tvm.Services.I18nService;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Window;
+import javafx.util.Duration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Controller;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
+@Controller
+@org.springframework.context.annotation.Scope("prototype")
+public class HomeController {
+
+    @FXML private Label brandLink;
+    @FXML private Button informationButton;
+    @FXML private BorderPane root;
+    @FXML private Label homeLabel;
+    @FXML private Label promptLabel;
+    @FXML private Label helpLabel;
+    @FXML private Label clockLabel;
+    @FXML private Button buyBtn;
+    @FXML private Button reloadBtn;
+    @FXML private Button btnEN;
+    @FXML private Button btnFR;
+
+    @FXML private Button volumeBtn;
+    @FXML private Label informationLabel;
+
+    private Timeline clock;
+    private final I18nService i18n;
+    private final ApplicationContext appContext;
+    private static final DateTimeFormatter CLOCK_FMT =
+            DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
+
+    @FXML private Button btnFontSizeIn, btnFontSizeOut;
+
+    @FXML private Label buyNewTicketLabel;
+    @FXML private Label reloadCardLabel;
+    @FXML private Button btnContrastUp, btnContrastDown;
+
+    public HomeController(I18nService i18n, ApplicationContext appContext) {
+        this.i18n = i18n;
+        this.appContext = appContext;
+    }
+
+    @FXML
+    private void initialize() {
+        // Live clock
+        clock = new Timeline(
+                new KeyFrame(Duration.ZERO, e ->
+                        clockLabel.setText(LocalDateTime.now().format(CLOCK_FMT))),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
+
+        // Accessibility
+        buyBtn.setAccessibleText(i18n.get("home.buyBtn.accessible"));
+        reloadBtn.setAccessibleText(i18n.get("home.reloadBtn.accessible"));
+
+        updateTexts();
+        i18n.localeProperty().addListener((obs, oldL, newL) -> {
+            System.out.println("Locale changed from " + oldL + " to " + newL);
+            updateTexts();
+        });
+
+        Platform.runLater(() -> {
+            var zoom = TextZoomService.get();
+            zoom.register(brandLink, homeLabel, promptLabel, helpLabel, clockLabel, buyNewTicketLabel, reloadCardLabel, informationButton);
+            reflectZoomButtons();
+        });
+
+        javafx.application.Platform.runLater(() -> {
+            ContrastManager.getInstance().attach(root.getScene(), root);
+            reflectContrastButtons();
+        });
+    }
+
+    @FXML
+    private void onBuyTicket(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/BuyNewTicket.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent view = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(view);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onReload(ActionEvent event) {
+        System.out.println("Reload Card clicked");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/CardReload.fxml"));
+            loader.setControllerFactory(appContext::getBean);  // CRITICAL
+            Parent view = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(view);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    private void onVolume() { /* handle volume */ }
+
+    public void shutdown() {
+        if (clock != null) clock.stop();
+    }
+
+    @FXML
+    public void onLanguageChange(ActionEvent event) {
+        Object src = event.getSource();
+        if (src == btnEN) {
+            i18n.setLocale(Locale.ENGLISH);
+        } else if (src == btnFR) {
+            i18n.setLocale(Locale.FRENCH);
+        }
+        updateTexts();
+    }
+
+    private void updateTexts() {
+        brandLink.setText(i18n.get("home.brand"));
+        homeLabel.setText(i18n.get("home.title"));
+        promptLabel.setText(i18n.get("home.prompt"));
+        helpLabel.setText(i18n.get("home.help"));
+//        buyBtn.setText(i18n.get("home.buyBtn.title"));
+//        reloadBtn.setText(i18n.get("home.reloadBtn.title"));
+        informationLabel.setText(i18n.get("home.information"));
+
+        // Tooltips
+        btnEN.setTooltip(new Tooltip(i18n.get("home.lang.en")));
+        btnFR.setTooltip(new Tooltip(i18n.get("home.lang.fr")));
+        informationButton.setTooltip(new Tooltip(i18n.get("home.info.tooltip")));
+        volumeBtn.setTooltip(new Tooltip(i18n.get("home.volume.tooltip")));
+    }
+
+    @FXML
+    private void onBrandClick(MouseEvent event) {
+        goWelcomeScreen((Node) event.getSource());
+    }
+
+    private void goWelcomeScreen(Node anyNodeInScene) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent home = loader.load();
+            anyNodeInScene.getScene().setRoot(home);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onInfo() {
+        Window owner = buyBtn != null ? buyBtn.getScene().getWindow() : null;
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null); // we'll use our own styled header row
+        if (owner != null) alert.initOwner(owner);
+
+        // ---- Styled header row (icon + title)
+        HBox header = new HBox(12);
+        header.setAlignment(Pos.CENTER_LEFT);
+
+        Label icon = new Label("ℹ");
+        icon.getStyleClass().add("info-icon");
+
+        Label title = new Label("How to use this ticket machine");
+        title.getStyleClass().add("info-title");
+
+        header.getChildren().addAll(icon, title);
+
+        // ---- Body copy
+        VBox bullets = new VBox(8);
+        bullets.getStyleClass().add("info-list");
+        // give the whole list a right margin of 32px
+        VBox.setMargin(bullets, new Insets(0, 32, 0, 0));
+
+        bullets.getChildren().addAll(
+                item("Select “Buy New Ticket” or “Reload Card”."),
+                item("Choose rider type (Adult, Student, Senior, Tourist) and the fare."),
+                item("Adjust quantity, then tap “Make Payment”."),
+                item("Pick payment method (Card or Cash) and follow the prompts."),
+                item("Collect your ticket and (optionally) print a receipt.")
+        );
+
+        VBox content = new VBox(14, header, bullets);
+        content.getStyleClass().add("info-content");
+
+        // Put content into the dialog
+        DialogPane pane = alert.getDialogPane();
+        pane.setContent(content);
+
+        // ---- Apply CSS to the dialog only
+        pane.getStylesheets().add(
+                getClass().getResource("/styles/Modal.css").toExternalForm()
+        );
+        pane.getStyleClass().add("info-modal"); // root class for this dialog
+
+        // Single Close button
+        alert.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE));
+
+        // Optional: style the Close button via CSS class
+        Node closeBtn = pane.lookupButton(alert.getButtonTypes().get(0));
+        closeBtn.getStyleClass().add("info-close-btn");
+
+        alert.showAndWait();
+    }
+
+    // Small helper to create bullet rows
+    private HBox item(String text) {
+        Label dot = new Label("•");
+        dot.getStyleClass().add("info-bullet");
+
+        Label lbl = new Label(text);
+        lbl.getStyleClass().add("info-text");
+
+        HBox row = new HBox(10, dot, lbl);
+        row.setAlignment(Pos.TOP_LEFT);
+        return row;
+    }
+
+    @FXML private void onFontSizeIn()  { TextZoomService.get().zoomIn();  reflectZoomButtons(); }
+    @FXML private void onFontSizeOut() { TextZoomService.get().zoomOut(); reflectZoomButtons(); }
+
+    private void reflectZoomButtons() {
+        double s = TextZoomService.get().getScale();
+        btnFontSizeOut.setDisable(s <= 1.00);
+        btnFontSizeIn.setDisable(s >= 1.50);
+    }
+
+    @FXML private void onContrastUp() {
+        ContrastManager.getInstance().increase();
+        reflectContrastButtons();
+    }
+
+    @FXML private void onContrastDown() {
+        ContrastManager.getInstance().decrease();
+        reflectContrastButtons();
+    }
+
+    private void reflectContrastButtons() {
+        double lvl = ContrastManager.getInstance().getLevel();
+        btnContrastDown.setDisable(lvl <= -0.40);
+        btnContrastUp.setDisable(lvl >=  0.60);
+    }
+
+    @FXML
+    private void onHelpClick() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Need help?");
+        alert.setHeaderText(null);
+
+        // ---- Header row (icon + title)
+        HBox header = new HBox(10);
+        header.setAlignment(Pos.CENTER_LEFT);
+        Label icon = new Label("🛠");
+        icon.getStyleClass().add("help-icon");
+        Label title = new Label("If you run into any issues");
+        title.getStyleClass().add("help-title");
+        header.getChildren().addAll(icon, title);
+
+        // ---- Body (contact lines + copy buttons)
+        VBox body = new VBox(8);
+        body.getChildren().addAll(
+                contactRow("Phone:", "+1 (514) 555-0137"),
+                contactRow("Email:", "support@stm.example")
+        );
+
+        VBox content = new VBox(14, header, body);
+        content.getStyleClass().add("help-content");
+
+        DialogPane pane = alert.getDialogPane();
+        pane.setContent(content);
+
+        // Optional: reuse your modal CSS if you have it
+        try {
+            pane.getStylesheets().add(
+                    getClass().getResource("/styles/Modal.css").toExternalForm()
+            );
+        } catch (Exception ignored) {}
+        pane.getStyleClass().add("help-modal");
+
+        alert.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE));
+        Node closeBtn = pane.lookupButton(alert.getButtonTypes().get(0));
+        closeBtn.getStyleClass().add("help-close-btn");
+
+        alert.showAndWait();
+    }
+
+    // Small helper to render a row with a copy button
+    private HBox contactRow(String labelText, String value) {
+        Label label = new Label(labelText);
+        label.getStyleClass().add("help-label");
+
+        Label val = new Label(value);
+        val.getStyleClass().add("help-value");
+
+        Button copy = new Button("Copy");
+        copy.getStyleClass().add("help-copy-btn");
+        copy.setOnAction(e -> {
+            ClipboardContent cc = new ClipboardContent();
+            cc.putString(value);
+            Clipboard.getSystemClipboard().setContent(cc);
+        });
+
+        HBox row = new HBox(10, label, val, copy);
+        row.setAlignment(Pos.CENTER_LEFT);
+        return row;
+    }
+}

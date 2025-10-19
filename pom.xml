@@ -18,8 +18,8 @@
     <description>SOEN 6611 - iGo Project (TVM JavaFX + Spring Boot)</description>
 
     <properties>
-        <java.version>17</java.version>
-        <javafx.version>21</javafx.version>
+        <java.version>23</java.version>
+        <javafx.version>23</javafx.version>
     </properties>
 
     <dependencies>
@@ -48,6 +48,24 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.jensd</groupId>
+            <artifactId>fontawesomefx-fontawesome</artifactId>
+            <version>4.7.0-9.1.2</version>
+        </dependency>
+        <!-- Ikonli core + JavaFX binding -->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>12.4.0</version>
+        </dependency>
+
+        <!-- FontAwesome 5 icon pack -->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-fontawesome5-pack</artifactId>
+            <version>12.3.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

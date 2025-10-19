@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="concordia.soen6611.igo_tvm.controllers.CardReloadAmountController"
+            prefHeight="700.0" prefWidth="1200.0"
+            stylesheets="@../styles/CardReloadAmount.css"
+            styleClass="">
+
+    <!-- ===== HEADER ===== -->
+    <top>
+        <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
+            <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="6">
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true" onMouseClicked="#onBrandClick">
+                    <image><Image url="@../images/maple.png"/></image>
+                </ImageView>
+                <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label styleClass="title" fx:id="reloadCardLabel"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"/>
+        </HBox>
+    </top>
+
+
+    <center>
+        <HBox spacing="28" alignment="TOP_LEFT">
+            <padding><Insets top="26" right="26" bottom="24" left="26"/></padding>
+
+            <!-- ===== LEFT: YOUR CARD ===== -->
+            <VBox spacing="14" prefWidth="520">
+                <Label styleClass="cra-section-title" fx:id="youCardLabel"/>
+
+                <StackPane styleClass="cra-cardbox" prefHeight="360">
+                    <VBox spacing="14" alignment="CENTER">
+                        <ImageView fitHeight="86" preserveRatio="true" smooth="true" fx:id="opusCardImage">
+                            <image><Image url="@../images/opus-card.png"/></image>
+                        </ImageView>
+                        <Label styleClass="cra-cardname" fx:id="opusCardLabel"/>
+                    </VBox>
+                </StackPane>
+            </VBox>
+
+            <!-- ===== RIGHT: RELOAD OPTIONS ===== -->
+            <VBox spacing="16" HBox.hgrow="ALWAYS">
+                <Label styleClass="cra-section-title" fx:id="reloadOptionLabel"/>
+
+                <StackPane styleClass="cra-panel">
+                    <VBox spacing="12">
+                        <!-- Pass Type -->
+                        <Label text="Select Pass Type..." styleClass="cra-field-label" fx:id="selectTypeLabel"/>
+                        <ComboBox fx:id="passTypeBox" promptText="Select Pass..."
+                                  prefWidth="440" styleClass="cra-combo">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:id="menuSinglePass" fx:value="Single Pass"/>
+                                    <String fx:id="menuMultiplePass" fx:value="Multiple Pass"/>
+                                    <String fx:id="menuWeeklyPass" fx:value="Weekly Pass"/>
+                                    <String fx:id="menuMonthlyPass" fx:value="Monthly Pass"/>
+                                    <String fx:id="menuDayPass" fx:value="Day Pass"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+                        <!-- Quantity (only for Multiple Pass) -->
+                        <Label fx:id="qtyLabel" styleClass="cra-field-label" visible="false" managed="false"/>
+                        <ComboBox fx:id="qtyBox" promptText="1" prefWidth="220"
+                                  styleClass="cra-combo" visible="false" managed="false">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <Integer fx:value="1"/><Integer fx:value="2"/><Integer fx:value="3"/>
+                                    <Integer fx:value="4"/><Integer fx:value="5"/><Integer fx:value="6"/>
+                                    <Integer fx:value="7"/><Integer fx:value="8"/><Integer fx:value="9"/>
+                                    <Integer fx:value="10"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+                        <!-- Estimated total -->
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <Label styleClass="cra-total-label" fx:id="estimatedTotalLabel"/>
+                            <Label fx:id="estTotalValue" styleClass="cra-total-value"/>
+                        </HBox>
+                    </VBox>
+                </StackPane>
+
+                <!-- CTA -->
+                <Button fx:id="proceedBtn" styleClass="cra-primary" prefHeight="58" maxWidth="520" onAction="#onProceedToPayment"/>
+            </VBox>
+        </HBox>
+    </center>
+
+
+
+
+    <!-- ===== FOOTER ===== -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
+            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+
+            <Button fx:id="backBtn" onAction="#onBack" styleClass="back-btn"
+                    prefHeight="34" minHeight="34">
+                <graphic>
+                    <FontAwesomeIconView glyphName="ARROW_LEFT" glyphSize="18" styleClass="glyph-white-sm"/>
+                </graphic>
+                <tooltip><Tooltip text="Back to Home"/></tooltip>
+            </Button>
+
+            <Label fx:id="helpLabel" styleClass="help"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
+                    prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
+                <graphic>
+                    <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
+                </graphic>
+                <tooltip><Tooltip text="Volume"/></tooltip>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>
