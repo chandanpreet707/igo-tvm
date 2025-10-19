@@ -63,6 +63,12 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
+    private static final double QC_TAX_RATE = 0.14975;
+
+    private static double round2(double v) {
+        return Math.round(v * 100.0) / 100.0;
+    }
+
     public PaymentController(ApplicationContext appContext, PaymentSession paymentSession, I18nService i18n) {
         this.appContext = appContext;
         this.paymentSession = paymentSession;
@@ -82,6 +88,7 @@ public class PaymentController {
         clock.play();
 
         setTotalDueFromSession();
+        totalDueLabel.setWrapText(true);
         applySelectionStyles();
 
         Platform.runLater(() -> {
@@ -108,16 +115,30 @@ public class PaymentController {
 
     private void setTotalDueFromSession() {
         OrderSummary o = paymentSession != null ? paymentSession.getCurrentOrder() : null;
-        double total = (o != null) ? o.getTotal() : 0.0;
-        logger.debug("Total due from session: {}", total);
-        String en = NumberFormat.getCurrencyInstance(Locale.CANADA).format(total);
-        String fr = NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH).format(total);
-        Locale current = i18n.getLocale();
-        NumberFormat fmt = current.getLanguage().equals("fr") ?
-                NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH) :
-                NumberFormat.getCurrencyInstance(Locale.CANADA);
-        String amount = fmt.format(total);
-        totalDueLabel.setText(String.format("Total Due: %s | Total à Payer: %s", en, fr));
+        double subtotal = (o != null) ? o.getTotal() : 0.0;
+
+        // Quebec tax 14.975%
+        double taxes = round2(subtotal * QC_TAX_RATE);
+        double grandTotal = round2(subtotal + taxes);
+
+        NumberFormat enFmt = NumberFormat.getCurrencyInstance(Locale.CANADA);
+        NumberFormat frFmt = NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH);
+
+        // One full line per language
+        String enLine = String.format(
+                "Subtotal: %s  |  Taxes (14.975%%): %s  |  Total: %s",
+                enFmt.format(subtotal), enFmt.format(taxes), enFmt.format(grandTotal)
+        );
+
+        // French: keep the same numbers, format with FR locale
+//        String frLine = String.format(
+//                "Sous-total : %s  |  Taxes (14,975 %%) : %s  |  Total : %s",
+//                frFmt.format(subtotal), frFmt.format(taxes), frFmt.format(grandTotal)
+//        );
+
+        // Show each language on its own line
+//        totalDueLabel.setText(enLine + "\n" + frLine);
+        totalDueLabel.setText("\n" + enLine);
     }
 
     private void goTo(String fxmlPath, ActionEvent event) {
@@ -171,10 +192,16 @@ public class PaymentController {
     public void onConfirm(ActionEvent event) {
         logger.info("Confirm button pressed. Selected method: {}", selected);
         showTapHintIfNeeded();
-        double total = paymentSession.getCurrentOrder() != null ? paymentSession.getCurrentOrder().getTotal() : 0.0;
+        double subtotal = paymentSession.getCurrentOrder() != null
+                ? paymentSession.getCurrentOrder().getTotal()
+                : 0.0;
+
+// Apply Quebec tax to amount actually charged
+        double totalWithTax = round2(subtotal * (1 + QC_TAX_RATE));
+
         String method = selected == Method.CARD ? "Card" : "Cash";
-        Payment payment = new Payment(method, total);
-        paymentService.startPayment(method, total);
+        Payment payment = new Payment(method, totalWithTax);
+        paymentService.startPayment(method, totalWithTax);
 
         if (selected == Method.CARD) {
             logger.info("Processing card payment...");

@@ -58,6 +58,15 @@
             <Label fx:id="printingLine"
                    styleClass="ps-subtitle" maxWidth="980" />
 
+            <!-- QR Code preview -->
+            <ImageView fx:id="qrImageView"
+                       fitWidth="180" fitHeight="180"
+                       preserveRatio="true"
+                       style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8,0,0,3);">
+                <image>
+                    <Image url="@../images/qr_code.png"/>
+                </image>
+            </ImageView>
             <!-- actions -->
             <HBox spacing="18" alignment="CENTER">
                 <Button fx:id="printBtn" onAction="#onPrintReceipt"
