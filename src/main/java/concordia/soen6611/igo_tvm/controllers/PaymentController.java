@@ -247,6 +247,7 @@ public class PaymentController {
 
     @FXML
     private void onBrandClick(MouseEvent event) {
+        paymentSession.clear();
         goWelcomeScreen((Node) event.getSource());
     }
 

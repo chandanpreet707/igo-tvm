@@ -24,7 +24,7 @@
             <padding><Insets top="14" right="22" bottom="14" left="22"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="6">
-                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true">
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true" onMouseClicked="#onBrandClick">
                     <image>
                         <Image url="@../images/maple.png"/>
                     </image>
@@ -188,7 +188,7 @@
                     <Tooltip text="Back to Home"/>
                 </tooltip>
             </Button>
-            <Label fx:id="helpLabel" styleClass="help"/>
+            <Label fx:id="helpLabel" styleClass="help" onMouseClicked="#onHelpClick"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
                     prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">

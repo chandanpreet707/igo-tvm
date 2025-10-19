@@ -121,6 +121,44 @@
 .seg-btn:selected .seg-icon__glyph,
 .seg-btn:selected .seg-text { -fx-text-fill: white; -fx-fill: white; }
 
+/* Help Dialog container */
+.help-content {
+    -fx-padding: 18 22 18 22;
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f6f9ff);
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(16,33,68,0.18), 14, 0.25, 0, 3);
+}
+
+/* Title row */
+.help-icon  { -fx-font-size: 20px; }
+.help-title { -fx-font-size: 18px; -fx-font-weight: 800; -fx-text-fill: #0f1a2b; }
+
+/* Body rows */
+.help-label { -fx-text-fill: #5b6677; -fx-font-size: 14px; -fx-min-width: 70; }
+.help-value { -fx-text-fill: #0b74de; -fx-font-size: 14px; -fx-font-weight: 700; }
+
+/* Buttons */
+.help-close-btn {
+    -fx-background-color: #0b74de; -fx-text-fill: white;
+    -fx-font-weight: 700; -fx-background-radius: 10; -fx-padding: 8 18;
+}
+.help-close-btn:hover { -fx-background-color: #0a69c9; }
+
+.help-copy-btn {
+    -fx-background-color: rgba(11,116,222,0.10);
+    -fx-text-fill: #0b74de;
+    -fx-background-radius: 8; -fx-padding: 4 10;
+    -fx-font-weight: 700; -fx-border-color: #0b74de; -fx-border-radius: 8;
+}
+.help-copy-btn:hover { -fx-background-color: rgba(11,116,222,0.18); }
+
+/* Make the footer Help label look clickable */
+.help {
+    -fx-cursor: hand;
+    -fx-underline: false;
+}
+.help:hover { -fx-underline: true; -fx-opacity: 0.9; }
+
 
 
 

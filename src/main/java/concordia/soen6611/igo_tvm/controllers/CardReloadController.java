@@ -2,6 +2,7 @@ package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.I18nService;
+import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -41,9 +42,12 @@ public class CardReloadController {
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
-    public CardReloadController(I18nService i18n, ApplicationContext appContext) {
+    private final PaymentSession paymentSession;
+
+    public CardReloadController(I18nService i18n, ApplicationContext appContext, PaymentSession paymentSession) {
         this.i18n = i18n;
         this.appContext = appContext;
+        this.paymentSession = paymentSession;
     }
     @FXML
     private void initialize() {
@@ -79,6 +83,7 @@ public class CardReloadController {
     }
     @FXML
     private void onBrandClick(MouseEvent event) {
+        paymentSession.clear();
         goWelcomeScreen((Node) event.getSource());
     }
 

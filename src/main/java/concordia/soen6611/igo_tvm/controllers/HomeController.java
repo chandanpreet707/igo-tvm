@@ -14,6 +14,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -267,4 +269,67 @@ public class HomeController {
         btnContrastUp.setDisable(lvl >=  0.60);
     }
 
+    @FXML
+    private void onHelpClick() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Need help?");
+        alert.setHeaderText(null);
+
+        // ---- Header row (icon + title)
+        HBox header = new HBox(10);
+        header.setAlignment(Pos.CENTER_LEFT);
+        Label icon = new Label("🛠");
+        icon.getStyleClass().add("help-icon");
+        Label title = new Label("If you run into any issues");
+        title.getStyleClass().add("help-title");
+        header.getChildren().addAll(icon, title);
+
+        // ---- Body (contact lines + copy buttons)
+        VBox body = new VBox(8);
+        body.getChildren().addAll(
+                contactRow("Phone:", "+1 (514) 555-0137"),
+                contactRow("Email:", "support@stm.example")
+        );
+
+        VBox content = new VBox(14, header, body);
+        content.getStyleClass().add("help-content");
+
+        DialogPane pane = alert.getDialogPane();
+        pane.setContent(content);
+
+        // Optional: reuse your modal CSS if you have it
+        try {
+            pane.getStylesheets().add(
+                    getClass().getResource("/styles/Modal.css").toExternalForm()
+            );
+        } catch (Exception ignored) {}
+        pane.getStyleClass().add("help-modal");
+
+        alert.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE));
+        Node closeBtn = pane.lookupButton(alert.getButtonTypes().get(0));
+        closeBtn.getStyleClass().add("help-close-btn");
+
+        alert.showAndWait();
+    }
+
+    // Small helper to render a row with a copy button
+    private HBox contactRow(String labelText, String value) {
+        Label label = new Label(labelText);
+        label.getStyleClass().add("help-label");
+
+        Label val = new Label(value);
+        val.getStyleClass().add("help-value");
+
+        Button copy = new Button("Copy");
+        copy.getStyleClass().add("help-copy-btn");
+        copy.setOnAction(e -> {
+            ClipboardContent cc = new ClipboardContent();
+            cc.putString(value);
+            Clipboard.getSystemClipboard().setContent(cc);
+        });
+
+        HBox row = new HBox(10, label, val, copy);
+        row.setAlignment(Pos.CENTER_LEFT);
+        return row;
+    }
 }
