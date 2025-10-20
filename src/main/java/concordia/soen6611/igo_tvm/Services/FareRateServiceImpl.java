@@ -13,4 +13,19 @@ public class FareRateServiceImpl implements FareRateService {
         String key = riderType + "_" + passType;
         return rateProxy.getRate(key);
     }
+
+    @Override
+    public double getTax(){
+        return rateProxy.getTAX_RATE();
+    }
+
+    @Override
+    public double getGST() {
+        return rateProxy.getGST();
+    }
+
+    @Override
+    public double getQST() {
+        return rateProxy.getQST();
+    }
 }

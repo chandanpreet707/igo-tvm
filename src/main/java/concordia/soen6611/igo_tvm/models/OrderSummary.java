@@ -8,13 +8,13 @@ public class OrderSummary {
     private final double unitPrice;   // price for ONE ticket (already scaled if Multiple Trip)
     private final double total;       // unitPrice * quantity
 
-    public OrderSummary(String riderType, String tripType, int multiTrips, int quantity, double unitPrice) {
+    public OrderSummary(String riderType, String tripType, int multiTrips, int quantity, double unitPrice, double total) {
         this.riderType = riderType;
         this.tripType = tripType;
         this.multiTrips = multiTrips;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
-        this.total = unitPrice * quantity;
+        this.total = total;
     }
 
     public String getRiderType() { return riderType; }

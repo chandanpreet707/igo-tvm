@@ -51,10 +51,10 @@
 
                 <StackPane styleClass="cra-cardbox" prefHeight="360">
                     <VBox spacing="14" alignment="CENTER">
-                        <ImageView fitHeight="86" preserveRatio="true" smooth="true" fx:id="opusCardImage">
-                            <image><Image url="@../images/opus-card.png"/></image>
+                        <ImageView fitHeight="280" preserveRatio="true" smooth="true" fx:id="opusCardImage">
+                            <image><Image url="@../images/IGO card.png"/></image>
                         </ImageView>
-                        <Label styleClass="cra-cardname" fx:id="opusCardLabel"/>
+<!--                        <Label styleClass="cra-cardname" fx:id="opusCardLabel"/>-->
                     </VBox>
                 </StackPane>
             </VBox>
@@ -66,24 +66,21 @@
                 <StackPane styleClass="cra-panel">
                     <VBox spacing="12">
                         <!-- Pass Type -->
-                        <Label text="Select Pass Type..." styleClass="cra-field-label" fx:id="selectTypeLabel"/>
-                        <ComboBox fx:id="passTypeBox" promptText="Select Pass..."
-                                  prefWidth="440" styleClass="cra-combo">
+                        <Label styleClass="cra-field-label" fx:id="selectTypeLabel" text="Select Pass Type..."/>
+                        <ComboBox fx:id="passTypeBox" promptText="Select Pass..." prefWidth="440" styleClass="cra-combo">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:id="menuSinglePass" fx:value="Single Pass"/>
-                                    <String fx:id="menuMultiplePass" fx:value="Multiple Pass"/>
-                                    <String fx:id="menuWeeklyPass" fx:value="Weekly Pass"/>
-                                    <String fx:id="menuMonthlyPass" fx:value="Monthly Pass"/>
-                                    <String fx:id="menuDayPass" fx:value="Day Pass"/>
+                                    <String fx:value="Single Pass"/>
+                                    <String fx:value="Weekly Pass"/>
+                                    <String fx:value="Monthly Pass"/>
+                                    <String fx:value="Day Pass"/>
                                 </FXCollections>
                             </items>
                         </ComboBox>
 
-                        <!-- Quantity (only for Multiple Pass) -->
-                        <Label fx:id="qtyLabel" styleClass="cra-field-label" visible="false" managed="false"/>
-                        <ComboBox fx:id="qtyBox" promptText="1" prefWidth="220"
-                                  styleClass="cra-combo" visible="false" managed="false">
+                        <!-- Quantity (visible for ALL pass types now) -->
+                        <Label fx:id="qtyLabel" styleClass="cra-field-label" text="Quantity"/>
+                        <ComboBox fx:id="qtyBox" promptText="1" prefWidth="220" styleClass="cra-combo">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <Integer fx:value="1"/><Integer fx:value="2"/><Integer fx:value="3"/>
@@ -94,20 +91,35 @@
                             </items>
                         </ComboBox>
 
-                        <!-- Estimated total -->
-                        <HBox spacing="8" alignment="CENTER_LEFT">
-                            <Label styleClass="cra-total-label" fx:id="estimatedTotalLabel"/>
-                            <Label fx:id="estTotalValue" styleClass="cra-total-value"/>
-                        </HBox>
+                        <!-- Price breakdown -->
+                        <VBox spacing="6">
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Label styleClass="cra-line-label" text="Unit Price:" fx:id="unitPriceLabel"/>
+                                <Label fx:id="estUnitValue" styleClass="cra-line-value"/>
+                            </HBox>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Label styleClass="cra-line-label" text="Subtotal:" fx:id="subTotalLabel"/>
+                                <Label fx:id="estSubtotalValue" styleClass="cra-line-value"/>
+                            </HBox>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Label fx:id="taxLineLabel" styleClass="cra-line-label" text="Tax:"/>
+                                <Label fx:id="taxValue" styleClass="cra-line-value"/>
+                            </HBox>
+                            <Separator/>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Label styleClass="cra-total-label" fx:id="estimatedTotalLabel" text="Estimated Total:"/>
+                                <Label fx:id="estTotalValue" styleClass="cra-total-value"/>
+                            </HBox>
+                        </VBox>
                     </VBox>
                 </StackPane>
 
                 <!-- CTA -->
-                <Button fx:id="proceedBtn" styleClass="cra-primary" prefHeight="58" maxWidth="520" onAction="#onProceedToPayment"/>
+                <Button fx:id="proceedBtn" styleClass="cra-primary" prefHeight="58" maxWidth="520"
+                        onAction="#onProceedToPayment"/>
             </VBox>
         </HBox>
     </center>
-
 
 
 

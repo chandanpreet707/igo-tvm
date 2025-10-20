@@ -30,6 +30,8 @@ import java.time.format.DateTimeFormatter;
 @org.springframework.context.annotation.Scope("prototype")
 public class BuyNewTicketController {
 
+    public Button menuWeeklyBtn;
+    public Label taxLabel;
     @FXML
     private Label buyNewTicketLabel;
     @FXML
@@ -45,8 +47,6 @@ public class BuyNewTicketController {
     @FXML
     private Button menuSingleBtn;
     @FXML
-    private Button menuMultiBtn;
-    @FXML
     private Button menuDayBtn;
     @FXML
     private Button menuMonthlyBtn;
@@ -60,24 +60,19 @@ public class BuyNewTicketController {
     private Label helpLabel;
 
     @FXML
-    private ToggleButton adultBtn, studentBtn, seniorBtn, touristBtn;
+    private ToggleButton adultBtn, studentBtn, seniorBtn;
     @FXML
     private ToggleGroup riderGroup;
 
     @FXML
-    private ToggleButton tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend;
+    private ToggleButton tripSingle, tripDay, tripMonthly, tripWeekend, tripWeekly;
     @FXML
     private ToggleGroup tripGroup;
 
     @FXML
-    private Label multiCountLabel;
-    @FXML
-    private ComboBox<Integer> multiCountCombo;
-
-    @FXML
     private TextField qtyField;
     @FXML
-    private Label unitValueLabel, totalValue;
+    private Label unitValueLabel, totalValue, taxValue;
     @FXML
     private Button makePaymentBtn;
     @FXML
@@ -89,13 +84,16 @@ public class BuyNewTicketController {
     private PaymentSession paymentSession;
     @Autowired
     private I18nService i18n;
-
-
     @Autowired
     private FareRateService fareRateService;
 
     private Timeline clock;
     private static final DateTimeFormatter CLOCK_FMT = DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh:mm a");
+
+    // Quebec taxes: GST + QST = 14.975%
+//    private final double GST  = fareRateService.getGST();
+//    private final double QST  = fareRateService.getGST();
+//    private final double TAX_RATE = fareRateService.getTax();
 
     //    @FXML private Button btnFontSizeIn, btnFontSizeOut;
     @FXML
@@ -118,17 +116,14 @@ public class BuyNewTicketController {
         if (riderGroup.getSelectedToggle() == null && adultBtn != null) adultBtn.setSelected(true);
         if (tripGroup.getSelectedToggle() == null && tripSingle != null) tripSingle.setSelected(true);
 
-        for (int i = 1; i <= 10; i++) multiCountCombo.getItems().add(i);
-        multiCountCombo.setValue(1);
-
-        bindMultipleTripVisibility();
-        multiCountCombo.setOnAction(e -> recalc());
+//        for (int i = 1; i <= 10; i++) multiCountCombo.getItems().add(i);
+//        multiCountCombo.setValue(1);
+//
+//        bindMultipleTripVisibility();
+//        multiCountCombo.setOnAction(e -> recalc());
 
         riderGroup.selectedToggleProperty().addListener((o, ov, nv) -> recalc());
-        tripGroup.selectedToggleProperty().addListener((o, ov, nv) -> {
-            bindMultipleTripVisibility();
-            recalc();
-        });
+        tripGroup.selectedToggleProperty().addListener((o, ov, nv) -> recalc());
 
         qtyField.textProperty().addListener((o, oldV, newV) -> {
             if (!newV.matches("\\d*")) {
@@ -146,10 +141,9 @@ public class BuyNewTicketController {
         Platform.runLater(() -> {
             var zoom = TextZoomService.get();
             zoom.register(brandLink, buyNewTicketLabel, questionLabel, helpLabel, clockLabel, menuSingleBtn,
-                    menuMultiBtn, menuDayBtn, menuMonthlyBtn, menuWeekendBtn, riderTypeLabel,
-                    tripTypeLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn,
-                    touristBtn, tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
-//            reflectZoomButtons();
+                    taxValue, menuDayBtn, menuMonthlyBtn, menuWeekendBtn, menuWeeklyBtn, riderTypeLabel,
+                    tripTypeLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn, tripSingle,
+                    tripDay, tripMonthly, tripWeekend, tripWeekly, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
         });
 
         javafx.application.Platform.runLater(() -> {
@@ -161,62 +155,47 @@ public class BuyNewTicketController {
     private void updateTexts() {
         buyNewTicketLabel.setText(i18n.get("buyNewTicket.title"));
         questionLabel.setText(i18n.get("buyNewTicket.question"));
+
+        // Rider buttons (no tourist)
         adultBtn.setText(i18n.get("buyNewTicket.adult"));
         studentBtn.setText(i18n.get("buyNewTicket.student"));
         seniorBtn.setText(i18n.get("buyNewTicket.senior"));
-        touristBtn.setText(i18n.get("buyNewTicket.tourist"));
+
+        // Trip types (no multiple)
         tripSingle.setText(i18n.get("buyNewTicket.single"));
-        tripMulti.setText(i18n.get("buyNewTicket.multi"));
         tripDay.setText(i18n.get("buyNewTicket.day"));
         tripMonthly.setText(i18n.get("buyNewTicket.monthly"));
         tripWeekend.setText(i18n.get("buyNewTicket.weekend"));
-        multiCountLabel.setText(i18n.get("buyNewTicket.quantity"));
-        makePaymentBtn.setText(i18n.get("buyNewTicket.makePayment"));
-        totalLabel.setText(i18n.get("buyNewTicket.total"));
+        tripWeekly.setText(i18n.get("buyNewTicket.tripWeekly"));
+
+        // Labels
         riderTypeLabel.setText(i18n.get("buyNewTicket.riderType"));
         tripTypeLabel.setText(i18n.get("buyNewTicket.tripType"));
         priceLabel.setText(i18n.get("buyNewTicket.priceEach"));
         quantityLabel.setText(i18n.get("buyNewTicket.quantity"));
+        taxLabel.setText(i18n.get("buyNewTicket.tax"));
+        totalLabel.setText(i18n.get("buyNewTicket.total"));
+
+        // Left menu (no multiple)
         menuSingleBtn.setText(i18n.get("buyNewTicket.menuSingle"));
-        menuMultiBtn.setText(i18n.get("buyNewTicket.menuMulti"));
         menuDayBtn.setText(i18n.get("buyNewTicket.menuDay"));
         menuMonthlyBtn.setText(i18n.get("buyNewTicket.menuMonthly"));
         menuWeekendBtn.setText(i18n.get("buyNewTicket.menuWeekend"));
+        menuWeeklyBtn.setText(i18n.get("buyNewTicket.menuWeeklyBtn"));
+
+        makePaymentBtn.setText(i18n.get("buyNewTicket.makePayment"));
         helpLabel.setText(i18n.get("help"));
     }
 
-
-    private void bindMultipleTripVisibility() {
-        boolean show = tripMulti != null && tripMulti.isSelected();
-        multiCountLabel.setVisible(show);
-        multiCountLabel.setManaged(show);
-        multiCountCombo.setVisible(show);
-        multiCountCombo.setManaged(show);
-    }
-
     @FXML
-    private void onRiderTypeChange(ActionEvent e) {
-        recalc();
-    }
-
+    private void onRiderTypeChange(ActionEvent e) {recalc();}
     @FXML
     private void onTripChange(ActionEvent e) { /* handled via listener */ }
-
     @FXML
     private void onMenuSingle(ActionEvent e) {
         if (tripSingle != null) {
             tripSingle.setSelected(true);
             recalc();
-            bindMultipleTripVisibility();
-        }
-    }
-
-    @FXML
-    private void onMenuMulti(ActionEvent e) {
-        if (tripMulti != null) {
-            tripMulti.setSelected(true);
-            recalc();
-            bindMultipleTripVisibility();
         }
     }
 
@@ -225,7 +204,6 @@ public class BuyNewTicketController {
         if (tripDay != null) {
             tripDay.setSelected(true);
             recalc();
-            bindMultipleTripVisibility();
         }
     }
 
@@ -234,7 +212,6 @@ public class BuyNewTicketController {
         if (tripMonthly != null) {
             tripMonthly.setSelected(true);
             recalc();
-            bindMultipleTripVisibility();
         }
     }
 
@@ -243,7 +220,14 @@ public class BuyNewTicketController {
         if (tripWeekend != null) {
             tripWeekend.setSelected(true);
             recalc();
-            bindMultipleTripVisibility();
+        }
+    }
+
+    @FXML
+    private void onMenuWeekly(ActionEvent e) {
+        if (tripWeekly != null) {
+            tripWeekly.setSelected(true);
+            recalc();
         }
     }
 
@@ -251,7 +235,6 @@ public class BuyNewTicketController {
     private void incrementQty() {
         qtyField.setText(String.valueOf(qty() + 1));
     }
-
     @FXML
     private void decrementQty() {
         qtyField.setText(String.valueOf(Math.max(1, qty() - 1)));
@@ -265,41 +248,46 @@ public class BuyNewTicketController {
         }
     }
 
-    private int multiTrips() {
-        Integer v = multiCountCombo.getValue();
-        return (v == null || v < 1) ? 1 : v;
-    }
-
     private void recalc() {
         double unit = currentUnitPrice();
         int q = qty();
+
+        double subtotal = unit * q;
+        double tax      = round2(subtotal * fareRateService.getTax());
+        double total    = round2(subtotal + tax);
+
         unitValueLabel.setText(String.format("$%.2f", unit));
-        totalValue.setText(String.format("$%.2f", unit * q));
+        taxValue.setText(String.format("$%.2f", tax));
+        totalValue.setText(String.format("$%.2f", total));
+    }
+
+    private static double round2(double v) {
+        return Math.round(v * 100.0) / 100.0;
     }
 
     private double currentUnitPrice() {
         String rider = selectedRiderName();
-        String trip = selectedTripName();
-        double baseRate = fareRateService.getRate(rider, trip);
-
-        if (tripMulti != null && tripMulti.isSelected()) {
-            return baseRate * multiTrips();
-        }
-        return baseRate;
+        String trip  = selectedTripName();
+        // Fare service returns base price for one ticket (no multiple scaling needed anymore)
+        return fareRateService.getRate(rider, trip);
     }
 
     @FXML
     private void onMakePayment(ActionEvent event) {
         String rider = selectedRiderName();
         String trip = selectedTripName();
-        int trips = tripMulti != null && tripMulti.isSelected() ? multiTrips() : 1;
-        int quantity = qty();
+        int trips = 1;
+        int q = qty();
         double unit = currentUnitPrice();
+
+        double subtotal = unit * q;
+        double tax      = round2(subtotal * fareRateService.getTax());
+        double total    = round2(subtotal + tax);
 
 
         // Save current order in the session
         paymentSession.setOrigin(PaymentSession.Origin.BUY_TICKET);
-        paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, quantity, unit));
+        paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, q, unit, total));
 
         // Navigate to the Payment page
         try {
@@ -316,16 +304,15 @@ public class BuyNewTicketController {
         if (adultBtn != null && adultBtn.isSelected()) return "Adult";
         if (studentBtn != null && studentBtn.isSelected()) return "Student";
         if (seniorBtn != null && seniorBtn.isSelected()) return "Senior";
-        if (touristBtn != null && touristBtn.isSelected()) return "Tourist";
         return "Adult";
     }
 
     private String selectedTripName() {
         if (tripSingle != null && tripSingle.isSelected()) return "Single Trip";
-        if (tripMulti != null && tripMulti.isSelected()) return "Multiple Trip";
         if (tripDay != null && tripDay.isSelected()) return "Day Pass";
         if (tripMonthly != null && tripMonthly.isSelected()) return "Monthly Pass";
         if (tripWeekend != null && tripWeekend.isSelected()) return "Weekend Pass";
+        if (tripWeekly != null && tripWeekly.isSelected()) return "Weekly Pass";
         return "Single Trip";
     }
 
