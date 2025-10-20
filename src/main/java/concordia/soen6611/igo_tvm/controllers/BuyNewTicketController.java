@@ -45,8 +45,6 @@ public class BuyNewTicketController {
     @FXML
     private Button menuSingleBtn;
     @FXML
-    private Button menuMultiBtn;
-    @FXML
     private Button menuDayBtn;
     @FXML
     private Button menuMonthlyBtn;
@@ -65,14 +63,10 @@ public class BuyNewTicketController {
     private ToggleGroup riderGroup;
 
     @FXML
-    private ToggleButton tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend;
+    private ToggleButton tripSingle, tripDay, tripMonthly, tripWeekend;
     @FXML
     private ToggleGroup tripGroup;
 
-    @FXML
-    private Label multiCountLabel;
-    @FXML
-    private ComboBox<Integer> multiCountCombo;
 
     @FXML
     private TextField qtyField;
@@ -118,15 +112,12 @@ public class BuyNewTicketController {
         if (riderGroup.getSelectedToggle() == null && adultBtn != null) adultBtn.setSelected(true);
         if (tripGroup.getSelectedToggle() == null && tripSingle != null) tripSingle.setSelected(true);
 
-        for (int i = 1; i <= 10; i++) multiCountCombo.getItems().add(i);
-        multiCountCombo.setValue(1);
 
-        bindMultipleTripVisibility();
-        multiCountCombo.setOnAction(e -> recalc());
+
 
         riderGroup.selectedToggleProperty().addListener((o, ov, nv) -> recalc());
         tripGroup.selectedToggleProperty().addListener((o, ov, nv) -> {
-            bindMultipleTripVisibility();
+
             recalc();
         });
 
@@ -146,9 +137,9 @@ public class BuyNewTicketController {
         Platform.runLater(() -> {
             var zoom = TextZoomService.get();
             zoom.register(brandLink, buyNewTicketLabel, questionLabel, helpLabel, clockLabel, menuSingleBtn,
-                    menuMultiBtn, menuDayBtn, menuMonthlyBtn, menuWeekendBtn, riderTypeLabel,
+                    menuDayBtn, menuMonthlyBtn, menuWeekendBtn, riderTypeLabel,
                     tripTypeLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn,
-                     tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
+                     tripSingle, tripDay, tripMonthly, tripWeekend, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
 //            reflectZoomButtons();
         });
 
@@ -165,11 +156,9 @@ public class BuyNewTicketController {
         studentBtn.setText(i18n.get("buyNewTicket.student"));
         seniorBtn.setText(i18n.get("buyNewTicket.senior"));
         tripSingle.setText(i18n.get("buyNewTicket.single"));
-        tripMulti.setText(i18n.get("buyNewTicket.multi"));
         tripDay.setText(i18n.get("buyNewTicket.day"));
         tripMonthly.setText(i18n.get("buyNewTicket.monthly"));
         tripWeekend.setText(i18n.get("buyNewTicket.weekend"));
-        multiCountLabel.setText(i18n.get("buyNewTicket.quantity"));
         makePaymentBtn.setText(i18n.get("buyNewTicket.makePayment"));
         totalLabel.setText(i18n.get("buyNewTicket.total"));
         riderTypeLabel.setText(i18n.get("buyNewTicket.riderType"));
@@ -177,7 +166,6 @@ public class BuyNewTicketController {
         priceLabel.setText(i18n.get("buyNewTicket.priceEach"));
         quantityLabel.setText(i18n.get("buyNewTicket.quantity"));
         menuSingleBtn.setText(i18n.get("buyNewTicket.menuSingle"));
-        menuMultiBtn.setText(i18n.get("buyNewTicket.menuMulti"));
         menuDayBtn.setText(i18n.get("buyNewTicket.menuDay"));
         menuMonthlyBtn.setText(i18n.get("buyNewTicket.menuMonthly"));
         menuWeekendBtn.setText(i18n.get("buyNewTicket.menuWeekend"));
@@ -185,13 +173,7 @@ public class BuyNewTicketController {
     }
 
 
-    private void bindMultipleTripVisibility() {
-        boolean show = tripMulti != null && tripMulti.isSelected();
-        multiCountLabel.setVisible(show);
-        multiCountLabel.setManaged(show);
-        multiCountCombo.setVisible(show);
-        multiCountCombo.setManaged(show);
-    }
+
 
     @FXML
     private void onRiderTypeChange(ActionEvent e) {
@@ -206,25 +188,16 @@ public class BuyNewTicketController {
         if (tripSingle != null) {
             tripSingle.setSelected(true);
             recalc();
-            bindMultipleTripVisibility();
         }
     }
 
-    @FXML
-    private void onMenuMulti(ActionEvent e) {
-        if (tripMulti != null) {
-            tripMulti.setSelected(true);
-            recalc();
-            bindMultipleTripVisibility();
-        }
-    }
+
 
     @FXML
     private void onMenuDay(ActionEvent e) {
         if (tripDay != null) {
             tripDay.setSelected(true);
             recalc();
-            bindMultipleTripVisibility();
         }
     }
 
@@ -233,7 +206,6 @@ public class BuyNewTicketController {
         if (tripMonthly != null) {
             tripMonthly.setSelected(true);
             recalc();
-            bindMultipleTripVisibility();
         }
     }
 
@@ -242,7 +214,6 @@ public class BuyNewTicketController {
         if (tripWeekend != null) {
             tripWeekend.setSelected(true);
             recalc();
-            bindMultipleTripVisibility();
         }
     }
 
@@ -264,11 +235,6 @@ public class BuyNewTicketController {
         }
     }
 
-    private int multiTrips() {
-        Integer v = multiCountCombo.getValue();
-        return (v == null || v < 1) ? 1 : v;
-    }
-
     private void recalc() {
         double unit = currentUnitPrice();
         int q = qty();
@@ -276,22 +242,19 @@ public class BuyNewTicketController {
         totalValue.setText(String.format("$%.2f", unit * q));
     }
 
+
+
     private double currentUnitPrice() {
         String rider = selectedRiderName();
         String trip = selectedTripName();
-        double baseRate = fareRateService.getRate(rider, trip);
-
-        if (tripMulti != null && tripMulti.isSelected()) {
-            return baseRate * multiTrips();
-        }
-        return baseRate;
+        return fareRateService.getRate(rider, trip);
     }
 
     @FXML
     private void onMakePayment(ActionEvent event) {
         String rider = selectedRiderName();
         String trip = selectedTripName();
-        int trips = tripMulti != null && tripMulti.isSelected() ? multiTrips() : 1;
+        int trips = 1;
         int quantity = qty();
         double unit = currentUnitPrice();
 
@@ -320,7 +283,6 @@ public class BuyNewTicketController {
 
     private String selectedTripName() {
         if (tripSingle != null && tripSingle.isSelected()) return "Single Trip";
-        if (tripMulti != null && tripMulti.isSelected()) return "Multiple Trip";
         if (tripDay != null && tripDay.isSelected()) return "Day Pass";
         if (tripMonthly != null && tripMonthly.isSelected()) return "Monthly Pass";
         if (tripWeekend != null && tripWeekend.isSelected()) return "Weekend Pass";

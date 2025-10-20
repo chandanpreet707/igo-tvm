@@ -44,7 +44,6 @@
             <padding><Insets top="24" right="12" bottom="18" left="12"/></padding>
             <VBox spacing="12" prefWidth="260" styleClass="leftMenu">
                 <Button fx:id="menuSingleBtn" styleClass="menu-btn" text="Single Trip"   onAction="#onMenuSingle"/>
-                <Button fx:id="menuMultiBtn" styleClass="menu-btn" text="Multiple Trip" onAction="#onMenuMulti"/>
                 <Button fx:id="menuDayBtn" styleClass="menu-btn" text="Day Pass"      onAction="#onMenuDay"/>
                 <Button fx:id="menuMonthlyBtn" styleClass="menu-btn" text="Monthly Pass"  onAction="#onMenuMonthly"/>
                 <Button fx:id="menuWeekendBtn" styleClass="menu-btn" text="Weekend Pass"  onAction="#onMenuWeekend"/>
@@ -104,9 +103,6 @@
                         <ToggleButton fx:id="tripSingle"
                                       toggleGroup="$tripGroup" selected="true"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripMulti"
-                                      toggleGroup="$tripGroup"
-                                      onAction="#onTripChange" styleClass="seg-btn"/>
                         <ToggleButton fx:id="tripDay"
                                       toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
@@ -117,10 +113,8 @@
                                       toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
                     </FlowPane>
-                    <Label fx:id="multiCountLabel" text="Trips" styleClass="label"
-                           GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                    <ComboBox fx:id="multiCountCombo" prefWidth="120"
-                              GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+
                     <Label fx:id="priceLabel" styleClass="label"
                            GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                     <Label fx:id="unitValueLabel" styleClass="value"
