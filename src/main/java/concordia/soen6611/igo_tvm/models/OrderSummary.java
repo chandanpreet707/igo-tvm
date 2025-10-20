@@ -1,7 +1,7 @@
 package concordia.soen6611.igo_tvm.models;
 
 public class OrderSummary {
-    private final String riderType;   // Adult / Student / Senior / Tourist
+    private final String riderType;   // Adult / Student / Senior /
     private final String tripType;    // Single Trip / Multiple Trip / Day Pass / Monthly Pass / Weekend Pass
     private final int    multiTrips;  // 1..10 (1 for non-Multiple)
     private final int    quantity;    // number of tickets

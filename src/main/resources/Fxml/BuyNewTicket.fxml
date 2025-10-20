@@ -96,17 +96,6 @@
                                 </HBox>
                             </graphic>
                         </ToggleButton>
-                        <ToggleButton fx:id="touristBtn" toggleGroup="$riderGroup"
-                                      onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
-                            <graphic>
-                                <HBox spacing="8" alignment="CENTER_LEFT">
-                                    <StackPane styleClass="seg-icon">
-                                        <FontIcon iconLiteral="fas-suitcase-rolling" iconSize="18" styleClass="seg-icon__glyph"/>
-                                    </StackPane>
-                                    <Label styleClass="seg-text"/>
-                                </HBox>
-                            </graphic>
-                        </ToggleButton>
                     </FlowPane>
                     <Label fx:id="tripTypeLabel" styleClass="label"
                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>

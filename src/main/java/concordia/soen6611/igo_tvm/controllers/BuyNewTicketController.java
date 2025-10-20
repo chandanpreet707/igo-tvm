@@ -60,7 +60,7 @@ public class BuyNewTicketController {
     private Label helpLabel;
 
     @FXML
-    private ToggleButton adultBtn, studentBtn, seniorBtn, touristBtn;
+    private ToggleButton adultBtn, studentBtn, seniorBtn;
     @FXML
     private ToggleGroup riderGroup;
 
@@ -148,7 +148,7 @@ public class BuyNewTicketController {
             zoom.register(brandLink, buyNewTicketLabel, questionLabel, helpLabel, clockLabel, menuSingleBtn,
                     menuMultiBtn, menuDayBtn, menuMonthlyBtn, menuWeekendBtn, riderTypeLabel,
                     tripTypeLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn,
-                    touristBtn, tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
+                     tripSingle, tripMulti, tripDay, tripMonthly, tripWeekend, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
 //            reflectZoomButtons();
         });
 
@@ -164,7 +164,6 @@ public class BuyNewTicketController {
         adultBtn.setText(i18n.get("buyNewTicket.adult"));
         studentBtn.setText(i18n.get("buyNewTicket.student"));
         seniorBtn.setText(i18n.get("buyNewTicket.senior"));
-        touristBtn.setText(i18n.get("buyNewTicket.tourist"));
         tripSingle.setText(i18n.get("buyNewTicket.single"));
         tripMulti.setText(i18n.get("buyNewTicket.multi"));
         tripDay.setText(i18n.get("buyNewTicket.day"));
@@ -316,7 +315,6 @@ public class BuyNewTicketController {
         if (adultBtn != null && adultBtn.isSelected()) return "Adult";
         if (studentBtn != null && studentBtn.isSelected()) return "Student";
         if (seniorBtn != null && seniorBtn.isSelected()) return "Senior";
-        if (touristBtn != null && touristBtn.isSelected()) return "Tourist";
         return "Adult";
     }
 

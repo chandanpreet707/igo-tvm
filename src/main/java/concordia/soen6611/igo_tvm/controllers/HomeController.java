@@ -202,7 +202,7 @@ public class HomeController {
 
         bullets.getChildren().addAll(
                 item("Select “Buy New Ticket” or “Reload Card”."),
-                item("Choose rider type (Adult, Student, Senior, Tourist) and the fare."),
+                item("Choose rider type (Adult, Student, Senior) and the fare."),
                 item("Adjust quantity, then tap “Make Payment”."),
                 item("Pick payment method (Card or Cash) and follow the prompts."),
                 item("Collect your ticket and (optionally) print a receipt.")

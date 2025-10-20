@@ -24,10 +24,7 @@ public class MetroRatePassProxy {
         rateCache.put("Senior_Monthly Pass", 60.00);
         rateCache.put("Senior_Weekend Pass", 9.00);
 
-        rateCache.put("Tourist_Single Trip", 4.00);
-        rateCache.put("Tourist_Day Pass", 12.00);
-        rateCache.put("Tourist_Monthly Pass", 99.00);
-        rateCache.put("Tourist_Weekend Pass", 16.00);
+
     }
 
     public double getRate(String key) {
