@@ -67,6 +67,23 @@
                     </graphic>
                 </Button>
 
+                <!-- Mobile Waller (selectable, blue when selected) -->
+                <!-- MOBILE WALLET (select & go to MobileWallet page) -->
+                <Button fx:id="mobileWalletBtn"
+                        onAction="#onSelectMobileWallet"
+                        styleClass="pm-tile pm-tile--card"
+                        maxWidth="560" prefWidth="560" prefHeight="64">
+                    <graphic>
+                        <HBox spacing="14" alignment="CENTER_LEFT">
+                            <ImageView fitHeight="44" preserveRatio="true" smooth="true">
+                                <image><Image url="@../images/phone.png"/></image>
+                            </ImageView>
+                            <Label fx:id="mobileWalletBtnLabel" styleClass="pm-tile-title--card" style="-fx-font-size: 22px;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </graphic>
+                </Button>
+
                 <!-- CREDIT/DEBIT (selectable, blue when selected) -->
                 <Button fx:id="cardBtn"
                         onAction="#onSelectCard"
@@ -82,6 +99,8 @@
                         </HBox>
                     </graphic>
                 </Button>
+
+
 
                 <!-- Tap/insert hint (only for card) -->
                 <Label fx:id="tapInsertHint"

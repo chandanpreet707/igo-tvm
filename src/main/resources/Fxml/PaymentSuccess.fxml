@@ -99,7 +99,7 @@
         <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
             <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
 
-            <Label styleClass="help" fx:id="helpLabel"/>
+            <Label styleClass="help" fx:id="helpLabel" onMouseClicked="#onHelpClick"/>
 
             <Region HBox.hgrow="ALWAYS"/>  <!-- pushes volume button to the right -->
 

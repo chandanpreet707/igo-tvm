@@ -30,7 +30,7 @@
 
 /*!* Illustration panel with notch *!*/
 .pm-illopanel {
-    -fx-background-color: #e7ebf1;
+    -fx-background-color: #c1c1c2;
     -fx-border-color: #d5dbe4;
     -fx-border-width: 1;
     -fx-background-radius: 12;
@@ -38,7 +38,7 @@
     -fx-padding: 24;
 }
 .pm-illopanel-notch {
-    -fx-fill: #e7ebf1;
+    -fx-fill: #d3d3d5;
     -fx-stroke: #d5dbe4;
     -fx-stroke-width: 1;
 }
@@ -95,7 +95,6 @@
 .pm-tile--selected .ikonli-font-icon {
     -fx-opacity: 0.95;                        /* looks good on blue */
 }
-
 
 /* Confirm button */
 .pm-confirm-btn {
