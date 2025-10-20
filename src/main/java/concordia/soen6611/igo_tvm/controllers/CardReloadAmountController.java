@@ -1,14 +1,10 @@
 package concordia.soen6611.igo_tvm.controllers;
 
-import concordia.soen6611.igo_tvm.Services.ContrastManager;
-import concordia.soen6611.igo_tvm.Services.I18nService;
-import concordia.soen6611.igo_tvm.Services.PaymentSession;
-import concordia.soen6611.igo_tvm.Services.TextZoomService;
+import concordia.soen6611.igo_tvm.Services.*;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
@@ -39,38 +36,49 @@ public class CardReloadAmountController implements Initializable {
     private final ApplicationContext appContext;
     private final PaymentSession paymentSession;
 
-    public Label brandLink;
-    public Label clockLabel;
-    public Label youCardLabel;
-    public ImageView opusCardImage;
-    public Label opusCardLabel;
-    public Label reloadOptionLabel;
-    public Label selectTypeLabel;
-    public Label estimatedTotalLabel;
-    public Button proceedBtn;
-    public BorderPane root;
-    public Label reloadCardLabel;
-    public Label helpLabel;
-    public String menuSinglePass;
-    public String menuMultiplePass;
-    public String menuWeeklyPass;
-    public String menuMonthlyPass;
-    public String menuDayPass;
-    public Label riderTypeTag;
+    // Header
+    @FXML public Label brandLink;
+    @FXML public Label clockLabel;
+
+    // Left (card)
+    @FXML public Label youCardLabel;
+    @FXML public ImageView opusCardImage;
+//    @FXML public Label opusCardLabel;
+    @FXML public Label riderTypeTag;
+
+    // Right (options)
+    @FXML public Label reloadOptionLabel;
+    @FXML public Label selectTypeLabel;
+    @FXML public ComboBox<String> passTypeBox;
+    @FXML public Label qtyLabel;
+    @FXML public ComboBox<Integer> qtyBox;
+
+
+    // Price breakdown
+    @FXML public Label estUnitValue;
+    @FXML public Label estSubtotalValue;
+    @FXML public Label taxLineLabel;
+    @FXML public Label taxValue;
+    @FXML public Label estimatedTotalLabel;
+    @FXML public Label estTotalValue;
+
+
+    @FXML public Button proceedBtn;
+    @FXML public BorderPane root;
+    @FXML public Label reloadCardLabel;
+    @FXML public Label helpLabel;
+    public Label unitPriceLabel;
+    public Label subTotalLabel;
+
+
     private Timeline clock;
-    @FXML private ComboBox<String> passTypeBox;
-    @FXML private ComboBox<Integer> qtyBox;
-    @FXML private Label qtyLabel, estTotalValue;
     private final NumberFormat CAD = NumberFormat.getCurrencyInstance(Locale.CANADA);
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
     private final I18nService i18n;
 
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private ObservableList<String> passTypeList;
-
+    @Autowired
+    private FareRateService fareRateService;
 
 
     public CardReloadAmountController(ApplicationContext appContext, PaymentSession paymentSession, I18nService i18n) {
@@ -83,10 +91,7 @@ public class CardReloadAmountController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         riderTypeTag.setText("Adult"); // "Adult", "Student", etc.
         updateTexts();
-        i18n.localeProperty().addListener((obs, oldL, newL) -> {
-            System.out.println("Locale changed from " + oldL + " to " + newL);
-            updateTexts();
-        });
+        i18n.localeProperty().addListener((obs, oldL, newL) -> updateTexts());
 
         // Live clock
         clock = new Timeline(
@@ -96,29 +101,25 @@ public class CardReloadAmountController implements Initializable {
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
 
-        // Guard: if items not defined in FXML, you can populate—
+        // Guard: if items not defined in FXML, you can populate
         if (passTypeBox.getItems().isEmpty()) {
-            passTypeBox.getItems().addAll("Single Pass", "Multiple Pass", "Weekly Pass", "Monthly Pass", "Day Pass");
+            passTypeBox.getItems().addAll("Single Pass", "Weekly Pass", "Monthly Pass", "Day Pass");
         }
         if (qtyBox.getItems().isEmpty()) {
             for (int i = 1; i <= 10; i++) qtyBox.getItems().add(i);
         }
+
         qtyBox.getSelectionModel().select(Integer.valueOf(1));
         passTypeBox.getSelectionModel().selectFirst();
 
-        passTypeBox.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> {
-            boolean multiple = isMultiple(n);
-            qtyLabel.setVisible(multiple); qtyLabel.setManaged(multiple);
-            qtyBox.setVisible(multiple);   qtyBox.setManaged(multiple);
-            updateEstimate();
-        });
+        passTypeBox.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> updateEstimate());
         qtyBox.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> updateEstimate());
 
         updateEstimate();
 
         Platform.runLater(() -> {
             var zoom = TextZoomService.get();
-            zoom.register((Node) brandLink, reloadCardLabel, clockLabel, youCardLabel,opusCardImage, opusCardLabel, passTypeBox,
+            zoom.register((Node) brandLink, reloadCardLabel, clockLabel, youCardLabel,opusCardImage, passTypeBox,
                     qtyLabel, qtyBox, estimatedTotalLabel, estTotalValue, proceedBtn, helpLabel);
         });
 
@@ -130,89 +131,116 @@ public class CardReloadAmountController implements Initializable {
     private void updateTexts() {
         reloadCardLabel.setText(i18n.get("cardReloadAmount.title"));
         youCardLabel.setText(i18n.get("cardReloadAmount.youCard"));
-        opusCardLabel.setText(i18n.get("cardReloadAmount.opusCard"));
+//        opusCardLabel.setText(i18n.get("cardReloadAmount.opusCard"));
         reloadOptionLabel.setText(i18n.get("cardReloadAmount.reloadOption"));
         selectTypeLabel.setText(i18n.get("cardReloadAmount.selectType"));
         qtyLabel.setText(i18n.get("cardReloadAmount.qty"));
         estimatedTotalLabel.setText(i18n.get("cardReloadAmount.estimatedTotal"));
         proceedBtn.setText(i18n.get("cardReloadAmount.proceed"));
+        unitPriceLabel.setText(i18n.get("cardReloadAmount.unitPrice"));
+        subTotalLabel.setText(i18n.get("cardReloadAmount.subTotal"));
+        taxLineLabel.setText(i18n.get("cardReloadAmount.taxLabel"));
 //        passTypeList.set(passTypeList.indexOf(menuSinglePass),this.resources.getString("cardReloadAmount.menu.single.pass"));
+        // Dynamic tax % in the line label
+//        double taxPct = fareRateService.getTax() * 100.0; // e.g., 14.975
+//        taxLineLabel.setText(String.format("Tax (%.3f%%):", taxPct));
 
     }
 
     // ===== helpers required by onMakePayment pattern =====
-    private String selectedRiderName() {
-        // On reload we typically don’t collect rider type here; default to Adult,
-        // or replace with a real selection / session value when you add it.
-        return "Adult";
-    }
 
+    private String selectedRider() {
+        // If you store rider in session, fetch it; otherwise use tag text.
+        String tag = riderTypeTag.getText();
+        return (tag == null || tag.isBlank()) ? "Adult" : tag.trim();
+    }
     private String selectedTripName() {
         String pt = passTypeBox.getSelectionModel().getSelectedItem();
         if (pt == null) return "Single Trip";
         switch (pt) {
-            case "Multiple Pass": return "Multiple Trip";
-            case "Weekly Pass":   return "Weekly Pass";
-            case "Monthly Pass":  return "Monthly Pass";
-            case "Day Pass":      return "Day Pass";
-            default:              return "Single Trip";
+            case "Weekly Pass":  return "Weekly Pass";
+            case "Monthly Pass": return "Monthly Pass";
+            case "Day Pass":     return "Day Pass";
+            default:             return "Single Trip";
         }
     }
 
-    private boolean isMultiple(String passType) {
-        return "Multiple Pass".equals(passType);
+    private int quantity() {
+        Integer q = qtyBox.getSelectionModel().getSelectedItem();
+        return (q == null || q < 1) ? 1 : q;
     }
 
-    /** Number of trips when Multiple Trip is chosen (1..10), else 1 */
-    private int multiTrips() {
-        Integer val = qtyBox.getSelectionModel().getSelectedItem();
-        return val == null ? 1 : val;
+    /** Base price per ONE pass, by rider + trip. */
+    private double unitPrice() {
+        return fareRateService.getRate(selectedRider(), selectedTripName());
     }
 
-    /** Quantity of *tickets/products* (for reload we sell one product at a time) */
-    private int qty() {
-        // For this screen the “Quantity” row in the mock is actually trips count.
-        // Keep product quantity fixed at 1. If you add another quantity control later, return it here.
-        return 1;
-    }
-
-    /** Unit price for ONE product, already scaled for multi-trips when Multiple Trip is chosen. */
-    private double currentUnitPrice() {
-        String pt = passTypeBox.getSelectionModel().getSelectedItem();
-        if (pt == null) return 0.0;
-
-        switch (pt) {
-            case "Single Pass":   return 3.75;
-            case "Day Pass":      return 11.00;
-            case "Weekly Pass":   return 31.00;
-            case "Monthly Pass":  return 94.00;
-            case "Multiple Pass": return 3.75 * multiTrips(); // scale by trips
-            default:              return 0.0;
-        }
-    }
+    private static double round2(double v) { return Math.round(v * 100.0) / 100.0; }
 
     private void updateEstimate() {
-        double unit = currentUnitPrice();
-        int quantity = qty();
-        estTotalValue.setText(CAD.format(unit * quantity));
+        double unit = unitPrice();
+        int qty = quantity();
+
+        double subtotal = unit * qty;
+        double tax      = round2(subtotal * fareRateService.getTax());
+        double total    = round2(subtotal + tax);
+
+        estUnitValue.setText(CAD.format(unit));
+        estSubtotalValue.setText(CAD.format(subtotal));
+        taxValue.setText(CAD.format(tax));
+        estTotalValue.setText(CAD.format(total));
     }
+
 
     @FXML
-    private void onBrandClick(MouseEvent event) {
-        goWelcomeScreen((Node) event.getSource());
+    private void onProceedToPayment(ActionEvent event) {
+        String rider = selectedRider();
+        String trip  = selectedTripName();
+        int trips    = 1;                 // no “Multiple Pass” anymore
+        int qty      = quantity();
+        double unit  = unitPrice();
+
+        double subtotal = unit * qty;
+        double tax      = round2(subtotal * fareRateService.getTax());
+        double total    = round2(subtotal + tax);
+
+        // Save order in session
+        paymentSession.setOrigin(PaymentSession.Origin.RELOAD_CARD);
+
+        // Use the constructor your project expects:
+        // If your OrderSummary has (rider, trip, trips, quantity, unitPrice, total):
+        paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, qty, unit, total));
+
+        // If your OrderSummary signature is different, adjust accordingly.
+
+        // Navigate
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Payment.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent view = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(view);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    private void goWelcomeScreen(Node anyNodeInScene) {
+    // Navigation helpers
+    @FXML
+    private void onBrandClick(MouseEvent event) { goWelcome((Node) event.getSource()); }
+
+    private void goWelcome(Node n) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
             loader.setControllerFactory(appContext::getBean);
             Parent home = loader.load();
-            anyNodeInScene.getScene().setRoot(home);
+            n.getScene().setRoot(home);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    public void onBack(ActionEvent event) {
+
+    @FXML
+    private void onBack(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Home.fxml"));
             loader.setControllerFactory(appContext::getBean);
@@ -223,29 +251,6 @@ public class CardReloadAmountController implements Initializable {
         }
     }
 
-    public void onVolume(ActionEvent actionEvent) {
-    }
-
     @FXML
-    private void onProceedToPayment(ActionEvent event) {
-        String rider = riderTypeTag.getText();
-        String trip  = selectedTripName();
-        int trips    = isMultiple(passTypeBox.getSelectionModel().getSelectedItem()) ? multiTrips() : 1;
-        int quantity = qty();
-        double unit  = currentUnitPrice(); // already scaled for multiple trips
-
-        // Save current order in the session
-        paymentSession.setOrigin(PaymentSession.Origin.RELOAD_CARD);
-        paymentSession.setCurrentOrder(new OrderSummary(rider, trip, trips, quantity, unit));
-
-        // Navigate to the Payment page
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Payment.fxml"));
-            loader.setControllerFactory(appContext::getBean);
-            Parent view = loader.load();
-            ((Node) event.getSource()).getScene().setRoot(view);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+    private void onVolume(ActionEvent e) {}
 }

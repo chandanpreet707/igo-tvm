@@ -40,35 +40,43 @@
     </top>
 
     <center>
-        <HBox spacing="18" alignment="TOP_LEFT">
+        <!-- Fill horizontally, fixed left menu + elastic content -->
+        <HBox spacing="18" alignment="TOP_LEFT" VBox.vgrow="ALWAYS">
             <padding><Insets top="24" right="12" bottom="18" left="12"/></padding>
+
+            <!-- LEFT MENU (unchanged, fixed width) -->
             <VBox spacing="12" prefWidth="260" styleClass="leftMenu">
-                <Button fx:id="menuSingleBtn" styleClass="menu-btn" text="Single Trip"   onAction="#onMenuSingle"/>
-                <Button fx:id="menuMultiBtn" styleClass="menu-btn" text="Multiple Trip" onAction="#onMenuMulti"/>
-                <Button fx:id="menuDayBtn" styleClass="menu-btn" text="Day Pass"      onAction="#onMenuDay"/>
+                <Button fx:id="menuSingleBtn"  styleClass="menu-btn" text="Single Trip"   onAction="#onMenuSingle"/>
+                <Button fx:id="menuDayBtn"     styleClass="menu-btn" text="Day Pass"      onAction="#onMenuDay"/>
                 <Button fx:id="menuMonthlyBtn" styleClass="menu-btn" text="Monthly Pass"  onAction="#onMenuMonthly"/>
                 <Button fx:id="menuWeekendBtn" styleClass="menu-btn" text="Weekend Pass"  onAction="#onMenuWeekend"/>
-
+                <Button fx:id="menuWeeklyBtn"  styleClass="menu-btn" text="Weekly Pass"   onAction="#onMenuWeekly"/>
             </VBox>
-            <VBox spacing="20" HBox.hgrow="ALWAYS">
-                <Label fx:id="questionLabel" styleClass="question"/>
-                <GridPane hgap="14" vgap="12">
+
+            <!-- RIGHT CONTENT (now fully responsive) -->
+            <VBox spacing="20" HBox.hgrow="ALWAYS" fillWidth="true">
+                <Label fx:id="questionLabel" styleClass="question" maxWidth="Infinity"/>
+
+                <GridPane hgap="16" vgap="14" maxWidth="Infinity">
+                    <!-- Columns tuned to use full width; 2 & 4 grow -->
                     <columnConstraints>
-                        <ColumnConstraints halignment="LEFT"  percentWidth="22"/>
-                        <ColumnConstraints halignment="LEFT"  percentWidth="38"/>
-                        <ColumnConstraints halignment="LEFT"  percentWidth="16"/>
-                        <ColumnConstraints halignment="RIGHT" percentWidth="24"/>
+                        <ColumnConstraints percentWidth="18" halignment="LEFT"/>
+                        <ColumnConstraints percentWidth="42" halignment="LEFT" hgrow="ALWAYS"/>
+                        <ColumnConstraints percentWidth="10" halignment="LEFT"/>
+                        <ColumnConstraints percentWidth="30" halignment="RIGHT" hgrow="ALWAYS"/>
                     </columnConstraints>
+
+                    <!-- Rider Type -->
                     <Label fx:id="riderTypeLabel" styleClass="label"
                            GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                    <FlowPane hgap="8" vgap="8" prefWrapLength="420"
-                              GridPane.rowIndex="0" GridPane.columnIndex="1">
-                        <ToggleButton fx:id="adultBtn" toggleGroup="$riderGroup" selected="true"
+                    <FlowPane hgap="8" vgap="8" prefWrapLength="600"
+                              GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                        <ToggleButton fx:id="adultBtn"   toggleGroup="$riderGroup" selected="true"
                                       onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
                             <graphic>
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <StackPane styleClass="seg-icon">
-                                        <FontIcon iconLiteral="fas-user" iconSize="18" styleClass="seg-icon__glyph"/>
+                                        <org.kordamp.ikonli.javafx.FontIcon iconLiteral="fas-user" iconSize="18" styleClass="seg-icon__glyph"/>
                                     </StackPane>
                                     <Label styleClass="seg-text"/>
                                 </HBox>
@@ -79,100 +87,93 @@
                             <graphic>
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <StackPane styleClass="seg-icon">
-                                        <FontIcon iconLiteral="fas-user-graduate" iconSize="18" styleClass="seg-icon__glyph"/>
+                                        <org.kordamp.ikonli.javafx.FontIcon iconLiteral="fas-user-graduate" iconSize="18" styleClass="seg-icon__glyph"/>
                                     </StackPane>
                                     <Label styleClass="seg-text"/>
                                 </HBox>
                             </graphic>
                         </ToggleButton>
-                        <ToggleButton fx:id="seniorBtn" toggleGroup="$riderGroup"
+                        <ToggleButton fx:id="seniorBtn"  toggleGroup="$riderGroup"
                                       onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
                             <graphic>
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <StackPane styleClass="seg-icon">
-                                        <FontIcon iconLiteral="fas-blind" iconSize="18" styleClass="seg-icon__glyph"/>
-                                    </StackPane>
-                                    <Label styleClass="seg-text"/>
-                                </HBox>
-                            </graphic>
-                        </ToggleButton>
-                        <ToggleButton fx:id="touristBtn" toggleGroup="$riderGroup"
-                                      onAction="#onRiderTypeChange" styleClass="seg-btn seg-btn--icon">
-                            <graphic>
-                                <HBox spacing="8" alignment="CENTER_LEFT">
-                                    <StackPane styleClass="seg-icon">
-                                        <FontIcon iconLiteral="fas-suitcase-rolling" iconSize="18" styleClass="seg-icon__glyph"/>
+                                        <org.kordamp.ikonli.javafx.FontIcon iconLiteral="fas-blind" iconSize="18" styleClass="seg-icon__glyph"/>
                                     </StackPane>
                                     <Label styleClass="seg-text"/>
                                 </HBox>
                             </graphic>
                         </ToggleButton>
                     </FlowPane>
+
+                    <!-- Trip Type -->
                     <Label fx:id="tripTypeLabel" styleClass="label"
                            GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                    <FlowPane hgap="8" vgap="8" prefWrapLength="420"
-                              GridPane.rowIndex="1" GridPane.columnIndex="1">
-                        <ToggleButton fx:id="tripSingle"
-                                      toggleGroup="$tripGroup" selected="true"
+                    <FlowPane hgap="8" vgap="8" prefWrapLength="600"
+                              GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                        <ToggleButton fx:id="tripSingle"  toggleGroup="$tripGroup" selected="true"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripMulti"
-                                      toggleGroup="$tripGroup"
+                        <ToggleButton fx:id="tripDay"     toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripDay"
-                                      toggleGroup="$tripGroup"
+                        <ToggleButton fx:id="tripMonthly" toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripMonthly"
-                                      toggleGroup="$tripGroup"
+                        <ToggleButton fx:id="tripWeekend" toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
-                        <ToggleButton fx:id="tripWeekend"
-                                      toggleGroup="$tripGroup"
+                        <ToggleButton fx:id="tripWeekly"  toggleGroup="$tripGroup"
                                       onAction="#onTripChange" styleClass="seg-btn"/>
                     </FlowPane>
-                    <Label fx:id="multiCountLabel" text="Trips" styleClass="label"
-                           GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                    <ComboBox fx:id="multiCountCombo" prefWidth="120"
-                              GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                    <!-- Price each -->
                     <Label fx:id="priceLabel" styleClass="label"
                            GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                     <Label fx:id="unitValueLabel" styleClass="value"
                            GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <!-- Quantity -->
                     <Label fx:id="quantityLabel" styleClass="label"
                            GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                     <HBox spacing="6" alignment="CENTER_LEFT"
                           GridPane.rowIndex="3" GridPane.columnIndex="1">
-                        <Button onAction="#decrementQty" styleClass="qty-btn" prefWidth="56" prefHeight="36">
-                            <graphic>
-                                <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/minus.png"/>
-                                    </image>
-                                </ImageView>
+                        <Button onAction="#decrementQty" styleClass="qty-btn" prefWidth="64" prefHeight="40">
+                            <graphic> <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
+                                <image><Image url="@../images/minus.png"/></image> </ImageView>
                             </graphic>
                         </Button>
                         <TextField fx:id="qtyField" text="1" alignment="CENTER"
-                                   prefWidth="70" styleClass="qty-field"/>
-                        <Button onAction="#incrementQty" styleClass="qty-btn" prefWidth="56" prefHeight="36">
+                                   prefWidth="84" styleClass="qty-field"/>
+                        <Button onAction="#incrementQty" styleClass="qty-btn" prefWidth="64" prefHeight="40">
                             <graphic>
                                 <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/plus.png"/>
-                                    </image>
+                                <image><Image url="@../images/plus.png"/></image>
                                 </ImageView>
                             </graphic>
                         </Button>
                     </HBox>
-                    <Label fx:id="totalLabel" text="Total:" styleClass="total-label"
-                           GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                    <Label fx:id="totalValue" text="" styleClass="total-value"
+
+                    <!-- Tax -->
+                    <Label text="Tax(GST 5% + QST 9.975%):" styleClass="label"
+                           GridPane.rowIndex="4" GridPane.columnIndex="0" fx:id="taxLabel"/>
+                    <Label fx:id="taxValue" styleClass="value"
                            GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                    <!-- Total -->
+                    <Label fx:id="totalLabel" text="Total (incl. 14.975% tax):" styleClass="total-label"
+                           GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                    <Label fx:id="totalValue" styleClass="total-value"
+                           GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                    <!-- Primary CTA aligned right, spans last 2 cols, grows if needed -->
                     <Button fx:id="makePaymentBtn" onAction="#onMakePayment"
                             text="Make Payment | Passer au Paiement"
-                            styleClass="primary" prefWidth="260" prefHeight="44"
-                            GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+                            styleClass="primary" maxWidth="Infinity" prefHeight="56"
+                            GridPane.rowIndex="5" GridPane.columnIndex="2" GridPane.columnSpan="2"
+                            GridPane.halignment="RIGHT"/>
                 </GridPane>
             </VBox>
         </HBox>
     </center>
+
+
 
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">

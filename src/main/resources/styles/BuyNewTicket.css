@@ -8,7 +8,6 @@
 }
 
 /* Header */
-/* Header */
 .buy-page .header {
     -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);
@@ -62,7 +61,7 @@
     -fx-border-radius: 6;
     -fx-background-radius: 6;
     -fx-font-size: 16px;
-    -fx-pref-height: 36;
+    -fx-pref-height: 40;
 }
 .qty-btn {
     -fx-background-color: #e6f2ff;

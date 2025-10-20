@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -175,6 +176,23 @@ public class CashSubmissionController {
             Parent view = loader.load();
             ((Node) actionEvent.getSource()).getScene().setRoot(view);
         } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onBrandClick(MouseEvent event) {
+        paymentSession.clear();
+        goWelcomeScreen((Node) event.getSource());
+    }
+
+    private void goWelcomeScreen(Node anyNodeInScene) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
+            loader.setControllerFactory(appContext::getBean);
+            Parent home = loader.load();
+            anyNodeInScene.getScene().setRoot(home);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
