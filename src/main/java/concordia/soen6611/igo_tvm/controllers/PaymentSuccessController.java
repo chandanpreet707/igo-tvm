@@ -4,7 +4,9 @@ import concordia.soen6611.igo_tvm.Services.ContrastManager;
 import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +22,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
@@ -33,6 +37,7 @@ public class PaymentSuccessController {
     @FXML private Label printBtnLabel;
     @FXML private Label doneBtnLabel;
     @FXML private Label helpLabel;
+
     @FXML private Label confirmationLabel;
 
 
@@ -46,9 +51,19 @@ public class PaymentSuccessController {
         this.i18n = i18n;
         this.paymentSession = paymentSession;
     }
-
+    private Timeline clock;
+    private static final DateTimeFormatter CLOCK_FMT = DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh:mm a");
     @FXML
     private void initialize() {
+
+        clock = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        e -> clockLabel.setText(LocalDateTime.now().format(CLOCK_FMT))),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.play();
+
         updateTexts();
 
         // Register text nodes for zooming
