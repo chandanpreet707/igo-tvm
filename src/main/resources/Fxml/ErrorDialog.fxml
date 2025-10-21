@@ -28,13 +28,13 @@
                     <ColumnConstraints hgrow="ALWAYS"/>
                 </columnConstraints>
 
-                <Label text="Time:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="timeTitleLabel" text="Time:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                 <Label fx:id="timestampLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="typeTitleLabel" text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                 <Label fx:id="typeLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Label text="User message:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <Label fx:id="userMessageTitleLabel" text="User message:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
                 <Label fx:id="userMessageLabel" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="1" />
             </GridPane>
         </VBox>

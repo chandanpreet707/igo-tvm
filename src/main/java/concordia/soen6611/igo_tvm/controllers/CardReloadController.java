@@ -7,6 +7,11 @@ import concordia.soen6611.igo_tvm.Services.I18nService;
 import concordia.soen6611.igo_tvm.Services.PaymentSession;
 import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.exceptions.*;
+import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import concordia.soen6611.igo_tvm.models.ExceptionDialog;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -96,16 +101,6 @@ public class CardReloadController {
         tapYouCardLabel.setText(i18n.get("cardReload.message"));
         readStatus.setText(i18n.get("cardReload.readyToReadMessage"));
 
-        // Add translations for the Simulation Dialog (if not hardcoded for simplicity)
-        // dialog.setTitle(i18n.get("cardReload.simulation.title"));
-        // dialog.setHeaderText(i18n.get("cardReload.simulation.header"));
-        // dialog.setContentText(i18n.get("cardReload.simulation.content"));
-
-        // The success dialog content is already using i18n keys inside onStartReading,
-        // but ensuring all keys are called here if we want to observe changes later:
-        // i18n.get("cardReload.modalTitle");
-        // i18n.get("cardReload.readingSuccessfulMessage");
-        // i18n.get("cardReload.ok");
     }
 
     public double getFare(String riderType, String passType) {
@@ -143,10 +138,30 @@ public class CardReloadController {
     public void onVolume(ActionEvent actionEvent) {
     }
 
+
     @FXML
     private void onStartReading(javafx.event.ActionEvent event) {
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("success",
-                "success", "network", "hardware", "database", "user");
+        // --- 1. SETUP TRANSLATION MAP AND OPTIONS ---
+        // Map of internal ID ("success") to translated display text ("Succès (Flux normal)")
+        Map<String, String> optionMap = new HashMap<>();
+        optionMap.put("success", i18n.get("cardReload.option.success"));
+        optionMap.put("network", i18n.get("cardReload.option.network"));
+        optionMap.put("hardware", i18n.get("cardReload.option.hardware"));
+        optionMap.put("database", i18n.get("cardReload.option.database"));
+        optionMap.put("user", i18n.get("cardReload.option.user"));
+
+        // List of translated display texts for the dialog
+        List<String> translatedOptions = new ArrayList<>(optionMap.values());
+
+        // The default selection must be the translated string for "success"
+        String defaultTranslatedOption = optionMap.get("success");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(
+                defaultTranslatedOption,
+                translatedOptions
+        );
+
+        // --- 2. TRANSLATE DIALOG WINDOW TEXT ---
         dialog.setTitle(i18n.get("cardReload.simulation.title"));
         dialog.setHeaderText(i18n.get("cardReload.simulation.header"));
         dialog.setContentText(i18n.get("cardReload.simulation.scenario"));
@@ -157,7 +172,15 @@ public class CardReloadController {
             return; // User cancelled
         }
 
-        String choice = result.get();
+        // --- 3. MAP TRANSLATED RESULT BACK TO INTERNAL KEY ---
+        String translatedChoice = result.get();
+
+        // Find the internal English key (e.g., "network") based on the translated text selected by the user
+        String choice = optionMap.entrySet().stream()
+                .filter(entry -> entry.getValue().equals(translatedChoice))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse("success"); // Default to success if mapping somehow fails
 
         // UI: show spinner & status
         startReadBtn.setDisable(true);

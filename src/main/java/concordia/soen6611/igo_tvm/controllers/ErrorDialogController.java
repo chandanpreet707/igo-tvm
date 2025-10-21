@@ -20,6 +20,9 @@ public class ErrorDialogController {
     @FXML private Label timestampLabel;
     @FXML private Label typeLabel;
     @FXML private Label userMessageLabel;
+    @FXML private Label timeTitleLabel;
+    @FXML private Label typeTitleLabel;
+    @FXML private Label userMessageTitleLabel;
     @FXML private TextArea stackTraceArea;
     @FXML private Button closeBtn;
 
@@ -38,20 +41,30 @@ public class ErrorDialogController {
 
     private void updateTexts() {
         closeBtn.setText(i18n.get("errorDialog.close"));
+
+        // Now set the text for the title labels using the i18n service:
+        timeTitleLabel.setText(i18n.get("errorDialog.timestampLabel"));
+        typeTitleLabel.setText(i18n.get("errorDialog.typeLabel"));
+        userMessageTitleLabel.setText(i18n.get("errorDialog.userMessageLabel"));
     }
 
     public void setException(AbstractCustomException ex) {
         if (ex == null) return;
+
         timestampLabel.setText(ex.getTimestamp().format(TS_FMT));
-        typeLabel.setText(ex.getExceptionType());
+        String translatedType = i18n.get("exceptionType." + ex.getExceptionType());
+        typeLabel.setText(translatedType);
         userMessageLabel.setText(ex.getUserMessage());
 
         StringBuilder sb = new StringBuilder();
+
         sb.append(i18n.get("errorDialog.exceptionPrefix")).append(" ").append(ex.getClass().getName()).append("\n");
+
         if (ex.getCause() != null) {
             sb.append(i18n.get("errorDialog.causePrefix")).append(" ")
                     .append(ex.getCause().getClass().getName()).append(": ").append(ex.getCause().getMessage()).append("\n\n");
         }
+
         for (StackTraceElement ste : ex.getStackTrace()) {
             sb.append("\tat ").append(ste.toString()).append("\n");
         }
@@ -60,6 +73,8 @@ public class ErrorDialogController {
             stackTraceArea.setText(sb.toString());
         }
     }
+
+
 
 
     // java
