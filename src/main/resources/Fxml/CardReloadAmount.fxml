@@ -69,16 +69,6 @@
                         <Label styleClass="cra-field-label" fx:id="selectTypeLabel" text="Select Pass Type..."/>
                         <ComboBox fx:id="passTypeBox" promptText="Select Pass..." prefWidth="440" styleClass="cra-combo">
                         </ComboBox>
-<!--                        <ComboBox fx:id="passTypeBox" promptText="Select Pass..." prefWidth="440" styleClass="cra-combo">-->
-<!--                            <items>-->
-<!--                                <FXCollections fx:factory="observableArrayList">-->
-<!--                                    <String fx:value="Single Pass"/>-->
-<!--                                    <String fx:value="Weekly Pass"/>-->
-<!--                                    <String fx:value="Monthly Pass"/>-->
-<!--                                    <String fx:value="Day Pass"/>-->
-<!--                                </FXCollections>-->
-<!--                            </items>-->
-<!--                        </ComboBox>-->
 
                         <!-- Quantity (visible for ALL pass types now) -->
                         <Label fx:id="qtyLabel" styleClass="cra-field-label" text="Quantity"/>

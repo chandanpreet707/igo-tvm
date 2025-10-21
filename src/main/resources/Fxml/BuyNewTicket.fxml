@@ -132,23 +132,47 @@
                     <!-- Quantity -->
                     <Label fx:id="quantityLabel" styleClass="label"
                            GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+<!--                    <HBox spacing="6" alignment="CENTER_LEFT"-->
+<!--                          GridPane.rowIndex="3" GridPane.columnIndex="1">-->
+<!--                        <Button onAction="#decrementQty" styleClass="qty-btn" prefWidth="64" prefHeight="40">-->
+<!--                            <graphic> <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">-->
+<!--                                <image><Image url="@../images/minus.png"/></image> </ImageView>-->
+<!--                            </graphic>-->
+<!--                        </Button>-->
+<!--                        <TextField fx:id="qtyField" text="1" alignment="CENTER"-->
+<!--                                   prefWidth="84" styleClass="qty-field"/>-->
+<!--                        <Button onAction="#incrementQty" styleClass="qty-btn" prefWidth="64" prefHeight="40">-->
+<!--                            <graphic>-->
+<!--                                <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">-->
+<!--                                <image><Image url="@../images/plus.png"/></image>-->
+<!--                                </ImageView>-->
+<!--                            </graphic>-->
+<!--                        </Button>-->
+<!--                    </HBox>-->
                     <HBox spacing="6" alignment="CENTER_LEFT"
                           GridPane.rowIndex="3" GridPane.columnIndex="1">
-                        <Button onAction="#decrementQty" styleClass="qty-btn" prefWidth="64" prefHeight="40">
-                            <graphic> <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
-                                <image><Image url="@../images/minus.png"/></image> </ImageView>
-                            </graphic>
-                        </Button>
-                        <TextField fx:id="qtyField" text="1" alignment="CENTER"
-                                   prefWidth="84" styleClass="qty-field"/>
-                        <Button onAction="#incrementQty" styleClass="qty-btn" prefWidth="64" prefHeight="40">
+                        <Button fx:id="decBtn" onAction="#decrementQty"
+                                styleClass="qty-btn" prefWidth="64" prefHeight="40">
                             <graphic>
                                 <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
-                                <image><Image url="@../images/plus.png"/></image>
+                                    <image><Image url="@../images/minus.png"/></image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+
+                        <TextField fx:id="qtyField" text="1" alignment="CENTER"
+                                   prefWidth="84" styleClass="qty-field"/>
+
+                        <Button fx:id="incBtn" onAction="#incrementQty"
+                                styleClass="qty-btn" prefWidth="64" prefHeight="40">
+                            <graphic>
+                                <ImageView fitWidth="14" fitHeight="14" preserveRatio="true">
+                                    <image><Image url="@../images/plus.png"/></image>
                                 </ImageView>
                             </graphic>
                         </Button>
                     </HBox>
+
 
                     <!-- Tax -->
                     <Label text="Tax(GST 5% + QST 9.975%):" styleClass="label"

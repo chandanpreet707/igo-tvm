@@ -32,6 +32,8 @@ public class BuyNewTicketController {
 
     public Button menuWeeklyBtn;
     public Label taxLabel;
+    @FXML private Button incBtn;
+    @FXML private Button decBtn;
     @FXML
     private Label buyNewTicketLabel;
     @FXML
@@ -116,14 +118,12 @@ public class BuyNewTicketController {
         if (riderGroup.getSelectedToggle() == null && adultBtn != null) adultBtn.setSelected(true);
         if (tripGroup.getSelectedToggle() == null && tripSingle != null) tripSingle.setSelected(true);
 
-//        for (int i = 1; i <= 10; i++) multiCountCombo.getItems().add(i);
-//        multiCountCombo.setValue(1);
-//
-//        bindMultipleTripVisibility();
-//        multiCountCombo.setOnAction(e -> recalc());
-
         riderGroup.selectedToggleProperty().addListener((o, ov, nv) -> recalc());
-        tripGroup.selectedToggleProperty().addListener((o, ov, nv) -> recalc());
+        tripGroup.selectedToggleProperty().addListener((o, ov, nv) -> {
+            updateQtyAvailability();
+            recalc();
+        });
+        updateQtyAvailability();
 
         qtyField.textProperty().addListener((o, oldV, newV) -> {
             if (!newV.matches("\\d*")) {
@@ -143,7 +143,8 @@ public class BuyNewTicketController {
             zoom.register(brandLink, buyNewTicketLabel, questionLabel, helpLabel, clockLabel, menuSingleBtn,
                     taxValue, menuDayBtn, menuMonthlyBtn, menuWeekendBtn, menuWeeklyBtn, riderTypeLabel,
                     tripTypeLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn, tripSingle,
-                    tripDay, tripMonthly, tripWeekend, tripWeekly, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
+                    tripDay, tripMonthly, tripWeekend, tripWeekly, qtyField, unitValueLabel, totalValue, makePaymentBtn,
+                    backBtn, incBtn, decBtn, taxLabel);
         });
 
         javafx.application.Platform.runLater(() -> {
@@ -187,49 +188,35 @@ public class BuyNewTicketController {
         helpLabel.setText(i18n.get("help"));
     }
 
+    private void updateQtyAvailability() {
+        boolean single = (tripSingle != null && tripSingle.isSelected());
+        // lock the field and buttons when not Single Trip
+        qtyField.setDisable(!single);
+        qtyField.setEditable(single);
+        incBtn.setDisable(!single);
+        decBtn.setDisable(!single);
+
+        if (!single) {
+            // force quantity to 1 for non-single types
+            if (!"1".equals(qtyField.getText())) {
+                qtyField.setText("1");
+            }
+        }
+    }
+
     @FXML
     private void onRiderTypeChange(ActionEvent e) {recalc();}
     @FXML
-    private void onTripChange(ActionEvent e) { /* handled via listener */ }
-    @FXML
-    private void onMenuSingle(ActionEvent e) {
-        if (tripSingle != null) {
-            tripSingle.setSelected(true);
-            recalc();
-        }
+    private void onTripChange(ActionEvent e) {
+        updateQtyAvailability();
+        recalc();
     }
+    @FXML private void onMenuSingle(ActionEvent e) { if (tripSingle != null) { tripSingle.setSelected(true); updateQtyAvailability(); recalc(); } }
+    @FXML private void onMenuDay(ActionEvent e)    { if (tripDay != null)    { tripDay.setSelected(true);    updateQtyAvailability(); recalc(); } }
+    @FXML private void onMenuMonthly(ActionEvent e){ if (tripMonthly != null){ tripMonthly.setSelected(true); updateQtyAvailability(); recalc(); } }
+    @FXML private void onMenuWeekend(ActionEvent e){ if (tripWeekend != null){ tripWeekend.setSelected(true); updateQtyAvailability(); recalc(); } }
+    @FXML private void onMenuWeekly(ActionEvent e) { if (tripWeekly != null) { tripWeekly.setSelected(true);  updateQtyAvailability(); recalc(); } }
 
-    @FXML
-    private void onMenuDay(ActionEvent e) {
-        if (tripDay != null) {
-            tripDay.setSelected(true);
-            recalc();
-        }
-    }
-
-    @FXML
-    private void onMenuMonthly(ActionEvent e) {
-        if (tripMonthly != null) {
-            tripMonthly.setSelected(true);
-            recalc();
-        }
-    }
-
-    @FXML
-    private void onMenuWeekend(ActionEvent e) {
-        if (tripWeekend != null) {
-            tripWeekend.setSelected(true);
-            recalc();
-        }
-    }
-
-    @FXML
-    private void onMenuWeekly(ActionEvent e) {
-        if (tripWeekly != null) {
-            tripWeekly.setSelected(true);
-            recalc();
-        }
-    }
 
     @FXML
     private void incrementQty() {
