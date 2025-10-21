@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Polygon?>
+<?import java.lang.*?>
+
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="concordia.soen6611.igo_tvm.controllers.MobileWalletController"
+            prefHeight="700.0" prefWidth="1200.0" stylesheets="@../styles/MobileWallet.css">
+
+    <!-- ===== HEADER ===== -->
+    <top>
+        <HBox spacing="16" alignment="CENTER_LEFT" styleClass="header">
+            <padding><Insets top="14" right="22" bottom="14" left="22"/></padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="6">
+                <ImageView fitWidth="32" fitHeight="32" preserveRatio="true" onMouseClicked="#onBrandClick">
+                    <image><Image url="@../images/maple.png"/></image>
+                </ImageView>
+                <Label fx:id="brandLink" text="STM" styleClass="brand" onMouseClicked="#onBrandClick"/>
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label styleClass="title" fx:id="mobileWalletLabel"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="clockLabel" styleClass="clock" minWidth="150"
+                   text="Nov 27, 2024&#10;10:31 AM"/>
+        </HBox>
+    </top>
+
+    <!-- ===== CENTER ===== -->
+    <center>
+        <!-- StackPane lets us pin the little action button in the bottom-right -->
+        <StackPane>
+            <!-- Main content -->
+            <VBox alignment="TOP_CENTER" spacing="18">
+                <padding>
+                    <Insets top="26" right="26" bottom="22" left="26"/>
+                </padding>
+
+                <!-- Blue payment prompt panel -->
+                <StackPane maxWidth="820" prefWidth="820" prefHeight="320" styleClass="mw-panel">
+                    <!-- Title top-left -->
+                    <Label fx:id="panelTitle" styleClass="mw-title" StackPane.alignment="TOP_LEFT">
+                        <StackPane.margin><Insets top="16" left="16"/></StackPane.margin>
+                    </Label>
+
+                    <!-- >>> CENTERED ILLUSTRATION <<< -->
+                    <ImageView StackPane.alignment="CENTER"
+                               fitHeight="150" preserveRatio="true" smooth="true">
+                        <image><Image url="@../images/mobile.png"/></image>
+                    </ImageView>
+
+                    <!-- Processing row bottom-right -->
+                    <HBox spacing="10" alignment="CENTER_RIGHT" StackPane.alignment="BOTTOM_RIGHT">
+                        <Label fx:id="processingLabel" styleClass="mw-processing"
+                               visible="false" managed="false"/>
+                        <ProgressIndicator fx:id="ring" progress="-1.0"
+                                           prefWidth="56" prefHeight="56"
+                                           styleClass="mw-ring"
+                                           visible="false" managed="false"/>
+                        <StackPane.margin><Insets bottom="16" right="16"/></StackPane.margin>
+                    </HBox>
+                </StackPane>
+
+
+
+                <!-- Cancel pill -->
+                <HBox alignment="CENTER" maxWidth="820">
+                    <Button fx:id="cancelBtn"
+                            onAction="#onCancel"
+                            styleClass="mw-cancel"
+                            maxWidth="Infinity"
+                            prefHeight="44">
+                        <graphic>
+                            <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
+                                    glyphName="INFO_CIRCLE" glyphSize="16" styleClass="mw-cancel-icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+
+            <!-- Small action button fixed to bottom-right -->
+            <Button fx:id="startBtn"
+                    StackPane.alignment="BOTTOM_RIGHT"
+                    onAction="#onStart"
+                    text=""
+                    styleClass="mw-fab"
+                    mnemonicParsing="false">
+                <graphic>
+                    <de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
+                            glyphName="PLAY" glyphSize="18" styleClass="mw-fab-icon"/>
+                </graphic>
+                <StackPane.margin>
+                    <Insets bottom="18" right="18"/>
+                </StackPane.margin>
+                <tooltip><Tooltip text="Start payment"/></tooltip>
+            </Button>
+        </StackPane>
+    </center>
+
+
+
+    <!-- ===== FOOTER ===== -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
+            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button fx:id="volumeBtn" onAction="#onVolume" styleClass="footer-icon-btn"
+                    prefWidth="44" prefHeight="36" minWidth="44" minHeight="36">
+                <graphic>
+                    <FontAwesomeIconView glyphName="VOLUME_UP" styleClass="glyph-white-sm" glyphSize="24"/>
+                </graphic>
+                <tooltip><Tooltip text="Volume"/></tooltip>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>
