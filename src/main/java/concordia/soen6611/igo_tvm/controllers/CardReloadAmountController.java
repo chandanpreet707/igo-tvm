@@ -2,6 +2,7 @@ package concordia.soen6611.igo_tvm.controllers;
 
 import concordia.soen6611.igo_tvm.Services.*;
 import concordia.soen6611.igo_tvm.models.OrderSummary;
+import concordia.soen6611.igo_tvm.models.PassType;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -49,7 +51,7 @@ public class CardReloadAmountController implements Initializable {
     // Right (options)
     @FXML public Label reloadOptionLabel;
     @FXML public Label selectTypeLabel;
-    @FXML public ComboBox<String> passTypeBox;
+    @FXML public ComboBox<PassType> passTypeBox;
     @FXML public Label qtyLabel;
     @FXML public ComboBox<Integer> qtyBox;
 
@@ -90,8 +92,6 @@ public class CardReloadAmountController implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         riderTypeTag.setText("Adult"); // "Adult", "Student", etc.
-        updateTexts();
-        i18n.localeProperty().addListener((obs, oldL, newL) -> updateTexts());
 
         // Live clock
         clock = new Timeline(
@@ -101,10 +101,12 @@ public class CardReloadAmountController implements Initializable {
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
 
-        // Guard: if items not defined in FXML, you can populate
+        // Populate enum items once
         if (passTypeBox.getItems().isEmpty()) {
-            passTypeBox.getItems().addAll("Single Pass", "Weekly Pass", "Monthly Pass", "Day Pass");
+            passTypeBox.getItems().addAll(PassType.SINGLE, PassType.WEEKLY, PassType.MONTHLY, PassType.DAY);
         }
+        passTypeBox.getSelectionModel().selectFirst();
+
         if (qtyBox.getItems().isEmpty()) {
             for (int i = 1; i <= 10; i++) qtyBox.getItems().add(i);
         }
@@ -112,11 +114,15 @@ public class CardReloadAmountController implements Initializable {
         qtyBox.getSelectionModel().select(Integer.valueOf(1));
         passTypeBox.getSelectionModel().selectFirst();
 
-        passTypeBox.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> updateEstimate());
+//        passTypeBox.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> updateEstimate());
+        passTypeBox.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> {
+            updateQtyAvailability();
+            updateEstimate();
+        });
+
         qtyBox.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> updateEstimate());
 
         updateEstimate();
-
         Platform.runLater(() -> {
             var zoom = TextZoomService.get();
             zoom.register((Node) brandLink, reloadCardLabel, clockLabel, youCardLabel,opusCardImage, passTypeBox,
@@ -125,6 +131,15 @@ public class CardReloadAmountController implements Initializable {
 
         javafx.application.Platform.runLater(() -> {
             ContrastManager.getInstance().attach(root.getScene(), root);
+        });
+
+        // Localize the visible text of the ComboBox
+        localizePassTypeCombo();
+        updateTexts();
+
+        i18n.localeProperty().addListener((obs, oldL, newL) -> {
+            updateTexts();
+            localizePassTypeCombo();
         });
     }
 
@@ -140,28 +155,56 @@ public class CardReloadAmountController implements Initializable {
         unitPriceLabel.setText(i18n.get("cardReloadAmount.unitPrice"));
         subTotalLabel.setText(i18n.get("cardReloadAmount.subTotal"));
         taxLineLabel.setText(i18n.get("cardReloadAmount.taxLabel"));
-//        passTypeList.set(passTypeList.indexOf(menuSinglePass),this.resources.getString("cardReloadAmount.menu.single.pass"));
-        // Dynamic tax % in the line label
-//        double taxPct = fareRateService.getTax() * 100.0; // e.g., 14.975
-//        taxLineLabel.setText(String.format("Tax (%.3f%%):", taxPct));
+    }
 
+    private void localizePassTypeCombo() {
+        // Localized prompt and field label
+        selectTypeLabel.setText(i18n.get("cardReloadAmount.selectType"));
+        passTypeBox.setPromptText(i18n.get("cardReloadAmount.selectPassPrompt", new Object[]{}));
+
+        // Each row in popup
+        passTypeBox.setCellFactory(cb -> new ListCell<>() {
+            @Override protected void updateItem(PassType item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : i18n.get(item.key()));
+            }
+        });
+        // The visible "button" part
+        ListCell<PassType> buttonCell = new ListCell<>() {
+            @Override protected void updateItem(PassType item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : i18n.get(item.key()));
+            }
+        };
+        passTypeBox.setButtonCell(buttonCell);
+    }
+
+    private void updateQtyAvailability() {
+        boolean enableQty = selectedPassType() == PassType.SINGLE;
+        qtyBox.setDisable(!enableQty);
+        qtyLabel.setDisable(!enableQty);
+        if (!enableQty) {
+            qtyBox.getSelectionModel().select(Integer.valueOf(1));
+        }
     }
 
     // ===== helpers required by onMakePayment pattern =====
-
     private String selectedRider() {
         // If you store rider in session, fetch it; otherwise use tag text.
         String tag = riderTypeTag.getText();
         return (tag == null || tag.isBlank()) ? "Adult" : tag.trim();
     }
+    private PassType selectedPassType() {
+        PassType pt = passTypeBox.getSelectionModel().getSelectedItem();
+        return pt == null ? PassType.SINGLE : pt;
+    }
     private String selectedTripName() {
-        String pt = passTypeBox.getSelectionModel().getSelectedItem();
-        if (pt == null) return "Single Trip";
-        switch (pt) {
-            case "Weekly Pass":  return "Weekly Pass";
-            case "Monthly Pass": return "Monthly Pass";
-            case "Day Pass":     return "Day Pass";
-            default:             return "Single Trip";
+        switch (selectedPassType()) {
+            case WEEKLY:  return "Weekly Pass";
+            case MONTHLY: return "Monthly Pass";
+            case DAY:     return "Day Pass";
+            case SINGLE:
+            default:      return "Single Trip";
         }
     }
 
