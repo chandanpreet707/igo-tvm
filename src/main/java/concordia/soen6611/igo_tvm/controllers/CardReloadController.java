@@ -141,8 +141,6 @@ public class CardReloadController {
 
     @FXML
     private void onStartReading(javafx.event.ActionEvent event) {
-        // --- 1. SETUP TRANSLATION MAP AND OPTIONS ---
-        // Map of internal ID ("success") to translated display text ("Succès (Flux normal)")
         Map<String, String> optionMap = new HashMap<>();
         optionMap.put("success", i18n.get("cardReload.option.success"));
         optionMap.put("network", i18n.get("cardReload.option.network"));
@@ -150,10 +148,8 @@ public class CardReloadController {
         optionMap.put("database", i18n.get("cardReload.option.database"));
         optionMap.put("user", i18n.get("cardReload.option.user"));
 
-        // List of translated display texts for the dialog
         List<String> translatedOptions = new ArrayList<>(optionMap.values());
 
-        // The default selection must be the translated string for "success"
         String defaultTranslatedOption = optionMap.get("success");
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(
@@ -161,7 +157,6 @@ public class CardReloadController {
                 translatedOptions
         );
 
-        // --- 2. TRANSLATE DIALOG WINDOW TEXT ---
         dialog.setTitle(i18n.get("cardReload.simulation.title"));
         dialog.setHeaderText(i18n.get("cardReload.simulation.header"));
         dialog.setContentText(i18n.get("cardReload.simulation.scenario"));
@@ -169,26 +164,22 @@ public class CardReloadController {
         Optional<String> result = dialog.showAndWait();
 
         if (result.isEmpty()) {
-            return; // User cancelled
+            return;
         }
 
-        // --- 3. MAP TRANSLATED RESULT BACK TO INTERNAL KEY ---
         String translatedChoice = result.get();
 
-        // Find the internal English key (e.g., "network") based on the translated text selected by the user
         String choice = optionMap.entrySet().stream()
                 .filter(entry -> entry.getValue().equals(translatedChoice))
                 .map(Map.Entry::getKey)
                 .findFirst()
                 .orElse("success"); // Default to success if mapping somehow fails
 
-        // UI: show spinner & status
         startReadBtn.setDisable(true);
         readProgress.setVisible(true);
         readProgress.setManaged(true);
         readStatus.setText(i18n.get("cardReload.readingStartedMessage"));
 
-        // Start with the async operation, then chain based on choice
         cardReloadService.readCardAsync(false) // Use false for normal flow
                 .thenCompose(v -> {
                     // After the read completes, check if we should simulate an exception
@@ -223,11 +214,9 @@ public class CardReloadController {
                         }
                         return failedFuture; // <-- Return the potentially failed future
                     }
-                    // Success case - return completed future
                     return CompletableFuture.completedFuture(null);
                 })
                 .thenRun(() -> Platform.runLater(() -> {
-                    // Success path: update UI and show success modal, then navigate
                     readStatus.setText(i18n.get("cardReload.readingDoneMessage"));
                     readProgress.setVisible(false);
                     readProgress.setManaged(false);

@@ -42,7 +42,6 @@ public class ErrorDialogController {
     private void updateTexts() {
         closeBtn.setText(i18n.get("errorDialog.close"));
 
-        // Now set the text for the title labels using the i18n service:
         timeTitleLabel.setText(i18n.get("errorDialog.timestampLabel"));
         typeTitleLabel.setText(i18n.get("errorDialog.typeLabel"));
         userMessageTitleLabel.setText(i18n.get("errorDialog.userMessageLabel"));
