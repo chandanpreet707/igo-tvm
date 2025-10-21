@@ -95,6 +95,17 @@ public class CardReloadController {
         reloadCardLabel.setText(i18n.get("cardReload.title"));
         tapYouCardLabel.setText(i18n.get("cardReload.message"));
         readStatus.setText(i18n.get("cardReload.readyToReadMessage"));
+
+        // Add translations for the Simulation Dialog (if not hardcoded for simplicity)
+        // dialog.setTitle(i18n.get("cardReload.simulation.title"));
+        // dialog.setHeaderText(i18n.get("cardReload.simulation.header"));
+        // dialog.setContentText(i18n.get("cardReload.simulation.content"));
+
+        // The success dialog content is already using i18n keys inside onStartReading,
+        // but ensuring all keys are called here if we want to observe changes later:
+        // i18n.get("cardReload.modalTitle");
+        // i18n.get("cardReload.readingSuccessfulMessage");
+        // i18n.get("cardReload.ok");
     }
 
     public double getFare(String riderType, String passType) {
@@ -136,9 +147,9 @@ public class CardReloadController {
     private void onStartReading(javafx.event.ActionEvent event) {
         ChoiceDialog<String> dialog = new ChoiceDialog<>("success",
                 "success", "network", "hardware", "database", "user");
-        dialog.setTitle("Simulation Options");
-        dialog.setHeaderText("Choose simulation scenario");
-        dialog.setContentText("Scenario:");
+        dialog.setTitle(i18n.get("cardReload.simulation.title"));
+        dialog.setHeaderText(i18n.get("cardReload.simulation.header"));
+        dialog.setContentText(i18n.get("cardReload.simulation.scenario"));
 
         Optional<String> result = dialog.showAndWait();
 
@@ -163,19 +174,31 @@ public class CardReloadController {
                         CompletableFuture<Void> failedFuture = new CompletableFuture<>();
                         switch (choice) {
                             case "network":
-                                failedFuture.completeExceptionally(new NetworkException("Simulated network failure during card read"));
+                                // Translated message
+                                failedFuture.completeExceptionally(new NetworkException(
+                                        i18n.get("cardReload.error.network")
+                                ));
                                 break;
                             case "hardware":
-                                failedFuture.completeExceptionally(new HardwareException("Simulated hardware failure during card read"));
+                                // Translated message
+                                failedFuture.completeExceptionally(new HardwareException(
+                                        i18n.get("cardReload.error.hardware")
+                                ));
                                 break;
                             case "database":
-                                failedFuture.completeExceptionally(new DatabaseException("Simulated database failure during card read"));
+                                // Translated message
+                                failedFuture.completeExceptionally(new DatabaseException(
+                                        i18n.get("cardReload.error.database")
+                                ));
                                 break;
                             case "user":
-                                failedFuture.completeExceptionally(new UserException("Simulated user error during card read"));
+                                // Translated message
+                                failedFuture.completeExceptionally(new UserException(
+                                        i18n.get("cardReload.error.user")
+                                ));
                                 break;
                         }
-                        return failedFuture;
+                        return failedFuture; // <-- Return the potentially failed future
                     }
                     // Success case - return completed future
                     return CompletableFuture.completedFuture(null);
@@ -223,6 +246,7 @@ public class CardReloadController {
                     return null;
                 });
     }
+
 
     private void goNext(Node source) {
         try {
