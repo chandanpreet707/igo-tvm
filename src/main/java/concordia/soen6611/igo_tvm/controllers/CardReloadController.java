@@ -1,11 +1,6 @@
 package concordia.soen6611.igo_tvm.controllers;
 
-import concordia.soen6611.igo_tvm.Services.CardReloadService;
-import concordia.soen6611.igo_tvm.Services.ContrastManager;
-import concordia.soen6611.igo_tvm.Services.FareRateService;
-import concordia.soen6611.igo_tvm.Services.I18nService;
-import concordia.soen6611.igo_tvm.Services.PaymentSession;
-import concordia.soen6611.igo_tvm.Services.TextZoomService;
+import concordia.soen6611.igo_tvm.Services.*;
 import concordia.soen6611.igo_tvm.exceptions.*;
 import concordia.soen6611.igo_tvm.models.ExceptionDialog;
 import javafx.animation.KeyFrame;
@@ -27,9 +22,6 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
@@ -95,6 +87,9 @@ public class CardReloadController {
         reloadCardLabel.setText(i18n.get("cardReload.title"));
         tapYouCardLabel.setText(i18n.get("cardReload.message"));
         readStatus.setText(i18n.get("cardReload.readyToReadMessage"));
+        if (startReadBtn != null) {
+            startReadBtn.setTooltip(new Tooltip(i18n.get("cardReload.startTooltip")));
+        }
     }
 
     public double getFare(String riderType, String passType) {
@@ -133,20 +128,41 @@ public class CardReloadController {
     }
 
     @FXML
-    private void onStartReading(javafx.event.ActionEvent event) {
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("success",
-                "success", "network", "hardware", "database", "user");
-        dialog.setTitle("Simulation Options");
-        dialog.setHeaderText("Choose simulation scenario");
-        dialog.setContentText("Scenario:");
+    private void onStartReading(ActionEvent event) {
+        // --- Localized option labels
+        String L_SUCCESS  = i18n.get("cardReload.sim.success");
+        String L_NETWORK  = i18n.get("cardReload.sim.network");
+        String L_HARDWARE = i18n.get("cardReload.sim.hardware");
+        String L_DATABASE = i18n.get("cardReload.sim.database");
+        String L_USER     = i18n.get("cardReload.sim.user");
 
-        Optional<String> result = dialog.showAndWait();
+        // Map shown label -> internal code (stable)
+        java.util.Map<String, String> labelToCode = new java.util.LinkedHashMap<>();
+        labelToCode.put(L_SUCCESS,  "success");
+        labelToCode.put(L_NETWORK,  "network");
+        labelToCode.put(L_HARDWARE, "hardware");
+        labelToCode.put(L_DATABASE, "database");
+        labelToCode.put(L_USER,     "user");
 
-        if (result.isEmpty()) {
-            return; // User cancelled
-        }
+        // Build the dialog with localized strings
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(
+                L_SUCCESS,
+                L_SUCCESS, L_NETWORK, L_HARDWARE, L_DATABASE, L_USER
+        );
+        dialog.setTitle(i18n.get("cardReload.sim.title"));
+        dialog.setHeaderText(i18n.get("cardReload.sim.header"));
+        dialog.setContentText(i18n.get("cardReload.sim.prompt"));
 
-        String choice = result.get();
+        // Localize buttons
+        ButtonType okType = new ButtonType(i18n.get("common.ok"), ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelType = new ButtonType(i18n.get("common.cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().setAll(okType, cancelType);
+
+        java.util.Optional<String> result = dialog.showAndWait();
+        if (result.isEmpty()) return;
+
+        // Translate back to internal code
+        String choice = labelToCode.getOrDefault(result.get(), "success");
 
         // UI: show spinner & status
         startReadBtn.setDisable(true);
@@ -154,34 +170,21 @@ public class CardReloadController {
         readProgress.setManaged(true);
         readStatus.setText(i18n.get("cardReload.readingStartedMessage"));
 
-        // Start with the async operation, then chain based on choice
-        cardReloadService.readCardAsync(false) // Use false for normal flow
+        cardReloadService.readCardAsync(false)
                 .thenCompose(v -> {
-                    // After the read completes, check if we should simulate an exception
-                    if (!choice.equals("success")) {
-                        // Create a failed future with the appropriate exception
-                        CompletableFuture<Void> failedFuture = new CompletableFuture<>();
+                    if (!"success".equals(choice)) {
+                        java.util.concurrent.CompletableFuture<Void> failed = new java.util.concurrent.CompletableFuture<>();
                         switch (choice) {
-                            case "network":
-                                failedFuture.completeExceptionally(new NetworkException("Simulated network failure during card read"));
-                                break;
-                            case "hardware":
-                                failedFuture.completeExceptionally(new HardwareException("Simulated hardware failure during card read"));
-                                break;
-                            case "database":
-                                failedFuture.completeExceptionally(new DatabaseException("Simulated database failure during card read"));
-                                break;
-                            case "user":
-                                failedFuture.completeExceptionally(new UserException("Simulated user error during card read"));
-                                break;
+                            case "network":  failed.completeExceptionally(new NetworkException(i18n.get("cardReload.networkException")));  break;
+                            case "hardware": failed.completeExceptionally(new HardwareException(i18n.get("cardReload.hardwareException"))); break;
+                            case "database": failed.completeExceptionally(new DatabaseException(i18n.get("cardReload.databaseException"))); break;
+                            case "user":     failed.completeExceptionally(new UserException(i18n.get("cardReload.networkException")));         break;
                         }
-                        return failedFuture;
+                        return failed;
                     }
-                    // Success case - return completed future
-                    return CompletableFuture.completedFuture(null);
+                    return java.util.concurrent.CompletableFuture.completedFuture(null);
                 })
                 .thenRun(() -> Platform.runLater(() -> {
-                    // Success path: update UI and show success modal, then navigate
                     readStatus.setText(i18n.get("cardReload.readingDoneMessage"));
                     readProgress.setVisible(false);
                     readProgress.setManaged(false);
@@ -191,30 +194,27 @@ public class CardReloadController {
                     ok.setHeaderText(null);
                     ok.setContentText(i18n.get("cardReload.readingSuccessfulMessage"));
 
-                    Button okButton = (Button) ok.getDialogPane().lookupButton(ButtonType.OK);
-                    if (okButton != null) {
-                        okButton.setText(i18n.get("cardReload.ok"));
-                    }
+                    // Localize OK button
+                    ButtonType okOnly = new ButtonType(i18n.get("common.ok"), ButtonBar.ButtonData.OK_DONE);
+                    ok.getButtonTypes().setAll(okOnly);
 
                     ok.show();
 
                     PauseTransition after = new PauseTransition(Duration.seconds(2));
                     after.setOnFinished(x -> {
                         ok.close();
-                        goNext((Node) event.getSource());
+                        goNext(((Node) event.getSource()));
                     });
                     after.play();
                 }))
                 .exceptionally(t -> {
-                    Throwable cause = (t instanceof CompletionException && t.getCause() != null) ? t.getCause() : t;
+                    Throwable cause = (t instanceof java.util.concurrent.CompletionException && t.getCause() != null) ? t.getCause() : t;
                     Platform.runLater(() -> {
-                        // Show dialog for known AbstractCustomException or wrap otherwise
                         if (cause instanceof AbstractCustomException) {
                             ExceptionDialog.show((AbstractCustomException) cause, ((Node) event.getSource()).getScene().getWindow(), appContext);
                         } else {
                             ExceptionDialog.showAsUserException(cause, ((Node) event.getSource()).getScene().getWindow(), appContext);
                         }
-                        // Reset UI
                         startReadBtn.setDisable(false);
                         readProgress.setVisible(false);
                         readProgress.setManaged(false);
@@ -223,6 +223,7 @@ public class CardReloadController {
                     return null;
                 });
     }
+
 
     private void goNext(Node source) {
         try {

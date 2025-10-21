@@ -5,16 +5,16 @@
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="concordia.soen6611.igo_tvm.controllers.ErrorDialogController"
-            prefWidth="420" prefHeight="180"
+            prefWidth="540" prefHeight="180"
             stylesheets="@../styles/ErrorDialog.css">
 
     <top>
         <HBox spacing="12" alignment="CENTER_LEFT" styleClass="header">
             <padding><Insets top="10" right="12" bottom="10" left="12"/></padding>
             <Label fx:id="errorIcon" text="❗" styleClass="error-icon"/>
-            <Label text="Error" styleClass="title" fx:id="titleLabel"/>
+            <Label fx:id="titleLabel" text="Error" styleClass="title"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button text="Close" onAction="#onClose" fx:id="closeBtn"/>
+            <Button fx:id="closeBtn" text="Close" onAction="#onClose"/>
         </HBox>
     </top>
 
@@ -28,14 +28,16 @@
                     <ColumnConstraints hgrow="ALWAYS"/>
                 </columnConstraints>
 
-                <Label text="Time:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <Label fx:id="timestampLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label fx:id="timeKeyLabel" text="Time:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="timestampLabel"          GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <Label fx:id="typeLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label fx:id="typeKeyLabel" text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="typeLabel"               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Label text="User message:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-                <Label fx:id="userMessageLabel" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                <Label fx:id="userMsgKeyLabel" text="User message:"
+                       GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="userMessageLabel" wrapText="true"
+                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
             </GridPane>
         </VBox>
     </center>

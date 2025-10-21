@@ -93,27 +93,32 @@ public class PaymentSuccessController {
 
     @FXML
     private void onPrintReceipt(ActionEvent event) {
-        // Modal popup
+        // Build an i18n modal
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Receipt");
+        alert.setTitle(i18n.get("paymentSuccess.receipt.title")); // e.g., "Receipt"
         alert.setHeaderText(null);
-        alert.setContentText("Receipt printed successfully.\n"
-                + "Redirection in 5 seconds...");
-        // show non-blocking
+        alert.setContentText(
+                i18n.get("paymentSuccess.receipt.printed") + "\n" +  // "Receipt printed successfully."
+                        i18n.get("paymentSuccess.redirect.in5")               // "Redirection in 5 seconds..."
+        );
         alert.show();
 
-        // disable actions while waiting
+        // Disable actions while waiting
         setButtonsDisabled(true);
 
-        // after 5s, close modal & go Home
+        // Capture the originating Node *now*
+        final Node origin = (Node) event.getSource();
+
+        // After 5s, close modal & go Home
         PauseTransition wait = new PauseTransition(Duration.seconds(5));
-        wait.setOnFinished(e -> {
+        wait.setOnFinished(ae -> {
             alert.close();
             paymentSession.clear();
-            goHome((Node) e.getSource());
+            goHome(origin);
         });
         wait.play();
     }
+
 
     @FXML
     private void onDone(ActionEvent event) {
