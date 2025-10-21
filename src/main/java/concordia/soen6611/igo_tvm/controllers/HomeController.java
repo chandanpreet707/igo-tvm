@@ -149,7 +149,6 @@ public class HomeController {
 //        buyBtn.setText(i18n.get("home.buyBtn.title"));
 //        reloadBtn.setText(i18n.get("home.reloadBtn.title"));
         informationLabel.setText(i18n.get("home.information"));
-
         // Tooltips
         btnEN.setTooltip(new Tooltip(i18n.get("home.lang.en")));
         btnFR.setTooltip(new Tooltip(i18n.get("home.lang.fr")));
@@ -178,58 +177,55 @@ public class HomeController {
         Window owner = buyBtn != null ? buyBtn.getScene().getWindow() : null;
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information");
-        alert.setHeaderText(null); // we'll use our own styled header row
+        alert.setTitle(i18n.get("home.info.dialogTitle"));     // "Information" / "Informations"
+        alert.setHeaderText(null);
         if (owner != null) alert.initOwner(owner);
 
-        // ---- Styled header row (icon + title)
+        // ---- Header row (icon + localized title)
         HBox header = new HBox(12);
         header.setAlignment(Pos.CENTER_LEFT);
 
         Label icon = new Label("ℹ");
         icon.getStyleClass().add("info-icon");
 
-        Label title = new Label("How to use this ticket machine");
+        Label title = new Label(i18n.get("home.info.title"));  // "How to use..." / "Comment utiliser..."
         title.getStyleClass().add("info-title");
-
         header.getChildren().addAll(icon, title);
 
-        // ---- Body copy
+        // ---- Body bullets (all localized)
         VBox bullets = new VBox(8);
         bullets.getStyleClass().add("info-list");
-        // give the whole list a right margin of 32px
         VBox.setMargin(bullets, new Insets(0, 32, 0, 0));
 
         bullets.getChildren().addAll(
-                item("Select “Buy New Ticket” or “Reload Card”."),
-                item("Choose rider type (Adult, Student, Senior, Tourist) and the fare."),
-                item("Adjust quantity, then tap “Make Payment”."),
-                item("Pick payment method (Card or Cash) and follow the prompts."),
-                item("Collect your ticket and (optionally) print a receipt.")
+                item(i18n.get("home.info.step1")),
+                item(i18n.get("home.info.step2")),
+                item(i18n.get("home.info.step3")),
+                item(i18n.get("home.info.step4")),
+                item(i18n.get("home.info.step5"))
         );
 
         VBox content = new VBox(14, header, bullets);
         content.getStyleClass().add("info-content");
 
-        // Put content into the dialog
         DialogPane pane = alert.getDialogPane();
         pane.setContent(content);
 
-        // ---- Apply CSS to the dialog only
-        pane.getStylesheets().add(
-                getClass().getResource("/styles/Modal.css").toExternalForm()
-        );
-        pane.getStyleClass().add("info-modal"); // root class for this dialog
+        // keep your dialog CSS
+        try {
+            pane.getStylesheets().add(getClass().getResource("/styles/Modal.css").toExternalForm());
+        } catch (Exception ignored) {}
+        pane.getStyleClass().add("info-modal");
 
-        // Single Close button
-        alert.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE));
-
-        // Optional: style the Close button via CSS class
-        Node closeBtn = pane.lookupButton(alert.getButtonTypes().get(0));
-        closeBtn.getStyleClass().add("info-close-btn");
+        // Localized Close button
+        ButtonType closeType = new ButtonType(i18n.get("home.info.close"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(closeType);
+        Node closeBtn = pane.lookupButton(closeType);
+        if (closeBtn != null) closeBtn.getStyleClass().add("info-close-btn");
 
         alert.showAndWait();
     }
+
 
     // Small helper to create bullet rows
     private HBox item(String text) {
@@ -272,23 +268,23 @@ public class HomeController {
     @FXML
     private void onHelpClick() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Need help?");
+        alert.setTitle(i18n.get("home.help.dialogTitle"));  // i18n
         alert.setHeaderText(null);
 
-        // ---- Header row (icon + title)
+        // ---- Header row (icon + localized title)
         HBox header = new HBox(10);
         header.setAlignment(Pos.CENTER_LEFT);
-        Label icon = new Label("🛠");
+        Label icon  = new Label("🛠");
         icon.getStyleClass().add("help-icon");
-        Label title = new Label("If you run into any issues");
+        Label title = new Label(i18n.get("home.help.header"));  // i18n
         title.getStyleClass().add("help-title");
         header.getChildren().addAll(icon, title);
 
-        // ---- Body (contact lines + copy buttons)
+        // ---- Body (localized labels)
         VBox body = new VBox(8);
         body.getChildren().addAll(
-                contactRow("Phone:", "+1 (514) 555-0137"),
-                contactRow("Email:", "support@stm.example")
+                contactRow(i18n.get("home.help.phone"), "+1 (514) 555-0137"),
+                contactRow(i18n.get("home.help.email"), "support@stm.example")
         );
 
         VBox content = new VBox(14, header, body);
@@ -297,17 +293,17 @@ public class HomeController {
         DialogPane pane = alert.getDialogPane();
         pane.setContent(content);
 
-        // Optional: reuse your modal CSS if you have it
+        // Optional: keep your modal CSS
         try {
-            pane.getStylesheets().add(
-                    getClass().getResource("/styles/Modal.css").toExternalForm()
-            );
+            pane.getStylesheets().add(getClass().getResource("/styles/Modal.css").toExternalForm());
         } catch (Exception ignored) {}
         pane.getStyleClass().add("help-modal");
 
-        alert.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE));
-        Node closeBtn = pane.lookupButton(alert.getButtonTypes().get(0));
-        closeBtn.getStyleClass().add("help-close-btn");
+        // Localized Close button
+        ButtonType closeType = new ButtonType(i18n.get("home.help.close"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(closeType);
+        Node closeBtn = pane.lookupButton(closeType);
+        if (closeBtn != null) closeBtn.getStyleClass().add("help-close-btn");
 
         alert.showAndWait();
     }
@@ -320,7 +316,7 @@ public class HomeController {
         Label val = new Label(value);
         val.getStyleClass().add("help-value");
 
-        Button copy = new Button("Copy");
+        Button copy = new Button(i18n.get("home.help.copy")); // i18n
         copy.getStyleClass().add("help-copy-btn");
         copy.setOnAction(e -> {
             ClipboardContent cc = new ClipboardContent();
@@ -332,4 +328,5 @@ public class HomeController {
         row.setAlignment(Pos.CENTER_LEFT);
         return row;
     }
+
 }

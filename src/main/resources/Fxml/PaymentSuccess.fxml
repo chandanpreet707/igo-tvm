@@ -106,7 +106,7 @@
     <!-- ===== FOOTER ===== -->
     <bottom>
         <HBox alignment="CENTER_LEFT" styleClass="footer" spacing="10">
-            <padding><Insets top="10" right="18" bottom="10" left="18"/></padding>
+            <padding><Insets top="0" right="18" bottom="15" left="18"/></padding>
 
             <Label styleClass="help" fx:id="helpLabel" onMouseClicked="#onHelpClick"/>
 
