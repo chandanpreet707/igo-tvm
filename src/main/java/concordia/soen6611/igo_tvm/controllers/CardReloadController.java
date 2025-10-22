@@ -1,7 +1,17 @@
 package concordia.soen6611.igo_tvm.controllers;
 
-import concordia.soen6611.igo_tvm.Services.*;
+import concordia.soen6611.igo_tvm.Services.CardReloadService;
+import concordia.soen6611.igo_tvm.Services.ContrastManager;
+import concordia.soen6611.igo_tvm.Services.FareRateService;
+import concordia.soen6611.igo_tvm.Services.I18nService;
+import concordia.soen6611.igo_tvm.Services.PaymentSession;
+import concordia.soen6611.igo_tvm.Services.TextZoomService;
 import concordia.soen6611.igo_tvm.exceptions.*;
+import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import concordia.soen6611.igo_tvm.models.ExceptionDialog;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -22,6 +32,9 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
@@ -87,9 +100,7 @@ public class CardReloadController {
         reloadCardLabel.setText(i18n.get("cardReload.title"));
         tapYouCardLabel.setText(i18n.get("cardReload.message"));
         readStatus.setText(i18n.get("cardReload.readyToReadMessage"));
-        if (startReadBtn != null) {
-            startReadBtn.setTooltip(new Tooltip(i18n.get("cardReload.startTooltip")));
-        }
+
     }
 
     public double getFare(String riderType, String passType) {
@@ -127,62 +138,83 @@ public class CardReloadController {
     public void onVolume(ActionEvent actionEvent) {
     }
 
+
     @FXML
-    private void onStartReading(ActionEvent event) {
-        // --- Localized option labels
-        String L_SUCCESS  = i18n.get("cardReload.sim.success");
-        String L_NETWORK  = i18n.get("cardReload.sim.network");
-        String L_HARDWARE = i18n.get("cardReload.sim.hardware");
-        String L_DATABASE = i18n.get("cardReload.sim.database");
-        String L_USER     = i18n.get("cardReload.sim.user");
+    private void onStartReading(javafx.event.ActionEvent event) {
+        Map<String, String> optionMap = new HashMap<>();
+        optionMap.put("success", i18n.get("cardReload.option.success"));
+        optionMap.put("network", i18n.get("cardReload.option.network"));
+        optionMap.put("hardware", i18n.get("cardReload.option.hardware"));
+        optionMap.put("database", i18n.get("cardReload.option.database"));
+        optionMap.put("user", i18n.get("cardReload.option.user"));
 
-        // Map shown label -> internal code (stable)
-        java.util.Map<String, String> labelToCode = new java.util.LinkedHashMap<>();
-        labelToCode.put(L_SUCCESS,  "success");
-        labelToCode.put(L_NETWORK,  "network");
-        labelToCode.put(L_HARDWARE, "hardware");
-        labelToCode.put(L_DATABASE, "database");
-        labelToCode.put(L_USER,     "user");
+        List<String> translatedOptions = new ArrayList<>(optionMap.values());
 
-        // Build the dialog with localized strings
+        String defaultTranslatedOption = optionMap.get("success");
+
         ChoiceDialog<String> dialog = new ChoiceDialog<>(
-                L_SUCCESS,
-                L_SUCCESS, L_NETWORK, L_HARDWARE, L_DATABASE, L_USER
+                defaultTranslatedOption,
+                translatedOptions
         );
-        dialog.setTitle(i18n.get("cardReload.sim.title"));
-        dialog.setHeaderText(i18n.get("cardReload.sim.header"));
-        dialog.setContentText(i18n.get("cardReload.sim.prompt"));
 
-        // Localize buttons
-        ButtonType okType = new ButtonType(i18n.get("common.ok"), ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelType = new ButtonType(i18n.get("common.cancel"), ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialog.getDialogPane().getButtonTypes().setAll(okType, cancelType);
+        dialog.setTitle(i18n.get("cardReload.simulation.title"));
+        dialog.setHeaderText(i18n.get("cardReload.simulation.header"));
+        dialog.setContentText(i18n.get("cardReload.simulation.scenario"));
 
-        java.util.Optional<String> result = dialog.showAndWait();
-        if (result.isEmpty()) return;
+        Optional<String> result = dialog.showAndWait();
 
-        // Translate back to internal code
-        String choice = labelToCode.getOrDefault(result.get(), "success");
+        if (result.isEmpty()) {
+            return;
+        }
 
-        // UI: show spinner & status
+        String translatedChoice = result.get();
+
+        String choice = optionMap.entrySet().stream()
+                .filter(entry -> entry.getValue().equals(translatedChoice))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse("success"); // Default to success if mapping somehow fails
+
         startReadBtn.setDisable(true);
         readProgress.setVisible(true);
         readProgress.setManaged(true);
         readStatus.setText(i18n.get("cardReload.readingStartedMessage"));
 
-        cardReloadService.readCardAsync(false)
+        cardReloadService.readCardAsync(false) // Use false for normal flow
                 .thenCompose(v -> {
-                    if (!"success".equals(choice)) {
-                        java.util.concurrent.CompletableFuture<Void> failed = new java.util.concurrent.CompletableFuture<>();
+                    // After the read completes, check if we should simulate an exception
+                    if (!choice.equals("success")) {
+                        // Create a failed future with the appropriate exception
+                        CompletableFuture<Void> failedFuture = new CompletableFuture<>();
                         switch (choice) {
-                            case "network":  failed.completeExceptionally(new NetworkException(i18n.get("cardReload.networkException")));  break;
-                            case "hardware": failed.completeExceptionally(new HardwareException(i18n.get("cardReload.hardwareException"))); break;
-                            case "database": failed.completeExceptionally(new DatabaseException(i18n.get("cardReload.databaseException"))); break;
-                            case "user":     failed.completeExceptionally(new UserException(i18n.get("cardReload.networkException")));         break;
+                            case "network":
+                                // Translated message
+                                failedFuture.completeExceptionally(new NetworkException(
+                                        i18n.get("cardReload.error.network")
+                                ));
+                                break;
+                            case "hardware":
+                                // Translated message
+                                failedFuture.completeExceptionally(new HardwareException(
+                                        i18n.get("cardReload.error.hardware")
+                                ));
+                                break;
+                            case "database":
+                                // Translated message
+                                failedFuture.completeExceptionally(new DatabaseException(
+                                        i18n.get("cardReload.error.database")
+                                ));
+                                break;
+                            case "user":
+                                // Translated message
+                                failedFuture.completeExceptionally(new UserException(
+                                        i18n.get("cardReload.error.user")
+                                ));
+                                break;
                         }
-                        return failed;
+                        return failedFuture; // <-- Return the potentially failed future
                     }
-                    return java.util.concurrent.CompletableFuture.completedFuture(null);
+                    return CompletableFuture.completedFuture(null);
                 })
                 .thenRun(() -> Platform.runLater(() -> {
                     readStatus.setText(i18n.get("cardReload.readingDoneMessage"));
@@ -194,27 +226,30 @@ public class CardReloadController {
                     ok.setHeaderText(null);
                     ok.setContentText(i18n.get("cardReload.readingSuccessfulMessage"));
 
-                    // Localize OK button
-                    ButtonType okOnly = new ButtonType(i18n.get("common.ok"), ButtonBar.ButtonData.OK_DONE);
-                    ok.getButtonTypes().setAll(okOnly);
+                    Button okButton = (Button) ok.getDialogPane().lookupButton(ButtonType.OK);
+                    if (okButton != null) {
+                        okButton.setText(i18n.get("cardReload.ok"));
+                    }
 
                     ok.show();
 
                     PauseTransition after = new PauseTransition(Duration.seconds(2));
                     after.setOnFinished(x -> {
                         ok.close();
-                        goNext(((Node) event.getSource()));
+                        goNext((Node) event.getSource());
                     });
                     after.play();
                 }))
                 .exceptionally(t -> {
-                    Throwable cause = (t instanceof java.util.concurrent.CompletionException && t.getCause() != null) ? t.getCause() : t;
+                    Throwable cause = (t instanceof CompletionException && t.getCause() != null) ? t.getCause() : t;
                     Platform.runLater(() -> {
+                        // Show dialog for known AbstractCustomException or wrap otherwise
                         if (cause instanceof AbstractCustomException) {
                             ExceptionDialog.show((AbstractCustomException) cause, ((Node) event.getSource()).getScene().getWindow(), appContext);
                         } else {
                             ExceptionDialog.showAsUserException(cause, ((Node) event.getSource()).getScene().getWindow(), appContext);
                         }
+                        // Reset UI
                         startReadBtn.setDisable(false);
                         readProgress.setVisible(false);
                         readProgress.setManaged(false);

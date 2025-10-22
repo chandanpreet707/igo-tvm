@@ -12,9 +12,9 @@
         <HBox spacing="12" alignment="CENTER_LEFT" styleClass="header">
             <padding><Insets top="10" right="12" bottom="10" left="12"/></padding>
             <Label fx:id="errorIcon" text="❗" styleClass="error-icon"/>
-            <Label fx:id="titleLabel" text="Error" styleClass="title"/>
+            <Label text="Error" styleClass="title" fx:id="titleLabel"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button fx:id="closeBtn" text="Close" onAction="#onClose"/>
+            <Button text="Close" onAction="#onClose" fx:id="closeBtn"/>
         </HBox>
     </top>
 
@@ -28,16 +28,14 @@
                     <ColumnConstraints hgrow="ALWAYS"/>
                 </columnConstraints>
 
-                <Label fx:id="timeKeyLabel" text="Time:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <Label fx:id="timestampLabel"          GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label fx:id="timeTitleLabel" text="Time:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="timestampLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label fx:id="typeKeyLabel" text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <Label fx:id="typeLabel"               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label fx:id="typeTitleLabel" text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="typeLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Label fx:id="userMsgKeyLabel" text="User message:"
-                       GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <Label fx:id="userMessageLabel" wrapText="true"
-                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label fx:id="userMessageTitleLabel" text="User message:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <Label fx:id="userMessageLabel" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="1" />
             </GridPane>
         </VBox>
     </center>
