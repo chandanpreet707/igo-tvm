@@ -60,3 +60,9 @@
 /* Buttons row */
 .button.ps-btn--primary:hover { -fx-background-color: #0a69c9; }
 
+/* Make the footer Help label look clickable */
+.help {
+    -fx-cursor: hand;
+    -fx-underline: false;
+}
+.help:hover { -fx-underline: true; -fx-opacity: 0.9; }

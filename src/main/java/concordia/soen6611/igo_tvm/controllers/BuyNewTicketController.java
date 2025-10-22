@@ -32,6 +32,8 @@ public class BuyNewTicketController {
 
     public Button menuWeeklyBtn;
     public Label taxLabel;
+    @FXML private Button incBtn;
+    @FXML private Button decBtn;
     @FXML
     private Label buyNewTicketLabel;
     @FXML
@@ -116,14 +118,12 @@ public class BuyNewTicketController {
         if (riderGroup.getSelectedToggle() == null && adultBtn != null) adultBtn.setSelected(true);
         if (tripGroup.getSelectedToggle() == null && tripSingle != null) tripSingle.setSelected(true);
 
-//        for (int i = 1; i <= 10; i++) multiCountCombo.getItems().add(i);
-//        multiCountCombo.setValue(1);
-//
-//        bindMultipleTripVisibility();
-//        multiCountCombo.setOnAction(e -> recalc());
-
         riderGroup.selectedToggleProperty().addListener((o, ov, nv) -> recalc());
-        tripGroup.selectedToggleProperty().addListener((o, ov, nv) -> recalc());
+        tripGroup.selectedToggleProperty().addListener((o, ov, nv) -> {
+            updateQtyAvailability();
+            recalc();
+        });
+        updateQtyAvailability();
 
         qtyField.textProperty().addListener((o, oldV, newV) -> {
             if (!newV.matches("\\d*")) {
@@ -143,7 +143,8 @@ public class BuyNewTicketController {
             zoom.register(brandLink, buyNewTicketLabel, questionLabel, helpLabel, clockLabel, menuSingleBtn,
                     taxValue, menuDayBtn, menuMonthlyBtn, menuWeekendBtn, menuWeeklyBtn, riderTypeLabel,
                     tripTypeLabel, priceLabel, quantityLabel, totalLabel, adultBtn, studentBtn, seniorBtn, tripSingle,
-                    tripDay, tripMonthly, tripWeekend, tripWeekly, qtyField, unitValueLabel, totalValue, makePaymentBtn, backBtn);
+                    tripDay, tripMonthly, tripWeekend, tripWeekly, qtyField, unitValueLabel, totalValue, makePaymentBtn,
+                    backBtn, incBtn, decBtn, taxLabel);
         });
 
         javafx.application.Platform.runLater(() -> {
@@ -187,49 +188,35 @@ public class BuyNewTicketController {
         helpLabel.setText(i18n.get("help"));
     }
 
+    private void updateQtyAvailability() {
+        boolean single = (tripSingle != null && tripSingle.isSelected());
+        // lock the field and buttons when not Single Trip
+        qtyField.setDisable(!single);
+        qtyField.setEditable(single);
+        incBtn.setDisable(!single);
+        decBtn.setDisable(!single);
+
+        if (!single) {
+            // force quantity to 1 for non-single types
+            if (!"1".equals(qtyField.getText())) {
+                qtyField.setText("1");
+            }
+        }
+    }
+
     @FXML
     private void onRiderTypeChange(ActionEvent e) {recalc();}
     @FXML
-    private void onTripChange(ActionEvent e) { /* handled via listener */ }
-    @FXML
-    private void onMenuSingle(ActionEvent e) {
-        if (tripSingle != null) {
-            tripSingle.setSelected(true);
-            recalc();
-        }
+    private void onTripChange(ActionEvent e) {
+        updateQtyAvailability();
+        recalc();
     }
+    @FXML private void onMenuSingle(ActionEvent e) { if (tripSingle != null) { tripSingle.setSelected(true); updateQtyAvailability(); recalc(); } }
+    @FXML private void onMenuDay(ActionEvent e)    { if (tripDay != null)    { tripDay.setSelected(true);    updateQtyAvailability(); recalc(); } }
+    @FXML private void onMenuMonthly(ActionEvent e){ if (tripMonthly != null){ tripMonthly.setSelected(true); updateQtyAvailability(); recalc(); } }
+    @FXML private void onMenuWeekend(ActionEvent e){ if (tripWeekend != null){ tripWeekend.setSelected(true); updateQtyAvailability(); recalc(); } }
+    @FXML private void onMenuWeekly(ActionEvent e) { if (tripWeekly != null) { tripWeekly.setSelected(true);  updateQtyAvailability(); recalc(); } }
 
-    @FXML
-    private void onMenuDay(ActionEvent e) {
-        if (tripDay != null) {
-            tripDay.setSelected(true);
-            recalc();
-        }
-    }
-
-    @FXML
-    private void onMenuMonthly(ActionEvent e) {
-        if (tripMonthly != null) {
-            tripMonthly.setSelected(true);
-            recalc();
-        }
-    }
-
-    @FXML
-    private void onMenuWeekend(ActionEvent e) {
-        if (tripWeekend != null) {
-            tripWeekend.setSelected(true);
-            recalc();
-        }
-    }
-
-    @FXML
-    private void onMenuWeekly(ActionEvent e) {
-        if (tripWeekly != null) {
-            tripWeekly.setSelected(true);
-            recalc();
-        }
-    }
 
     @FXML
     private void incrementQty() {
@@ -354,23 +341,23 @@ public class BuyNewTicketController {
     @FXML
     private void onHelpClick() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Need help?");
+        alert.setTitle(i18n.get("home.help.dialogTitle"));  // i18n
         alert.setHeaderText(null);
 
-        // ---- Header row (icon + title)
+        // ---- Header row (icon + localized title)
         HBox header = new HBox(10);
         header.setAlignment(Pos.CENTER_LEFT);
-        Label icon = new Label("🛠");
+        Label icon  = new Label("🛠");
         icon.getStyleClass().add("help-icon");
-        Label title = new Label("If you run into any issues");
+        Label title = new Label(i18n.get("home.help.header"));  // i18n
         title.getStyleClass().add("help-title");
         header.getChildren().addAll(icon, title);
 
-        // ---- Body (contact lines + copy buttons)
+        // ---- Body (localized labels)
         VBox body = new VBox(8);
         body.getChildren().addAll(
-                contactRow("Phone:", "+1 (514) 555-0137"),
-                contactRow("Email:", "support@stm.example")
+                contactRow(i18n.get("home.help.phone"), "+1 (514) 555-0137"),
+                contactRow(i18n.get("home.help.email"), "support@stm.example")
         );
 
         VBox content = new VBox(14, header, body);
@@ -379,17 +366,17 @@ public class BuyNewTicketController {
         DialogPane pane = alert.getDialogPane();
         pane.setContent(content);
 
-        // Optional: reuse your modal CSS if you have it
+        // Optional: keep your modal CSS
         try {
-            pane.getStylesheets().add(
-                    getClass().getResource("/styles/Modal.css").toExternalForm()
-            );
+            pane.getStylesheets().add(getClass().getResource("/styles/Modal.css").toExternalForm());
         } catch (Exception ignored) {}
         pane.getStyleClass().add("help-modal");
 
-        alert.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE));
-        Node closeBtn = pane.lookupButton(alert.getButtonTypes().get(0));
-        closeBtn.getStyleClass().add("help-close-btn");
+        // Localized Close button
+        ButtonType closeType = new ButtonType(i18n.get("home.help.close"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(closeType);
+        Node closeBtn = pane.lookupButton(closeType);
+        if (closeBtn != null) closeBtn.getStyleClass().add("help-close-btn");
 
         alert.showAndWait();
     }
@@ -402,7 +389,7 @@ public class BuyNewTicketController {
         Label val = new Label(value);
         val.getStyleClass().add("help-value");
 
-        Button copy = new Button("Copy");
+        Button copy = new Button(i18n.get("home.help.copy")); // i18n
         copy.getStyleClass().add("help-copy-btn");
         copy.setOnAction(e -> {
             ClipboardContent cc = new ClipboardContent();

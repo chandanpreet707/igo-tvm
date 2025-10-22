@@ -93,6 +93,11 @@ public class CashSubmissionController {
             ContrastManager.getInstance().attach(root.getScene(), root);
         });
 
+        i18n.localeProperty().addListener((obs, oldL, newL) -> {
+            updateTexts();
+            updateAmounts();
+        });
+
         updateTexts();
     }
 
@@ -112,6 +117,7 @@ public class CashSubmissionController {
 
 
     /** Simulate a cash insert step. */
+    /** Simulate a cash insert step with i18n messages. */
     private void stepInsert() {
         // simple step ladder: 5, 2, 1 to reach total cleanly
         double remaining = Math.max(0.0, total - inserted);
@@ -125,14 +131,16 @@ public class CashSubmissionController {
 
         if (inserted >= total - 1e-9) {
             ticker.stop();
-            // brief success modal, then back to Home
+
+            // Hide spinner
             processingIndicator.setVisible(false);
             processingIndicator.setManaged(false);
 
+            // i18n success modal
             Alert ok = new Alert(Alert.AlertType.INFORMATION);
-            ok.setTitle("Cash Payment");
+            ok.setTitle(i18n.get("cashPayment.modal.title"));       // e.g., "Cash Payment" / "Paiement en espèces"
             ok.setHeaderText(null);
-            ok.setContentText("Payment received. Printing your ticket…");
+            ok.setContentText(i18n.get("cashPayment.modal.received"));// e.g., "Payment received. Printing your ticket…"
             ok.show();
 
             PauseTransition wait = new PauseTransition(Duration.seconds(3));
@@ -145,12 +153,19 @@ public class CashSubmissionController {
         }
     }
 
+
     private void updateAmounts() {
-        NumberFormat en = NumberFormat.getCurrencyInstance(Locale.CANADA);
-        insertedValue.setText(en.format(inserted));
+        java.util.Locale loc = i18n.getLocale();
+        java.text.NumberFormat money =
+                loc.getLanguage().equals("fr")
+                        ? java.text.NumberFormat.getCurrencyInstance(java.util.Locale.CANADA_FRENCH)
+                        : java.text.NumberFormat.getCurrencyInstance(java.util.Locale.CANADA);
+
+        insertedValue.setText(money.format(inserted));
         double rem = Math.max(0.0, total - inserted);
-        remainingValue.setText(en.format(rem));
+        remainingValue.setText(money.format(rem));
     }
+
 
     private void goWelcomePage() {
         try {

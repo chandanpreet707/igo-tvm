@@ -93,27 +93,32 @@ public class PaymentSuccessController {
 
     @FXML
     private void onPrintReceipt(ActionEvent event) {
-        // Modal popup
+        // Build an i18n modal
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Receipt");
+        alert.setTitle(i18n.get("paymentSuccess.receipt.title")); // e.g., "Receipt"
         alert.setHeaderText(null);
-        alert.setContentText("Receipt printed successfully.\n"
-                + "Redirection in 5 seconds...");
-        // show non-blocking
+        alert.setContentText(
+                i18n.get("paymentSuccess.receipt.printed") + "\n" +  // "Receipt printed successfully."
+                        i18n.get("paymentSuccess.redirect.in5")               // "Redirection in 5 seconds..."
+        );
         alert.show();
 
-        // disable actions while waiting
+        // Disable actions while waiting
         setButtonsDisabled(true);
 
-        // after 5s, close modal & go Home
+        // Capture the originating Node *now*
+        final Node origin = (Node) event.getSource();
+
+        // After 5s, close modal & go Home
         PauseTransition wait = new PauseTransition(Duration.seconds(5));
-        wait.setOnFinished(e -> {
+        wait.setOnFinished(ae -> {
             alert.close();
             paymentSession.clear();
-            goHome((Node) e.getSource());
+            goHome(origin);
         });
         wait.play();
     }
+
 
     @FXML
     private void onDone(ActionEvent event) {
@@ -163,23 +168,23 @@ public class PaymentSuccessController {
     @FXML
     private void onHelpClick() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Need help?");
+        alert.setTitle(i18n.get("home.help.dialogTitle"));  // i18n
         alert.setHeaderText(null);
 
-        // ---- Header row (icon + title)
+        // ---- Header row (icon + localized title)
         HBox header = new HBox(10);
         header.setAlignment(Pos.CENTER_LEFT);
-        Label icon = new Label("🛠");
+        Label icon  = new Label("🛠");
         icon.getStyleClass().add("help-icon");
-        Label title = new Label("If you run into any issues");
+        Label title = new Label(i18n.get("home.help.header"));  // i18n
         title.getStyleClass().add("help-title");
         header.getChildren().addAll(icon, title);
 
-        // ---- Body (contact lines + copy buttons)
+        // ---- Body (localized labels)
         VBox body = new VBox(8);
         body.getChildren().addAll(
-                contactRow("Phone:", "+1 (514) 555-0137"),
-                contactRow("Email:", "support@stm.example")
+                contactRow(i18n.get("home.help.phone"), "+1 (514) 555-0137"),
+                contactRow(i18n.get("home.help.email"), "support@stm.example")
         );
 
         VBox content = new VBox(14, header, body);
@@ -188,17 +193,17 @@ public class PaymentSuccessController {
         DialogPane pane = alert.getDialogPane();
         pane.setContent(content);
 
-        // Optional: reuse your modal CSS if you have it
+        // Optional: keep your modal CSS
         try {
-            pane.getStylesheets().add(
-                    getClass().getResource("/styles/Modal.css").toExternalForm()
-            );
+            pane.getStylesheets().add(getClass().getResource("/styles/Modal.css").toExternalForm());
         } catch (Exception ignored) {}
         pane.getStyleClass().add("help-modal");
 
-        alert.getButtonTypes().setAll(new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE));
-        Node closeBtn = pane.lookupButton(alert.getButtonTypes().get(0));
-        closeBtn.getStyleClass().add("help-close-btn");
+        // Localized Close button
+        ButtonType closeType = new ButtonType(i18n.get("home.help.close"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(closeType);
+        Node closeBtn = pane.lookupButton(closeType);
+        if (closeBtn != null) closeBtn.getStyleClass().add("help-close-btn");
 
         alert.showAndWait();
     }
@@ -211,7 +216,7 @@ public class PaymentSuccessController {
         Label val = new Label(value);
         val.getStyleClass().add("help-value");
 
-        Button copy = new Button("Copy");
+        Button copy = new Button(i18n.get("home.help.copy")); // i18n
         copy.getStyleClass().add("help-copy-btn");
         copy.setOnAction(e -> {
             ClipboardContent cc = new ClipboardContent();

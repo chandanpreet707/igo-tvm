@@ -157,6 +157,7 @@
     -fx-underline: false;
 }
 .help:hover { -fx-underline: true; -fx-opacity: 0.9; }
+.qty-field:disabled, .qty-btn:disabled { -fx-opacity: 0.55; }
 
 
 
