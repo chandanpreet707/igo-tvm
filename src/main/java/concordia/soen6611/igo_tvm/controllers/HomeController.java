@@ -30,42 +30,93 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Controller for the kiosk Home (landing) screen.
+ * <p>
+ * Responsibilities:
+ * <ul>
+ *   <li>Initialize and localize UI strings via {@link I18nService}.</li>
+ *   <li>Maintain a live header clock.</li>
+ *   <li>Provide navigation to the Buy Ticket and Card Reload flows.</li>
+ *   <li>Expose accessibility controls (text zoom and contrast) and reflect their state.</li>
+ *   <li>Show localized Information and Help dialogs with styled content.</li>
+ * </ul>
+ * <p>
+ * Scope: Spring {@code prototype}—a fresh controller instance per view load.
+ */
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
 public class HomeController {
 
+    /** Clickable brand label; navigates to the welcome screen. */
     @FXML private Label brandLink;
+    /** Button opening the Information dialog. */
     @FXML private Button informationButton;
+    /** Root container for the scene; used to attach contrast manager. */
     @FXML private BorderPane root;
+    /** "Home" title label. */
     @FXML private Label homeLabel;
+    /** Prompt/subtitle label. */
     @FXML private Label promptLabel;
+    /** "Help" label. */
     @FXML private Label helpLabel;
+    /** Header clock label, updated every second. */
     @FXML private Label clockLabel;
+    /** Primary action: navigate to Buy New Ticket. */
     @FXML private Button buyBtn;
+    /** Primary action: navigate to Card Reload. */
     @FXML private Button reloadBtn;
+    /** Language switch to English. */
     @FXML private Button btnEN;
+    /** Language switch to French. */
     @FXML private Button btnFR;
 
+    /** Volume button (placeholder handler). */
     @FXML private Button volumeBtn;
+    /** "Information" section header label. */
     @FXML private Label informationLabel;
 
+    /** Live clock timeline. */
     private Timeline clock;
+    /** Internationalization service for UI strings and locale updates. */
     private final I18nService i18n;
+    /** Spring application context used as controller factory during navigation. */
     private final ApplicationContext appContext;
+    /** Clock format for header time display. */
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
 
+    /** Zoom-in and zoom-out controls. */
     @FXML private Button btnFontSizeIn, btnFontSizeOut;
 
+    /** Shortcut label near Buy button. */
     @FXML private Label buyNewTicketLabel;
+    /** Shortcut label near Reload button. */
     @FXML private Label reloadCardLabel;
+    /** Contrast adjustment buttons. */
     @FXML private Button btnContrastUp, btnContrastDown;
 
+    /**
+     * Constructs the controller with required collaborators.
+     *
+     * @param i18n       i18n service to resolve localized strings and track locale
+     * @param appContext Spring application context for controller-factory navigation
+     */
     public HomeController(I18nService i18n, ApplicationContext appContext) {
         this.i18n = i18n;
         this.appContext = appContext;
     }
 
+    /**
+     * JavaFX initialization hook.
+     * <ul>
+     *   <li>Starts live clock updates.</li>
+     *   <li>Sets accessibility text on primary buttons.</li>
+     *   <li>Applies localized texts and re-applies on locale change.</li>
+     *   <li>Registers nodes with {@link TextZoomService} and attaches {@link ContrastManager}.</li>
+     *   <li>Reflects current zoom/contrast state in the buttons’ enablement.</li>
+     * </ul>
+     */
     @FXML
     private void initialize() {
         // Live clock
@@ -99,6 +150,11 @@ public class HomeController {
         });
     }
 
+    /**
+     * Navigates to the Buy New Ticket screen.
+     *
+     * @param event click event from the Buy button
+     */
     @FXML
     private void onBuyTicket(ActionEvent event) {
         try {
@@ -111,6 +167,11 @@ public class HomeController {
         }
     }
 
+    /**
+     * Navigates to the Card Reload screen.
+     *
+     * @param event click event from the Reload button
+     */
     @FXML
     private void onReload(ActionEvent event) {
         System.out.println("Reload Card clicked");
@@ -123,13 +184,25 @@ public class HomeController {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Volume button handler placeholder. Wire TTS or audio feedback here if required.
+     */
     @FXML
     private void onVolume() { /* handle volume */ }
 
+    /**
+     * Stops the live clock. Call when tearing down the view.
+     */
     public void shutdown() {
         if (clock != null) clock.stop();
     }
 
+    /**
+     * Language toggle handler for EN/FR. Updates the locale and reapplies localized text.
+     *
+     * @param event click event from the language button
+     */
     @FXML
     public void onLanguageChange(ActionEvent event) {
         Object src = event.getSource();
@@ -141,6 +214,10 @@ public class HomeController {
         updateTexts();
     }
 
+    /**
+     * Applies localized text to labels, buttons, and tooltips.
+     * Re-run whenever the locale changes.
+     */
     private void updateTexts() {
         brandLink.setText(i18n.get("home.brand"));
         homeLabel.setText(i18n.get("home.title"));
@@ -156,11 +233,21 @@ public class HomeController {
         volumeBtn.setTooltip(new Tooltip(i18n.get("home.volume.tooltip")));
     }
 
+    /**
+     * Brand click handler—navigates to the welcome screen.
+     *
+     * @param event mouse event from the brand label
+     */
     @FXML
     private void onBrandClick(MouseEvent event) {
         goWelcomeScreen((Node) event.getSource());
     }
 
+    /**
+     * Loads the welcome screen and replaces the current scene root.
+     *
+     * @param anyNodeInScene any node in the current scene (to resolve the scene)
+     */
     private void goWelcomeScreen(Node anyNodeInScene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
@@ -172,6 +259,9 @@ public class HomeController {
         }
     }
 
+    /**
+     * Shows a localized Information dialog with usage steps and optional custom CSS.
+     */
     @FXML
     private void onInfo() {
         Window owner = buyBtn != null ? buyBtn.getScene().getWindow() : null;
@@ -226,7 +316,12 @@ public class HomeController {
         alert.showAndWait();
     }
 
-
+    /**
+     * Creates a single bullet row (dot + text) for dialogs.
+     *
+     * @param text localized step text
+     * @return left-aligned HBox representing one bullet row
+     */
     // Small helper to create bullet rows
     private HBox item(String text) {
         Label dot = new Label("•");
@@ -240,31 +335,54 @@ public class HomeController {
         return row;
     }
 
+    /**
+     * Zooms text size in and updates zoom button enabled state.
+     */
     @FXML private void onFontSizeIn()  { TextZoomService.get().zoomIn();  reflectZoomButtons(); }
+
+    /**
+     * Zooms text size out and updates zoom button enabled state.
+     */
     @FXML private void onFontSizeOut() { TextZoomService.get().zoomOut(); reflectZoomButtons(); }
 
+    /**
+     * Enables/disables zoom buttons based on {@link TextZoomService#getScale()} bounds.
+     */
     private void reflectZoomButtons() {
         double s = TextZoomService.get().getScale();
         btnFontSizeOut.setDisable(s <= 1.00);
         btnFontSizeIn.setDisable(s >= 1.50);
     }
 
+    /**
+     * Increases contrast and refreshes contrast button states.
+     */
     @FXML private void onContrastUp() {
         ContrastManager.getInstance().increase();
         reflectContrastButtons();
     }
 
+    /**
+     * Decreases contrast and refreshes contrast button states.
+     */
     @FXML private void onContrastDown() {
         ContrastManager.getInstance().decrease();
         reflectContrastButtons();
     }
 
+    /**
+     * Enables/disables contrast buttons based on current {@link ContrastManager} level.
+     */
     private void reflectContrastButtons() {
         double lvl = ContrastManager.getInstance().getLevel();
         btnContrastDown.setDisable(lvl <= -0.40);
         btnContrastUp.setDisable(lvl >=  0.60);
     }
 
+    /**
+     * Shows a localized Help dialog with contact rows and copy-to-clipboard actions.
+     * Keeps custom modal CSS if available.
+     */
     @FXML
     private void onHelpClick() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -308,6 +426,13 @@ public class HomeController {
         alert.showAndWait();
     }
 
+    /**
+     * Builds a single contact row with a label, value, and "Copy" button that copies the value to the clipboard.
+     *
+     * @param labelText localized field label (e.g., "Phone")
+     * @param value     field value (e.g., phone number or email)
+     * @return a left-aligned {@link HBox} representing one contact entry
+     */
     // Small helper to render a row with a copy button
     private HBox contactRow(String labelText, String value) {
         Label label = new Label(labelText);

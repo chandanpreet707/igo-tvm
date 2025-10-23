@@ -9,11 +9,35 @@ import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
+/**
+ * Internationalization (i18n) service that provides localized message lookup
+ * and a bindable/current {@link Locale} for the application UI.
+ * <p>
+ * This service wraps a Spring {@link MessageSource} and exposes:
+ * <ul>
+ *   <li>A reactive {@link #localeProperty()} to observe or change the current locale.</li>
+ *   <li>{@link #get(String, Object...)} for retrieving localized strings using message codes.</li>
+ * </ul>
+ * Controllers may listen for locale changes and re-apply translations to their UI.
+ * <p>
+ * Default locale is {@link Locale#ENGLISH}.
+ */
 @Service
 public class I18nService {
+
+    /** Backing Spring message source used for resolving message codes. */
     public final MessageSource messages;
+
+    /** Observable/Settable current locale property (defaults to English). */
     private final ObjectProperty<Locale> locale = new SimpleObjectProperty<>(Locale.ENGLISH);
 
+    /**
+     * Constructs the service with the required {@link MessageSource}.
+     * Performs a simple sanity check by attempting to load the {@code "welcome"} key
+     * in English and French (logging results for diagnostics).
+     *
+     * @param messages configured Spring {@link MessageSource} (e.g., ReloadableResourceBundleMessageSource)
+     */
     public I18nService(MessageSource messages) {
         this.messages = messages;
         System.out.println("[I18nService] Initialized with MessageSource: " + messages.getClass().getName());
@@ -31,8 +55,15 @@ public class I18nService {
     }
 
     /**
-     * Get message for a code in the current locale with optional arguments
-     * Signature: getMessage(code, args[], default, locale)
+     * Resolves a localized message for the given code in the current {@link Locale}.
+     * <p>
+     * This method delegates to {@link MessageSource#getMessage(String, Object[], Locale)}.
+     * If the code is not found, the method logs the error and returns the code itself
+     * as a fallback, allowing the UI to render a sensible placeholder.
+     *
+     * @param code message key (e.g., {@code "home.title"})
+     * @param args optional message arguments for parameterized messages
+     * @return the resolved localized string, or {@code code} if not found
      */
     public String get(String code, Object... args) {
         try {
@@ -48,14 +79,32 @@ public class I18nService {
         }
     }
 
+    /**
+     * Returns the current {@link Locale}.
+     *
+     * @return current locale value
+     */
     public Locale getLocale() {
         return locale.get();
     }
 
+    /**
+     * Updates the current {@link Locale}. Listeners of {@link #localeProperty()}
+     * will be notified, enabling controllers to re-localize their views.
+     *
+     * @param l new locale to apply (non-null recommended)
+     */
     public void setLocale(Locale l) {
         locale.set(l);
     }
 
+    /**
+     * Exposes a read-only view of the current {@link Locale} property for binding.
+     * <p>
+     * Controllers can observe this property to react to language changes.
+     *
+     * @return read-only locale property
+     */
     public ReadOnlyObjectProperty<Locale> localeProperty() {
         return locale;
     }

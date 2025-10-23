@@ -29,32 +29,89 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Controller for the Cash Submission screen.
+ * <p>
+ * Responsibilities:
+ * <ul>
+ *   <li>Read order total from {@link PaymentSession} and present bilingual total due.</li>
+ *   <li>Simulate cash insertion over time and update inserted/remaining amounts.</li>
+ *   <li>Display localized UI text via {@link I18nService} and react to locale changes.</li>
+ *   <li>Hook up accessibility helpers: {@link TextZoomService} and {@link ContrastManager}.</li>
+ *   <li>Navigate to the welcome screen on success/brand click or back to Home on cancel.</li>
+ * </ul>
+ * Behavior:
+ * <ul>
+ *   <li>Cash counting is simulated using a {@link Timeline} ticking every second.</li>
+ *   <li>When inserted amount reaches total, a success dialog is shown and the app returns to welcome.</li>
+ * </ul>
+ */
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
 public class CashSubmissionController {
+
+    /** i18n service providing localized strings and current locale. */
     private final I18nService i18n;
 
+    /** Brand link and clock labels in the header. */
     @FXML private Label brandLink, clockLabel;
+
+    /** Bilingual "Total Due" label. */
     @FXML private Label totalDueLabel;
+
+    /** Instruction text for inserting cash. */
     @FXML private Label instructionLabel;
+
+    /** Current inserted amount (localized currency). */
     @FXML private Label insertedValue;
+
+    /** Remaining amount to be paid (localized currency). */
     @FXML
     private Label remainingValue;
+
+    /** Spinner shown while processing/printing after payment completes. */
     @FXML private ProgressIndicator processingIndicator;
+
+    /** Illustration for cash insertion. */
     @FXML private ImageView cashIllustration;
+
+    /** Spring application context for controller-factory-backed navigation. */
     private final ApplicationContext appContext;
+
+    /** Session container holding the current {@link OrderSummary}. */
     private final PaymentSession paymentSession;
+
+    /** Screen title label ("Cash Payment"). */
     @FXML private Label cashPaymentLabel;
+
+    /** "Amount Inserted" label. */
     @FXML private Label amountInsertedLabel;
+
+    /** "Remaining" label. */
     @FXML private Label remainingLabel;
+
+    /** Back/Cancel button. */
     @FXML private Button backBtn;
 
-
+    /** Amount due for this order (read from session). */
     private double total;       // amount due
+
+    /** Simulated amount of cash inserted so far. */
     private double inserted;    // simulated inserted cash
+
+    /** Timeline that simulates cash being counted in steps. */
     private Timeline ticker;    // counts cash up
+
+    /** Root node of this scene, used for attaching contrast handling. */
     @FXML private javafx.scene.Parent root;
 
+    /**
+     * Constructs the controller with required collaborators.
+     *
+     * @param appContext      Spring application context for navigation
+     * @param paymentSession  session storing current order and app state
+     * @param i18n            internationalization service
+     */
     public CashSubmissionController(ApplicationContext appContext,
                                     PaymentSession paymentSession, I18nService i18n) {
         this.appContext = appContext;
@@ -62,6 +119,10 @@ public class CashSubmissionController {
         this.i18n = i18n;
     }
 
+    /**
+     * JavaFX lifecycle hook. Initializes totals, starts the cash counting simulation,
+     * registers accessibility helpers, and wires i18n updates.
+     */
     @FXML
     private void initialize() {
         // 1) Read total from session (fallback 0.0)
@@ -101,6 +162,10 @@ public class CashSubmissionController {
         updateTexts();
     }
 
+    /**
+     * Applies localized strings to all visible text elements on the screen.
+     * Re-run on locale changes to refresh labels and formatted values.
+     */
     private void updateTexts() {
         cashPaymentLabel.setText(i18n.get("cashPayment.title"));
         java.util.Locale locale = i18n.getLocale();
@@ -118,6 +183,14 @@ public class CashSubmissionController {
 
     /** Simulate a cash insert step. */
     /** Simulate a cash insert step with i18n messages. */
+    /**
+     * Simulates a single cash insertion step and updates the UI.
+     * <p>
+     * Uses a simple step ladder of 5, 2, and 1 to reach the total with minimal change.
+     * If the remaining amount is &lt; 1, the exact remainder is inserted to finish cleanly.
+     * When the inserted amount meets or exceeds the total, stops the ticker, hides the spinner,
+     * shows a localized success dialog, clears the session, and navigates to the welcome screen.
+     */
     private void stepInsert() {
         // simple step ladder: 5, 2, 1 to reach total cleanly
         double remaining = Math.max(0.0, total - inserted);
@@ -153,7 +226,9 @@ public class CashSubmissionController {
         }
     }
 
-
+    /**
+     * Updates the "inserted" and "remaining" amounts using the current locale's currency format.
+     */
     private void updateAmounts() {
         java.util.Locale loc = i18n.getLocale();
         java.text.NumberFormat money =
@@ -166,7 +241,10 @@ public class CashSubmissionController {
         remainingValue.setText(money.format(rem));
     }
 
-
+    /**
+     * Navigates back to the welcome screen by replacing the current scene root.
+     * Called when payment succeeds.
+     */
     private void goWelcomePage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
@@ -180,8 +258,20 @@ public class CashSubmissionController {
     }
 
     /* ===== Footer handlers ===== */
+
+    /**
+     * Optional volume/TTS handler placeholder for kiosk accessibility.
+     *
+     * @param actionEvent event from a volume control UI element
+     */
     public void onVolume(ActionEvent actionEvent) { /* optional */ }
 
+    /**
+     * Cancels the cash payment flow and navigates back to the Home screen.
+     * Also stops the cash counting ticker if it is running.
+     *
+     * @param actionEvent click event from the Cancel/Back button
+     */
     public void onCancelCashPayment(ActionEvent actionEvent) {
         // stop ticker if user cancels
         if (ticker != null) ticker.stop();
@@ -195,12 +285,22 @@ public class CashSubmissionController {
         }
     }
 
+    /**
+     * Brand click handler—clears session and navigates to the welcome screen.
+     *
+     * @param event mouse click event from the brand link
+     */
     @FXML
     private void onBrandClick(MouseEvent event) {
         paymentSession.clear();
         goWelcomeScreen((Node) event.getSource());
     }
 
+    /**
+     * Replaces the current scene root with the welcome screen.
+     *
+     * @param anyNodeInScene any node in the current scene (to obtain the scene)
+     */
     private void goWelcomeScreen(Node anyNodeInScene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));

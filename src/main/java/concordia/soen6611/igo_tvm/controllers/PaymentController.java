@@ -33,44 +33,97 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Controller for the Payment screen where the user selects a payment method
+ * (Card, Cash, or Mobile Wallet) and proceeds with the transaction.
+ * <p>
+ * Responsibilities:
+ * <ul>
+ *   <li>Read the total due from {@link PaymentSession} and render it in the UI.</li>
+ *   <li>Allow the user to select a payment method and reflect selection styling.</li>
+ *   <li>Kick off the appropriate payment flow via {@link PaymentService}.</li>
+ *   <li>Handle navigation to follow-up screens (Card processing success, Cash submission, Mobile Wallet flow).</li>
+ *   <li>Register accessibility helpers ({@link TextZoomService}, {@link ContrastManager}) and localize labels via {@link I18nService}.</li>
+ * </ul>
+ * <p>
+ * Scope: Spring {@code prototype}; a fresh instance per view load.
+ */
 @Controller
 @org.springframework.context.annotation.Scope("prototype")
 public class PaymentController {
 
+    /** Logger for payment lifecycle events and navigation. */
     private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
+
+    /** Label displayed on the Mobile Wallet tile/button. */
     public Label mobileWalletBtnLabel;
+    /** Mobile Wallet selection button. */
     public Button mobileWalletBtn;
 
+    /** Supported payment methods for this screen. */
     enum Method { CARD, CASH, MOBILE_WALLET}
 
+    /** Card, Cash selection buttons and action buttons (Confirm/Back). */
     @FXML private Button cardBtn, cashBtn, confirmBtn, backBtn;
+    /** Spinner shown while card payment is processing. */
     @FXML private ProgressIndicator processingIndicator;
+    /** Processing label, total due label, and hint for tap/insert actions. */
     @FXML private Label processingLabel, totalDueLabel, tapInsertHint;
+    /** Screen title label. */
     @FXML private Label paymentLabel;
+    /** "Select payment method" label. */
     @FXML private Label selectMethodLabel;
+    /** Text labels inside the Cash and Card tiles. */
     @FXML private Label cashBtnLabel;
     @FXML private Label cardBtnLabel;
 //    @FXML private Tooltip backBtnTooltip;
 
+    /** Spring application context for controller-factory-backed navigation. */
     private final ApplicationContext appContext;
+    /** Session container holding order information and origin screen. */
     private final PaymentSession paymentSession;
+    /** Currently selected payment method; defaults to CARD. */
     private Method selected = Method.CARD; // default
+    /** Brand link, clock label, and accessibility labels. */
     @FXML private Label brandLink, clockLabel, payWithCashLabel, payWithCardLabel;
+    /** Root node for attaching contrast handling. */
     @FXML private javafx.scene.Parent root;
+    /** i18n service for localized strings and current locale. */
     private final I18nService i18n;
+    /** Ticking timeline used to update the header clock once per second. */
     private Timeline clock;
+    /** "Help" label. */
     @FXML private Label helpLabel;
+    /** Clock format used for the header clock. */
     private static final DateTimeFormatter CLOCK_FMT =
             DateTimeFormatter.ofPattern("MMM dd, yyyy\nhh : mm a");
+    /** Payment service orchestrating the current payment. */
     @Autowired
     private PaymentService paymentService;
 
+    /**
+     * Constructs the controller with required collaborators.
+     *
+     * @param appContext     Spring application context for navigation
+     * @param paymentSession session state with current order and origin
+     * @param i18n           internationalization service
+     */
     public PaymentController(ApplicationContext appContext, PaymentSession paymentSession, I18nService i18n) {
         this.appContext = appContext;
         this.paymentSession = paymentSession;
         this.i18n = i18n;
     }
 
+    /**
+     * JavaFX initialization hook.
+     * <ul>
+     *   <li>Starts a live clock in the header.</li>
+     *   <li>Reads and displays the total due from session.</li>
+     *   <li>Applies selection styles to the default method.</li>
+     *   <li>Registers nodes with {@link TextZoomService} and attaches {@link ContrastManager}.</li>
+     *   <li>Applies localized strings to UI elements.</li>
+     * </ul>
+     */
     @FXML
     private void initialize() {
         logger.info("Initializing PaymentController");
@@ -97,6 +150,9 @@ public class PaymentController {
         updateTexts();
     }
 
+    /**
+     * Localizes all visible labels and button texts for the current locale.
+     */
     private void updateTexts() {
         paymentLabel.setText(i18n.get("payment.title"));
         selectMethodLabel.setText(i18n.get("payment.selectMethod"));
@@ -109,6 +165,10 @@ public class PaymentController {
         confirmBtn.setText(i18n.get("payment.confirm"));
     }
 
+    /**
+     * Reads the current {@link OrderSummary} from the session and renders the bilingual total due.
+     * Falls back to {@code 0.0} if no order is present.
+     */
     private void setTotalDueFromSession() {
         OrderSummary o = paymentSession != null ? paymentSession.getCurrentOrder() : null;
         double total = (o != null) ? o.getTotal() : 0.0;
@@ -123,6 +183,12 @@ public class PaymentController {
         totalDueLabel.setText(String.format("Total Due: %s | Total à Payer: %s", en, fr));
     }
 
+    /**
+     * Navigates to another FXML view using the Spring controller factory.
+     *
+     * @param fxmlPath target FXML resource (e.g., {@code "/Fxml/PaymentSuccess.fxml"})
+     * @param event    originating action event (used to obtain the scene)
+     */
     private void goTo(String fxmlPath, ActionEvent event) {
         try {
             logger.info("Navigating to {}", fxmlPath);
@@ -136,6 +202,9 @@ public class PaymentController {
         }
     }
 
+    /**
+     * Selects the Card payment method and applies selection styling.
+     */
     @FXML
     public void onSelectCard() {
         selected = Method.CARD;
@@ -143,6 +212,9 @@ public class PaymentController {
         applySelectionStyles();
     }
 
+    /**
+     * Selects the Cash payment method and applies selection styling.
+     */
     @FXML
     public void onSelectCash() {
         selected = Method.CASH;
@@ -150,13 +222,20 @@ public class PaymentController {
         applySelectionStyles();
     }
 
+    /**
+     * Selects the Mobile Wallet payment method and applies selection styling.
+     */
     @FXML
     public void onSelectMobileWallet() {
-            selected = Method.MOBILE_WALLET;
+        selected = Method.MOBILE_WALLET;
         logger.info("Payment method selected: MOBILE WALLET");
         applySelectionStyles();
     }
 
+    /**
+     * Applies or clears the {@code pm-tile--selected} CSS class on the method tiles
+     * to reflect the active selection.
+     */
     private void applySelectionStyles() {
         cardBtn.getStyleClass().removeAll("pm-tile--selected");
         cashBtn.getStyleClass().removeAll("pm-tile--selected");
@@ -176,12 +255,25 @@ public class PaymentController {
         }
     }
 
+    /**
+     * Shows or hides the "tap/insert" hint depending on the selected method (shown for Card only).
+     */
     private void showTapHintIfNeeded() {
         boolean show = selected == Method.CARD;
         tapInsertHint.setVisible(show);
         tapInsertHint.setManaged(show);
     }
 
+    /**
+     * Confirm button handler: starts the appropriate payment flow for the selected method.
+     * <ul>
+     *   <li><b>Card</b>: shows a processing spinner/label, simulates ~5.5s processing, then navigates to success.</li>
+     *   <li><b>Mobile Wallet</b>: navigates to the Mobile Wallet screen.</li>
+     *   <li><b>Cash</b>: navigates to the Cash Submission screen.</li>
+     * </ul>
+     *
+     * @param event click event from the Confirm button
+     */
     @FXML
     public void onConfirm(ActionEvent event) {
         logger.info("Confirm button pressed. Selected method: {}", selected);
@@ -229,13 +321,27 @@ public class PaymentController {
         }
     }
 
+    /**
+     * Cancels the current payment and navigates back to the originating flow.
+     *
+     * @param event click event from the Cancel button
+     */
     public void onCancelPayment(ActionEvent event) {
         logger.info("Cancel payment pressed.");
         paymentService.cancelPayment();
         goBack((Node) event.getSource());
     }
 
-
+    /**
+     * Navigates back to the previous screen based on {@link PaymentSession.Origin}:
+     * <ul>
+     *   <li>{@code RELOAD_CARD} → {@code /Fxml/CardReloadAmount.fxml}</li>
+     *   <li>{@code BUY_TICKET} (default) → {@code /Fxml/BuyNewTicket.fxml}</li>
+     * </ul>
+     * Falls back to Home if navigation fails.
+     *
+     * @param nodeInScene any node in the current scene (used to obtain the scene)
+     */
     private void goBack(Node nodeInScene) {
         String fxml;
         switch (paymentSession.getOrigin()) {
@@ -264,17 +370,32 @@ public class PaymentController {
         }
     }
 
+    /**
+     * Volume button handler placeholder. Wire kiosk audio/TTS if required.
+     *
+     * @param actionEvent event from a volume control
+     */
     public void onVolume(ActionEvent actionEvent) {
         logger.info("Volume button pressed.");
         // hook your volume control here
     }
 
+    /**
+     * Brand click handler—clears session and navigates to the welcome screen.
+     *
+     * @param event mouse click event from the brand label
+     */
     @FXML
     private void onBrandClick(MouseEvent event) {
         paymentSession.clear();
         goWelcomeScreen((Node) event.getSource());
     }
 
+    /**
+     * Replaces the current scene root with the welcome screen.
+     *
+     * @param anyNodeInScene any node in the current scene (to resolve the scene)
+     */
     private void goWelcomeScreen(Node anyNodeInScene) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/welcome-screen.fxml"));
