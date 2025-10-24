@@ -20,6 +20,11 @@
     <properties>
         <java.version>17</java.version>
         <javafx.version>21</javafx.version>
+
+        <!-- make surefire/junit5 happy and pin toolchain -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
     <dependencies>
@@ -77,6 +82,13 @@
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- TestFX JUnit 5 -->
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit5</artifactId>
+            <version>4.0.18</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -92,8 +104,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <release>${maven.compiler.release}</release>
                 </configuration>
             </plugin>
 
@@ -106,6 +119,25 @@
                     <mainClass>concordia.soen6611.igo_tvm.IGoApplication</mainClass>
                 </configuration>
             </plugin>
+
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                <version>3.2.5</version>-->
+<!--                <configuration>-->
+<!--                    <argLine>-->
+<!--                        &#45;&#45;add-opens java.base/java.lang=ALL-UNNAMED-->
+<!--                        &#45;&#45;add-exports javafx.graphics/com.sun.glass.ui=ALL-UNNAMED-->
+<!--                        &#45;&#45;add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED-->
+<!--                    </argLine>-->
+<!--                    <systemPropertyVariables>-->
+<!--                        &lt;!&ndash; headless when running on CI; comment out locally if you want windows &ndash;&gt;-->
+<!--                        <javafx.platform>Monocle</javafx.platform>-->
+<!--                        <prism.order>sw</prism.order>-->
+<!--                        <monocle.platform>Headless</monocle.platform>-->
+<!--                    </systemPropertyVariables>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

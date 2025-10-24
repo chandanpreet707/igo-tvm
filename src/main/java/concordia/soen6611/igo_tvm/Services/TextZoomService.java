@@ -143,10 +143,13 @@ public class TextZoomService {
     /**
      * Clears all registered nodes and baseline caches.
      * Useful when tearing down or resetting the service.
+     *
+     * @return
      */
-    public void clear() {
+    public TextZoomService clear() {
         registry.clear();
         baseline.clear();
+        return null;
     }
 
     // ---- Zoom controls ----
