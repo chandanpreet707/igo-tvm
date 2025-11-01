@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="iGo D3 Cyclomatic Rules"
+         xmlns="https://pmd.github.io/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://pmd.github.io/ruleset/2.0.0 https://pmd.github.io/ruleset_2_0_0.xsd">
+
+    <description>Cyclomatic complexity for D3</description>
+
+    <!-- ✅ Correct path in PMD 7 -->
+    <rule ref="category/java/design.xml/CyclomaticComplexity">
+        <properties>
+            <!-- Force reporting for every method/class -->
+            <property name="methodReportLevel" value="1"/>
+            <property name="classReportLevel"  value="1"/>
+        </properties>
+    </rule>
+
+    <!-- Optional extras (these paths are valid in PMD 7) -->
+    <rule ref="category/java/design.xml/NPathComplexity"/>
+    <rule ref="category/java/design.xml/NcssCount"/>
+</ruleset>

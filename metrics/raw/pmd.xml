@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="7.0.0" timestamp="2025-10-31T22:17:49.680">
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/IGoApplication.java">
+<violation beginline="30" endline="30" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm" class="IGoApplication" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'IGoApplication' has a total cyclomatic complexity of 4 (highest 1).
+</violation>
+<violation beginline="43" endline="43" begincolumn="17" endcolumn="21" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm" class="IGoApplication" method="init" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'init()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="60" endline="60" begincolumn="17" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm" class="IGoApplication" method="start" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'start(Stage)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="79" endline="79" begincolumn="17" endcolumn="21" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm" class="IGoApplication" method="stop" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'stop()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="88" endline="88" begincolumn="24" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm" class="IGoApplication" method="main" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'main(String[])' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/Services/CardReloadService.java">
+<violation beginline="28" endline="28" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="CardReloadService" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'CardReloadService' has a total cyclomatic complexity of 3 (highest 1).
+</violation>
+<violation beginline="37" endline="37" begincolumn="12" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="CardReloadService" method="CardReloadService" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'CardReloadService(FareRateService)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="56" endline="56" begincolumn="36" endcolumn="49" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="CardReloadService" method="readCardAsync" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'readCardAsync(boolean)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="80" endline="80" begincolumn="19" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="CardReloadService" method="getFare" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getFare(String, String)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/Services/ContrastManager.java">
+<violation beginline="34" endline="34" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'ContrastManager' has a total cyclomatic complexity of 11 (highest 2).
+</violation>
+<violation beginline="44" endline="44" begincolumn="35" endcolumn="46" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="getInstance" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getInstance()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="71" endline="71" begincolumn="13" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="ContrastManager" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'ContrastManager()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="82" endline="82" begincolumn="17" endcolumn="23" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="attach" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'attach(Scene, Parent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="97" endline="97" begincolumn="19" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="getLevel" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getLevel()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="102" endline="102" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="increase" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'increase()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="107" endline="107" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="decrease" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'decrease()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="112" endline="112" begincolumn="17" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="reset" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'reset()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="120" endline="120" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="setLevel" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setLevel(double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="133" endline="133" begincolumn="18" endcolumn="23" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="apply" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'apply()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="147" endline="147" begincolumn="27" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="ContrastManager" method="clamp" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'clamp(double)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/Services/FareRateService.java">
+<violation beginline="28" endline="28" begincolumn="12" endcolumn="19" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateService" method="getRate" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getRate(String, String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="36" endline="36" begincolumn="12" endcolumn="18" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateService" method="getTax" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getTax()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="43" endline="43" begincolumn="12" endcolumn="18" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateService" method="getGST" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getGST()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="50" endline="50" begincolumn="12" endcolumn="18" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateService" method="getQST" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getQST()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/Services/FareRateServiceImpl.java">
+<violation beginline="18" endline="18" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateServiceImpl" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'FareRateServiceImpl' has a total cyclomatic complexity of 4 (highest 1).
+</violation>
+<violation beginline="32" endline="32" begincolumn="19" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateServiceImpl" method="getRate" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getRate(String, String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="44" endline="44" begincolumn="19" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateServiceImpl" method="getTax" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getTax()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="54" endline="54" begincolumn="19" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateServiceImpl" method="getGST" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getGST()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="64" endline="64" begincolumn="19" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="FareRateServiceImpl" method="getQST" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getQST()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/Services/I18nService.java">
+<violation beginline="26" endline="26" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="I18nService" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'I18nService' has a total cyclomatic complexity of 7 (highest 2).
+</violation>
+<violation beginline="41" endline="41" begincolumn="12" endcolumn="23" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="I18nService" method="I18nService" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'I18nService(MessageSource)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="68" endline="68" begincolumn="19" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="I18nService" method="get" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'get(String, Object[])' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="87" endline="87" begincolumn="19" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="I18nService" method="getLocale" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getLocale()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="97" endline="97" begincolumn="17" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="I18nService" method="setLocale" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setLocale(Locale)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="108" endline="108" begincolumn="43" endcolumn="57" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="I18nService" method="localeProperty" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'localeProperty()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/Services/PaymentService.java">
+<violation beginline="24" endline="24" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentService" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'PaymentService' has a total cyclomatic complexity of 6 (highest 2).
+</violation>
+<violation beginline="35" endline="35" begincolumn="17" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentService" method="startPayment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'startPayment(String, double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="44" endline="44" begincolumn="20" endcolumn="37" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentService" method="getCurrentPayment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getCurrentPayment()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="55" endline="55" begincolumn="17" endcolumn="31" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentService" method="processPayment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'processPayment()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="69" endline="69" begincolumn="17" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentService" method="cancelPayment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'cancelPayment()' has a cyclomatic complexity of 2.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/Services/PaymentSession.java">
+<violation beginline="24" endline="24" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentSession" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'PaymentSession' has a total cyclomatic complexity of 5 (highest 1).
+</violation>
+<violation beginline="42" endline="42" begincolumn="17" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentSession" method="setCurrentOrder" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setCurrentOrder(OrderSummary)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="49" endline="49" begincolumn="25" endcolumn="40" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentSession" method="getCurrentOrder" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getCurrentOrder()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="56" endline="56" begincolumn="17" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentSession" method="setOrigin" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setOrigin(Origin)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="63" endline="63" begincolumn="19" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentSession" method="getOrigin" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getOrigin()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="71" endline="71" begincolumn="17" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="PaymentSession" method="clear" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'clear()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/Services/TextZoomService.java">
+<violation beginline="36" endline="36" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'TextZoomService' has a total cyclomatic complexity of 39 (highest 8).
+</violation>
+<violation beginline="45" endline="45" begincolumn="35" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="get" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'get()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="61" endline="61" begincolumn="13" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="TextZoomService" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'TextZoomService()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="72" endline="72" begincolumn="28" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="register" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'register(Node[])' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="91" endline="91" begincolumn="28" endcolumn="39" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="registerAll" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'registerAll(Parent)' has a cyclomatic complexity of 5.
+</violation>
+<violation beginline="116" endline="116" begincolumn="28" endcolumn="48" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="registerByStyleClass" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'registerByStyleClass(Parent, String)' has a cyclomatic complexity of 8.
+</violation>
+<violation beginline="138" endline="138" begincolumn="28" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="unregister" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'unregister(Node[])' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="149" endline="149" begincolumn="28" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="clear" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'clear()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="162" endline="162" begincolumn="19" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="getScale" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getScale()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="168" endline="168" begincolumn="17" endcolumn="23" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="zoomIn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'zoomIn()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="174" endline="174" begincolumn="17" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="zoomOut" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'zoomOut()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="179" endline="179" begincolumn="17" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="reset" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'reset()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="187" endline="187" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="setScale" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setScale(double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="199" endline="199" begincolumn="17" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="apply" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'apply()' has a cyclomatic complexity of 5.
+</violation>
+<violation beginline="220" endline="220" begincolumn="28" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="isTextNode" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'isTextNode(Node)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="229" endline="229" begincolumn="18" endcolumn="31" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="cacheBaseline" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'cacheBaseline(Node)' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="243" endline="243" begincolumn="27" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="clamp" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'clamp(double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="252" endline="252" begincolumn="25" endcolumn="42" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="setInlineFontSize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setInlineFontSize(Labeled, double)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="265" endline="265" begincolumn="25" endcolumn="42" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.Services" class="TextZoomService" method="setInlineFontSize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setInlineFontSize(TextInputControl, double)' has a cyclomatic complexity of 2.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/config/MessagesConfig.java">
+<violation beginline="9" endline="9" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.config" class="MessagesConfig" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'MessagesConfig' has a total cyclomatic complexity of 1 (highest 1).
+</violation>
+<violation beginline="11" endline="11" begincolumn="26" endcolumn="39" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.config" class="MessagesConfig" method="messageSource" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'messageSource()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/BuyNewTicketController.java">
+<violation beginline="52" endline="52" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'BuyNewTicketController' has a total cyclomatic complexity of 60 (highest 11).
+</violation>
+<violation beginline="129" endline="129" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 5.
+</violation>
+<violation beginline="181" endline="181" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="221" endline="221" begincolumn="18" endcolumn="39" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="updateQtyAvailability" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateQtyAvailability()' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="243" endline="243" begincolumn="18" endcolumn="35" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onRiderTypeChange" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onRiderTypeChange(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="251" endline="251" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onTripChange" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onTripChange(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="260" endline="260" begincolumn="24" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onMenuSingle" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onMenuSingle(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="266" endline="266" begincolumn="24" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onMenuDay" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onMenuDay(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="272" endline="272" begincolumn="24" endcolumn="37" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onMenuMonthly" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onMenuMonthly(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="278" endline="278" begincolumn="24" endcolumn="37" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onMenuWeekend" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onMenuWeekend(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="284" endline="284" begincolumn="24" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onMenuWeekly" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onMenuWeekly(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="290" endline="290" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="incrementQty" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'incrementQty()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="298" endline="298" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="decrementQty" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'decrementQty()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="307" endline="307" begincolumn="17" endcolumn="20" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="qty" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'qty()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="320" endline="320" begincolumn="18" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="recalc" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'recalc()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="339" endline="339" begincolumn="27" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="round2" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'round2(double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="348" endline="348" begincolumn="20" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="currentUnitPrice" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'currentUnitPrice()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="368" endline="368" begincolumn="18" endcolumn="31" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onMakePayment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onMakePayment(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="399" endline="399" begincolumn="20" endcolumn="37" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="selectedRiderName" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'selectedRiderName()' has a cyclomatic complexity of 7.
+</violation>
+<violation beginline="412" endline="412" begincolumn="20" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="selectedTripName" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'selectedTripName()' has a cyclomatic complexity of 11.
+</violation>
+<violation beginline="412" endline="412" begincolumn="20" endcolumn="36" rule="NPathComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="selectedTripName" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#npathcomplexity" priority="3">
+The method 'selectedTripName()' has an NPath complexity of 243, current threshold is 200
+</violation>
+<violation beginline="426" endline="426" begincolumn="17" endcolumn="23" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onBack" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBack(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="440" endline="440" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="shutdown" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'shutdown()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="450" endline="450" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onBrandClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBrandClick(MouseEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="460" endline="460" begincolumn="18" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="goWelcomeScreen" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcomeScreen(Node)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="478" endline="478" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onVolume" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onVolume(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="487" endline="487" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="onHelpClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onHelpClick()' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="537" endline="537" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="BuyNewTicketController" method="contactRow" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'contactRow(String, String)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/CardReloadAmountController.java">
+<violation beginline="57" endline="57" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'CardReloadAmountController' has a total cyclomatic complexity of 33 (highest 5).
+</violation>
+<violation beginline="165" endline="165" begincolumn="12" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="CardReloadAmountController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'CardReloadAmountController(ApplicationContext, PaymentSession, I18nService)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="186" endline="186" begincolumn="17" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize(URL, ResourceBundle)' has a cyclomatic complexity of 4.
+</violation>
+<violation beginline="244" endline="244" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="261" endline="261" begincolumn="18" endcolumn="39" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="localizePassTypeCombo" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'localizePassTypeCombo()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="267" endline="272" begincolumn="59" endcolumn="10" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class '' has a total cyclomatic complexity of 3 (highest 3).
+</violation>
+<violation beginline="268" endline="268" begincolumn="38" endcolumn="48" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" method="updateItem" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateItem(PassType, boolean)' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="275" endline="280" begincolumn="58" endcolumn="10" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class '' has a total cyclomatic complexity of 3 (highest 3).
+</violation>
+<violation beginline="276" endline="276" begincolumn="38" endcolumn="48" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" method="updateItem" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateItem(PassType, boolean)' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="289" endline="289" begincolumn="18" endcolumn="39" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="updateQtyAvailability" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateQtyAvailability()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="305" endline="305" begincolumn="20" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="selectedRider" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'selectedRider()' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="315" endline="315" begincolumn="22" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="selectedPassType" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'selectedPassType()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="325" endline="325" begincolumn="20" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="selectedTripName" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'selectedTripName()' has a cyclomatic complexity of 5.
+</violation>
+<violation beginline="340" endline="340" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="quantity" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'quantity()' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="350" endline="350" begincolumn="20" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="unitPrice" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'unitPrice()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="360" endline="360" begincolumn="27" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="round2" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'round2(double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="368" endline="368" begincolumn="18" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="updateEstimate" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateEstimate()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="397" endline="397" begincolumn="18" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="onProceedToPayment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onProceedToPayment(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="431" endline="431" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="onBrandClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBrandClick(MouseEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="438" endline="438" begincolumn="18" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="goWelcome" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcome(Node)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="455" endline="455" begincolumn="18" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="onBack" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBack(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="473" endline="473" begincolumn="18" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadAmountController" method="onVolume" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onVolume(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/CardReloadController.java">
+<violation beginline="48" endline="48" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'CardReloadController' has a total cyclomatic complexity of 14 (highest 2).
+</violation>
+<violation beginline="109" endline="109" begincolumn="12" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="CardReloadController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'CardReloadController(I18nService, FareRateService, ApplicationContext, PaymentSession, CardReloadService)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="131" endline="131" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="158" endline="158" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="172" endline="172" begincolumn="19" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="getFare" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getFare(String, String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="182" endline="182" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="onBrandClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBrandClick(MouseEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="192" endline="192" begincolumn="18" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="goWelcomeScreen" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcomeScreen(Node)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="208" endline="208" begincolumn="17" endcolumn="23" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="onBack" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBack(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="224" endline="224" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="onVolume" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onVolume(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="238" endline="238" begincolumn="18" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="onStartReading" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onStartReading(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="364" endline="364" begincolumn="18" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CardReloadController" method="goNext" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goNext(Node)' has a cyclomatic complexity of 2.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/CashSubmissionController.java">
+<violation beginline="51" endline="51" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'CashSubmissionController' has a total cyclomatic complexity of 23 (highest 6).
+</violation>
+<violation beginline="115" endline="115" begincolumn="12" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="CashSubmissionController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'CashSubmissionController(ApplicationContext, PaymentSession, I18nService)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="127" endline="127" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="169" endline="169" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="194" endline="194" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="stepInsert" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'stepInsert()' has a cyclomatic complexity of 6.
+</violation>
+<violation beginline="232" endline="232" begincolumn="18" endcolumn="31" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="updateAmounts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateAmounts()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="248" endline="248" begincolumn="18" endcolumn="31" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="goWelcomePage" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcomePage()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="267" endline="267" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="onVolume" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onVolume(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="275" endline="275" begincolumn="17" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="onCancelCashPayment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onCancelCashPayment(ActionEvent)' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="294" endline="294" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="onBrandClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBrandClick(MouseEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="304" endline="304" begincolumn="18" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="CashSubmissionController" method="goWelcomeScreen" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcomeScreen(Node)' has a cyclomatic complexity of 2.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/ErrorDialogController.java">
+<violation beginline="24" endline="24" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="ErrorDialogController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'ErrorDialogController' has a total cyclomatic complexity of 10 (highest 5).
+</violation>
+<violation beginline="61" endline="61" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="ErrorDialogController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="76" endline="76" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="ErrorDialogController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="97" endline="97" begincolumn="17" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="ErrorDialogController" method="setException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setException(AbstractCustomException)' has a cyclomatic complexity of 5.
+</violation>
+<violation beginline="129" endline="129" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="ErrorDialogController" method="setStage" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setStage(Stage)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="138" endline="138" begincolumn="18" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="ErrorDialogController" method="onClose" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onClose()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/HomeController.java">
+<violation beginline="49" endline="49" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'HomeController' has a total cyclomatic complexity of 32 (highest 5).
+</violation>
+<violation beginline="105" endline="105" begincolumn="12" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="HomeController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'HomeController(I18nService, ApplicationContext)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="121" endline="121" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="159" endline="159" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onBuyTicket" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBuyTicket(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="176" endline="176" begincolumn="18" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onReload" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onReload(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="192" endline="192" begincolumn="18" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onVolume" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onVolume()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="197" endline="197" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="shutdown" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'shutdown()' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="207" endline="207" begincolumn="17" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onLanguageChange" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onLanguageChange(ActionEvent)' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="221" endline="221" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="242" endline="242" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onBrandClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBrandClick(MouseEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="251" endline="251" begincolumn="18" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="goWelcomeScreen" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcomeScreen(Node)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="266" endline="266" begincolumn="18" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onInfo" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onInfo()' has a cyclomatic complexity of 5.
+</violation>
+<violation beginline="326" endline="326" begincolumn="18" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="item" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'item(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="341" endline="341" begincolumn="24" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onFontSizeIn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onFontSizeIn()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="346" endline="346" begincolumn="24" endcolumn="37" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onFontSizeOut" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onFontSizeOut()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="351" endline="351" begincolumn="18" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="reflectZoomButtons" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'reflectZoomButtons()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="360" endline="360" begincolumn="24" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onContrastUp" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onContrastUp()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="368" endline="368" begincolumn="24" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onContrastDown" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onContrastDown()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="376" endline="376" begincolumn="18" endcolumn="40" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="reflectContrastButtons" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'reflectContrastButtons()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="387" endline="387" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="onHelpClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onHelpClick()' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="437" endline="437" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="HomeController" method="contactRow" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'contactRow(String, String)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/MobileWalletController.java">
+<violation beginline="43" endline="43" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'MobileWalletController' has a total cyclomatic complexity of 11 (highest 2).
+</violation>
+<violation beginline="94" endline="94" begincolumn="12" endcolumn="34" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="MobileWalletController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'MobileWalletController(I18nService, ApplicationContext, PaymentSession)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="109" endline="109" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="133" endline="133" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="145" endline="145" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="onVolume" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onVolume(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="156" endline="156" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="onBrandClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBrandClick(MouseEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="166" endline="166" begincolumn="18" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="goWelcomeScreen" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcomeScreen(Node)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="183" endline="183" begincolumn="18" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="onCancel" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onCancel(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="193" endline="193" begincolumn="18" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="goTo" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goTo(String, ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="213" endline="213" begincolumn="18" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="MobileWalletController" method="onStart" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onStart(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/PaymentController.java">
+<violation beginline="53" endline="53" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'PaymentController' has a total cyclomatic complexity of 34 (highest 6).
+</violation>
+<violation beginline="111" endline="111" begincolumn="12" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="PaymentController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'PaymentController(ApplicationContext, PaymentSession, I18nService)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="128" endline="128" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="156" endline="156" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="172" endline="172" begincolumn="18" endcolumn="40" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="setTotalDueFromSession" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setTotalDueFromSession()' has a cyclomatic complexity of 4.
+</violation>
+<violation beginline="192" endline="192" begincolumn="18" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="goTo" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goTo(String, ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="209" endline="209" begincolumn="17" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="onSelectCard" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onSelectCard()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="219" endline="219" begincolumn="17" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="onSelectCash" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onSelectCash()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="229" endline="229" begincolumn="17" endcolumn="37" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="onSelectMobileWallet" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onSelectMobileWallet()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="239" endline="239" begincolumn="18" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="applySelectionStyles" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'applySelectionStyles()' has a cyclomatic complexity of 6.
+</violation>
+<violation beginline="261" endline="261" begincolumn="18" endcolumn="37" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="showTapHintIfNeeded" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'showTapHintIfNeeded()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="278" endline="278" begincolumn="17" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="onConfirm" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onConfirm(ActionEvent)' has a cyclomatic complexity of 5.
+</violation>
+<violation beginline="329" endline="329" begincolumn="17" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="onCancelPayment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onCancelPayment(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="345" endline="345" begincolumn="18" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="goBack" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goBack(Node)' has a cyclomatic complexity of 5.
+</violation>
+<violation beginline="378" endline="378" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="onVolume" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onVolume(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="389" endline="389" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="onBrandClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBrandClick(MouseEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="399" endline="399" begincolumn="18" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentController" method="goWelcomeScreen" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcomeScreen(Node)' has a cyclomatic complexity of 2.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/PaymentSuccessController.java">
+<violation beginline="47" endline="47" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'PaymentSuccessController' has a total cyclomatic complexity of 18 (highest 3).
+</violation>
+<violation beginline="89" endline="89" begincolumn="12" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="PaymentSuccessController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'PaymentSuccessController(ApplicationContext, I18nService, PaymentSession)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="110" endline="110" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="136" endline="136" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="158" endline="158" begincolumn="18" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="onPrintReceipt" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onPrintReceipt(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="191" endline="191" begincolumn="18" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="onDone" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onDone(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="204" endline="204" begincolumn="18" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="goHome" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goHome(Node)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="220" endline="220" begincolumn="18" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="setButtonsDisabled" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setButtonsDisabled(boolean)' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="232" endline="232" begincolumn="17" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="onVolume" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onVolume(ActionEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="240" endline="240" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="onBrandClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onBrandClick(MouseEvent)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="249" endline="249" begincolumn="18" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="goWelcomeScreen" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'goWelcomeScreen(Node)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="265" endline="265" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="onHelpClick" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onHelpClick()' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="316" endline="316" begincolumn="18" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="PaymentSuccessController" method="contactRow" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'contactRow(String, String)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/controllers/WelcomeScreenController.java">
+<violation beginline="33" endline="33" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="WelcomeScreenController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'WelcomeScreenController' has a total cyclomatic complexity of 8 (highest 3).
+</violation>
+<violation beginline="62" endline="62" begincolumn="12" endcolumn="35" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="WelcomeScreenController" method="WelcomeScreenController" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'WelcomeScreenController(I18nService, ApplicationContext)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="75" endline="75" begincolumn="17" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="WelcomeScreenController" method="initialize" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'initialize()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="94" endline="94" begincolumn="17" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="WelcomeScreenController" method="onLanguageChange" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onLanguageChange(ActionEvent)' has a cyclomatic complexity of 3.
+</violation>
+<violation beginline="111" endline="111" begincolumn="18" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="WelcomeScreenController" method="updateTexts" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'updateTexts()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="130" endline="130" begincolumn="17" endcolumn="32" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.controllers" class="WelcomeScreenController" method="onStartPurchase" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'onStartPurchase(ActionEvent)' has a cyclomatic complexity of 2.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/exceptions/AbstractCustomException.java">
+<violation beginline="24" endline="24" begincolumn="17" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'AbstractCustomException' has a total cyclomatic complexity of 12 (highest 2).
+</violation>
+<violation beginline="44" endline="44" begincolumn="15" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="AbstractCustomException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'AbstractCustomException(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="55" endline="55" begincolumn="15" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="AbstractCustomException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'AbstractCustomException(String, Throwable)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="71" endline="71" begincolumn="20" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="safeMsg" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'safeMsg(Throwable)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="82" endline="82" begincolumn="20" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="computeOrigin" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'computeOrigin()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="98" endline="98" begincolumn="18" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="logException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'logException()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="109" endline="109" begincolumn="26" endcolumn="38" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="getTimestamp" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getTimestamp()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="114" endline="114" begincolumn="19" endcolumn="35" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="getExceptionType" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getExceptionType()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="119" endline="119" begincolumn="19" endcolumn="31" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="getRootCause" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getRootCause()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="124" endline="124" begincolumn="19" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="getOrigin" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getOrigin()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="129" endline="129" begincolumn="19" endcolumn="33" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="AbstractCustomException" method="getUserMessage" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getUserMessage()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/exceptions/DatabaseException.java">
+<violation beginline="8" endline="8" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="DatabaseException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'DatabaseException' has a total cyclomatic complexity of 2 (highest 1).
+</violation>
+<violation beginline="15" endline="15" begincolumn="12" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="DatabaseException" method="DatabaseException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'DatabaseException(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="25" endline="25" begincolumn="12" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="DatabaseException" method="DatabaseException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'DatabaseException(String, Throwable)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/exceptions/HardwareException.java">
+<violation beginline="10" endline="10" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="HardwareException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'HardwareException' has a total cyclomatic complexity of 2 (highest 1).
+</violation>
+<violation beginline="17" endline="17" begincolumn="12" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="HardwareException" method="HardwareException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'HardwareException(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="27" endline="27" begincolumn="12" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="HardwareException" method="HardwareException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'HardwareException(String, Throwable)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/exceptions/NetworkException.java">
+<violation beginline="10" endline="10" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="NetworkException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'NetworkException' has a total cyclomatic complexity of 2 (highest 1).
+</violation>
+<violation beginline="17" endline="17" begincolumn="12" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="NetworkException" method="NetworkException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'NetworkException(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="27" endline="27" begincolumn="12" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="NetworkException" method="NetworkException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'NetworkException(String, Throwable)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/exceptions/UserException.java">
+<violation beginline="10" endline="10" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="UserException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'UserException' has a total cyclomatic complexity of 2 (highest 1).
+</violation>
+<violation beginline="17" endline="17" begincolumn="12" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="UserException" method="UserException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'UserException(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="27" endline="27" begincolumn="12" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.exceptions" class="UserException" method="UserException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'UserException(String, Throwable)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/models/ExceptionDialog.java">
+<violation beginline="33" endline="33" begincolumn="14" endcolumn="19" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="ExceptionDialog" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'ExceptionDialog' has a total cyclomatic complexity of 13 (highest 4).
+</violation>
+<violation beginline="34" endline="34" begincolumn="13" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="ExceptionDialog" method="ExceptionDialog" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'ExceptionDialog()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="44" endline="44" begincolumn="32" endcolumn="36" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="ExceptionDialog" method="i18n" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'i18n(ApplicationContext)' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="60" endline="60" begincolumn="27" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="ExceptionDialog" method="msg" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'msg(I18nService, String, String, Object[])' has a cyclomatic complexity of 2.
+</violation>
+<violation beginline="78" endline="78" begincolumn="24" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="ExceptionDialog" method="show" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'show(AbstractCustomException, Window, ApplicationContext)' has a cyclomatic complexity of 4.
+</violation>
+<violation beginline="136" endline="136" begincolumn="24" endcolumn="43" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="ExceptionDialog" method="showAsUserException" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'showAsUserException(Throwable, Window, ApplicationContext)' has a cyclomatic complexity of 4.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/models/MetroRatePassProxy.java">
+<violation beginline="42" endline="42" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="MetroRatePassProxy" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'MetroRatePassProxy' has a total cyclomatic complexity of 7 (highest 1).
+</violation>
+<violation beginline="63" endline="63" begincolumn="12" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="MetroRatePassProxy" method="MetroRatePassProxy" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'MetroRatePassProxy()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="96" endline="96" begincolumn="19" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="MetroRatePassProxy" method="getRate" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getRate(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="106" endline="106" begincolumn="17" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="MetroRatePassProxy" method="setRate" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setRate(String, double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="116" endline="116" begincolumn="17" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="MetroRatePassProxy" method="clearRates" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'clearRates()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="123" endline="123" begincolumn="19" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="MetroRatePassProxy" method="getGST" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getGST()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="130" endline="130" begincolumn="19" endcolumn="25" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="MetroRatePassProxy" method="getQST" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getQST()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="137" endline="137" begincolumn="19" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="MetroRatePassProxy" method="getTAX_RATE" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getTAX_RATE()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/models/OrderSummary.java">
+<violation beginline="22" endline="22" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="OrderSummary" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'OrderSummary' has a total cyclomatic complexity of 7 (highest 1).
+</violation>
+<violation beginline="46" endline="46" begincolumn="12" endcolumn="24" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="OrderSummary" method="OrderSummary" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'OrderSummary(String, String, int, int, double, double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="56" endline="56" begincolumn="19" endcolumn="31" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="OrderSummary" method="getRiderType" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getRiderType()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="59" endline="59" begincolumn="19" endcolumn="30" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="OrderSummary" method="getTripType" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getTripType()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="62" endline="62" begincolumn="16" endcolumn="29" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="OrderSummary" method="getMultiTrips" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getMultiTrips()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="65" endline="65" begincolumn="16" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="OrderSummary" method="getQuantity" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getQuantity()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="68" endline="68" begincolumn="19" endcolumn="31" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="OrderSummary" method="getUnitPrice" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getUnitPrice()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="71" endline="71" begincolumn="19" endcolumn="27" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="OrderSummary" method="getTotal" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getTotal()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/models/PassType.java">
+<violation beginline="12" endline="12" begincolumn="8" endcolumn="12" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="PassType" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The enum 'PassType' has a total cyclomatic complexity of 2 (highest 1).
+</violation>
+<violation beginline="30" endline="30" begincolumn="5" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="PassType" method="PassType" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'PassType(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="37" endline="37" begincolumn="19" endcolumn="22" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="PassType" method="key" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'key()' has a cyclomatic complexity of 1.
+</violation>
+</file>
+<file name="/Users/mohammadalshariar/Masters in Applied Computer Science/SOFTWARE MEASUREMENT/igo-tvm/src/main/java/concordia/soen6611/igo_tvm/models/Payment.java">
+<violation beginline="16" endline="16" begincolumn="8" endcolumn="13" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="Payment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The class 'Payment' has a total cyclomatic complexity of 7 (highest 1).
+</violation>
+<violation beginline="30" endline="30" begincolumn="12" endcolumn="19" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="Payment" method="Payment" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The constructor 'Payment(String, double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="41" endline="41" begincolumn="19" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="Payment" method="getMethod" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getMethod()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="48" endline="48" begincolumn="19" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="Payment" method="getAmount" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getAmount()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="55" endline="55" begincolumn="19" endcolumn="28" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="Payment" method="getStatus" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'getStatus()' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="62" endline="62" begincolumn="17" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="Payment" method="setMethod" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setMethod(String)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="69" endline="69" begincolumn="17" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="Payment" method="setAmount" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setAmount(double)' has a cyclomatic complexity of 1.
+</violation>
+<violation beginline="76" endline="76" begincolumn="17" endcolumn="26" rule="CyclomaticComplexity" ruleset="Design" package="concordia.soen6611.igo_tvm.models" class="Payment" method="setStatus" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.0.0/pmd_rules_java_design.html#cyclomaticcomplexity" priority="3">
+The method 'setStatus(String)' has a cyclomatic complexity of 1.
+</violation>
+</file>
+</pmd>

@@ -1,0 +1,8 @@
+Grand total cyclomatic complexity (sum of methods): 0
+Total methods flagged by PMD: 0
+Methods with CC > 10: 0
+Methods with CC > 15: 0
+
+Top 10 methods by CC:
+
+Top 10 classes by total CC:
